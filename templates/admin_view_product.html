@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <title>PRODUCT DETAILS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{% static 'admin/css/style.css' %}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    body {
+          font-family: 'Poppins', sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+      }
+      .sidenav {
+          background: #333;
+          color: white;
+          height: 100vh;
+          padding-top: 23px;
+          width: 25%;
+          position: relative;
+          overflow-y: auto;
+      }
+      .sidenav h2 {
+          text-align: center;
+          font-size: 24px;
+          font-weight: bold;
+          color: white;
+          margin-bottom: -12px;
+      }
+
+      .sidenav ul {
+          padding: 0;
+          list-style: none;
+      }
+
+      .sidenav ul li {
+          padding: 12px;
+      }
+
+      .sidenav ul li a {
+          text-decoration: none;
+          color: white;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 16px;
+      }
+
+      .sidenav ul li a:hover,
+      .sidenav ul .active a {
+          background: #007bff;
+          color: white;
+          padding: 12px;
+          border-radius: 5px;
+      }
+    .table-wrap {
+      overflow-x: hidden;
+    }
+    .table {
+      min-width: 850px !important;
+      width: 100%;
+      background: #fff;
+    }
+    .table_button{
+      width: 196px;
+    }
+    .prod-cat li a{
+        border-bottom: 1px dashed #d9d9d9;
+    }
+
+    .prod-cat li a {
+        color: #3b3b3b;
+    }
+
+    .prod-cat li ul {
+        margin-left: 30px;
+    }
+
+    .prod-cat li ul li a{
+        border-bottom:none;
+    }
+    .prod-cat li ul li a:hover,.prod-cat li ul li a:focus, .prod-cat li ul li.active a , .prod-cat li a:hover,.prod-cat li a:focus, .prod-cat li a.active{
+        background: none;
+        color: #ff7261;
+    }
+
+    .pro-lab{
+        margin-right: 20px;
+        font-weight: normal;
+    }
+
+    .pro-sort {
+        padding-right: 20px;
+        float: left;
+    }
+
+    .pro-page-list {
+        margin: 5px 0 0 0;
+    }
+
+    .product-list img{
+        width: 100%;
+        border-radius: 4px 4px 0 0;
+        -webkit-border-radius: 4px 4px 0 0;
+    }
+
+    .product-list .pro-img-box {
+        position: relative;
+    }
+    .adtocart {
+        background: #fc5959;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        color: #fff;
+        display: inline-block;
+        text-align: center;
+        border: 3px solid #fff;
+        left: 45%;
+        bottom: -25px;
+        position: absolute;
+    }
+    p {
+      margin-top:60px;
+      margin-bottom: 1rem;
+      font-size: 20px;
+    }
+
+    .adtocart i{
+        color: #fff;
+        font-size: 25px;
+        line-height: 42px;
+    }
+
+    .pro-title {
+        color: #5A5A5A;
+        display: inline-block;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    .product-list .price {
+        color:#fc5959 ;
+        font-size: 15px;
+    }
+
+    .pro-img-details {
+        margin-left: -15px;
+    }
+
+    .pro-img-details img {
+        width: 100%;
+    }
+
+    .pro-d-title {
+        font-size: 40px;
+        margin-top: 30px;
+    }
+
+    .product_meta {
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+        margin: 15px 0;
+    }
+
+    .product_meta span {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .product_meta a, .pro-price{
+        color:#fc5959 ;
+    }
+
+    .pro-price, .amount-old {
+        font-size: 18px;
+        padding: 0 10px;
+    }
+
+    .amount-old {
+        text-decoration: line-through;
+    }
+
+    .quantity {
+        width: 120px;
+    }
+
+    .pro-img-list {
+        margin: 10px 0 0 -15px;
+        width: 100%;
+        display: inline-block;
+    }
+
+    .pro-img-list a {
+        float: left;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .pro-d-head {
+        font-size: 18px;
+        font-weight: 300;
+    }
+
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;}
+    }
+  </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3 sidenav hidden-xs" style="width:695px;">
+            <h2>COFFO</h2>
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+              <li class="active"><a href="{% url 'admin_products' %}">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="nav-item">Products</span>
+              </a></li>
+              <li><a href="{% url 'admin_orders' %}">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="nav-item">Order</span>
+              </a></li>
+              <li><a href="{% url 'notification_admin' %}">
+                <i class='fas fa-bell' style='font-size:24px'></i>
+                <span class="nav-item">Notification</span>
+              </a></li>
+              <li><a href="{% url 'admin_blog' %}">
+                <i class='fas fa-blog' style='font-size:24px'></i>
+                <span class="nav-item">Blog</span>
+              </a></li>
+              <li><a href="{% url 'admin_users' %}">
+                <i class="fas fa-user"></i>
+                <span class="nav-item">Users</span>
+              </a></li>
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul><br>
+            </div>
+            <div class="col-sm-9">
+                <section class="ftco-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="h1 mb-4 text-center">PRODUCT DETAIL</h1>
+                                <div class="container bootdey">
+                                    <div class="col-md-12">
+                                        {% for i in data %}
+                                        <section class="panel">
+                                            <div class="panel-body ">
+                                                <div class="col-md-6 ">
+                                                    <div class="pro-img-details align-content-center " style="height: 400px;">
+                                                      {% if i.image %}
+                                                        <img src="{{ i.image.url }}" alt="" style="height:100%;">
+                                                      {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h4 class="pro-d-title">
+                                                        <a href="#" class="">
+                                                          {{ i.item_name }}
+                                                        </a>
+                                                    </h4>
+                                                    <p class="description" style="font-size: 15px;width: 100%;height: 100%; line-break:anywhere;">
+                                                        {{ i.description }}
+                                                    </p>
+                                                    <div class="m-bot15"> <strong>Price : </strong> <span class="amount-old">₹ 400</span>
+                                                        <span class="pro-price"> ₹{{ i.price }}</span></div>
+                                                    <p>
+                                                      <a href="{% url 'edit_item' i.id %}"><button class="btn btn-round btn-danger" type="button">Edit</button></a>
+                                                      <a href="{% url 'delete_item' i.id %}"><button class="btn btn-round btn-danger" type="button" onclick="confirmation()">Delete</button></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+  <script src="{% static 'admin/js/jquery.min.js' %}"></script>
+  <script src="{% static 'admin/js/popper.js' %}"></script>
+  <script src="{% static 'admin/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'admin/js/main.js' %}"></script>
+
+    <script>
+    function confirmation() {
+        var result = confirm("Are you sure you want to delete?");
+        if (result) {
+            // Delete logic goes here
+            console.log("Item deleted.");
+        } else {
+            console.log("Deletion canceled.");
+        }
+    }
+    </script>
+  
+</body>
+</html>

@@ -1,0 +1,264 @@
+{% extends 'header.html' %}
+   {% load static %}
+      {% block content %}
+      <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+<style>
+    .cart-count-badge{
+        position: absolute;
+        top: 22px;
+        right: 156px;
+        background-color: red !important;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 50%;
+        padding: 2px 5px;
+        min-width: 16px;
+        text-align: center;
+    }
+    .alert {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      width: 90%;
+      max-width: 500px;
+      padding: 15px;
+      margin-left: 380px;
+      margin-top: 24px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(255, 255, 255, 0.1) inset;
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+    .notification-content {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-left: 20px;
+      color: rgb(0, 0, 0);
+    }
+    .notification-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 0;
+      color: black;
+      text-shadow: 0 0 1px black;
+      ;
+    }
+    .notification-body {
+      font-size: 20px;
+      margin: 0;
+      color: rgba(0, 0, 0, 0.6);
+    }
+    .close-btn{
+        font-size:13px;
+        color: #242424;
+        padding-bottom: 16px;
+        align-self: flex-end;
+    }
+    .timestamp {
+      font-size: 0.8em;
+      color: rgba(0, 0, 0, 0.5);
+      margin-top: 5px;
+      align-self: flex-end;
+    }
+    .fa {
+        display: inline-block;
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        margin-top:0px;
+    }
+    .footer_section {
+        width: 100%;
+        float: left;
+        height: auto;
+        background-color: #1d1d1d;
+        background-size: 100%;
+        padding: 50px 0px;
+    }
+    .footer_social_icon {
+       width: 100%;
+       margin: 0 auto;
+       text-align: center;
+    }
+    .footer_social_icon ul {
+        margin: 0px;
+        padding: 0px;
+        display: inline-block;
+    }
+    .footer_social_icon li {
+        float: left;
+    }
+    .footer_social_icon li a {
+        float: left;
+        padding: 5px 10px;
+        background-color: #fff;
+        color: #1d1d1d;
+        border-radius: 100%;
+        font-size: 19px;
+        margin-right: 5px;
+        width: 44px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .form-group{
+        display: flex;
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .update_mail {
+        color: #383838;
+        width: 100%;
+        height: 51px;
+        font-size: 18px;
+        padding: 10px 20px 0px 20px;
+        background-color: #efefef;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        display: block;
+        margin-top: 20px;
+        border: 1px solid #f01c1c;
+    }
+    .subscribe_bt {
+        width: 70px;
+        float: left;
+        padding-top: 20px;
+    }
+    .subscribe_bt a {
+        width: 100%;
+        float: left;
+        color: #fefefd;
+        font-size: 16px;
+        padding: 13px 0px 14px 0px;
+        background-color: #f01c1c;
+        text-transform: uppercase;
+        text-align: center;
+    }
+    .copyright_section {
+        width: 100%;
+        float: left;
+        background-color: #f01c1c;
+        height: auto;
+    }
+
+</style>
+<body>
+    <div class="coffee_section" style="height: 500px; overflow-x: hidden;overflow-y: scroll;scroll-snap-type: y mandatory;">
+        <div class="container">
+           <div class="row">
+              <div class="col-md-12">
+                 <h1 class="coffee_taital">Notifications</h1>
+              </div>
+           </div>
+        </div>
+        <section id="noti">
+           {% for i in notification %}
+              {% if i.read == 0  %}
+                <div class="alert alert-info" id="notif">
+                    <strong>{{ i.message }}</strong>
+                    <span class="timestamp">{{ i.time_ago }}</span>
+                    <span><a href="{% url 'read_notifications' i.id %}" style="color: black;"><i class="fa fa-times" style="font-size:12px;"></i></a></span>
+                </div>
+              {% else %}
+                 <div class="alert alert-primary">
+                    <strong>{{ i.message }}</strong>
+                    <span class="timestamp">{{ i.time_ago }}</span>
+                    <!-- <span><a href="#" style="color: black;"><i class="fa fa-times" style="font-size:12px;margin-left: 80px;"></i></a></span> -->
+                </div>
+              {% endif %}
+           {% endfor %}
+        </section>
+    </div>
+    <div class="footer_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="footer_social_icon">
+                        <ul>
+                           <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                           <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="location_text">
+                        <ul>
+                           <li>
+                              <a href="#">
+                              <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                              <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
+                              </a>
+                           </li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="update_mail" placeholder="Your Email" name="Your Email"></textarea>
+                        <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                     <p class="copyright_text">2020 All Rights Reserved. Design by</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = document.getElementById('cart');
+            const checkoutButton = document.getElementById('checkout-btn');
+
+            checkoutButton.addEventListener('click', () => {
+
+                const items = cart.getElementsByClassName('cart-item');
+
+                Array.from(items).forEach(item => {
+                    item.remove(); // Remove each item from the DOM
+                });
+
+                alert('Order Confirmed.');
+            });
+        });
+
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     const closeButtons = document.querySelectorAll("#notif .fa-times");
+            
+        //     closeButtons.forEach(button => {
+        //         button.addEventListener("click", function (event) {
+        //             event.preventDefault(); // Prevent default action of the anchor tag
+                    
+        //             const notificationDiv = this.closest("#notif"); // Find the closest notification container
+        //             if (notificationDiv) {
+        //                 // Change the background color of the notification div to white
+        //                 notificationDiv.style.backgroundColor = "white";
+        //                 // Optionally remove the alert-info class
+        //                 notificationDiv.classList.remove("alert-info");
+        //             }
+        //         });
+        //     });
+        // });
+
+
+
+    </script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}

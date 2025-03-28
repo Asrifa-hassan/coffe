@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>INVOICE</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+
+    <script src="https://kit.font-awesome.com/a076d05399.js 'crossorigin = anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+</head>
+<style>
+    .invoice-box {
+        max-width: 800px;
+		margin: auto;
+		padding: 30px;
+		border: 1px solid #eee;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+		font-size: 16px;
+		line-height: 24px;
+		font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+		color: #555;
+	}
+	.invoice-box table {
+		width: 100%;
+		line-height: inherit;
+		text-align: left;
+	}
+	.invoice-box table td {
+		padding: 5px;
+		vertical-align: top;
+	}
+    .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+	}
+    .invoice-box table tr.top table td.title {
+		font-size: 45px;
+		line-height: 45px;
+		color: #333;
+    }
+    .invoice-box table tr.information table td {
+		padding-bottom: 40px;
+	}
+    .invoice-box table tr.heading td {
+		background: #eee;
+		border-bottom: 1px solid #ddd;
+		font-weight: bold;
+	}
+    .invoice-box table tr.details td {
+		padding-bottom: 20px;
+	}
+	.invoice-box table tr.item td {
+		border-bottom: 1px solid #eee;
+	}
+	.invoice-box table tr.item.last td {
+		border-bottom: none;
+	}
+	.invoice-box table tr.total td:nth-child(2) {
+		border-top: 2px solid #eee;
+		font-weight: bold;
+	}
+
+	@media only screen and (max-width: 600px) {
+		.invoice-box table tr.top table td {
+			width: 100%;
+			display: block;
+			text-align: center;
+        }
+       .invoice-box table tr.information table td {
+		    width: 100%;
+			display: block;
+			text-align: center;
+		}
+	}
+    /** RTL **/
+	.invoice-box.rtl {
+		direction: rtl;
+		font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+	}
+	.invoice-box.rtl table {
+		text-align: right;
+	}
+	.invoice-box.rtl table tr td:nth-child(2) {
+		text-align: left;
+	}
+</style>
+<body>
+    <div class="invoice-box" id="invoice">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <a href="{% url 'empty_cart' %}" class="float-end font-size-15" style="color:black; align-items:end; margin-left:98%;"><i class="fa-solid fa-xmark" style="font-size:14px;"></i></a>
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <h1 style="font-size:50px">COFFO</h1>
+                            </td>
+                            <td>
+                                Invoice No: COFFO # {{ unique_order_id }} <br />
+                                Created:{{ x }} <br />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                {{ address.address }}
+                                <br>
+                                {{address.Land_Mark}}
+                                <br>
+                                {{address.Zipcode}}
+                            </td>
+                            <td>
+                                 {{ user.name }}<br>
+                                  {{ user.email }}
+                                 <br>
+                                 {{address.city}}<br>
+                                {{address.phone_number}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>Item</td>
+                <td>Price</td>
+            </tr>
+            {% for i in cart_data %}
+            {% for j in coffee_details %}
+                {% if j.id == i.item_id %}
+                    <tr class="item">
+                        <td>{{ j.item_name }}</td>
+                        <td>{{ i.item_total }}</td>
+                    </tr>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+                    <tr class="total">
+                        <td></td>
+                        <td>Total: ₹ {{ grand_total }}</td>
+                    </tr>
+        </table>
+        <div class="d-print-none mt-4">
+        <div class="float-end">
+            <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
+            <a href="#" class="btn btn-primary w-md" id="downloadpdf">Send</a>
+        </div>
+    </div>
+    </div>
+    <script>
+        document.getElementById('downloadpdf').addEventListener('click',function(){
+            const invoiceElement = document.getElementById('invoice');
+            const options = {
+                margin:1,
+                Filename:'invoice.pdf',
+                image:{ type: 'jpeg',quality:0.98},
+                html2canvas:{ scale: 2},
+                jsPDF:{ unit: 'in', format: 'letter', orientation: 'portrait'}
+            };
+            html2pdf().from(invoiceElement).set(options).save();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+Email: cafe@gmail.com
+Username: cafe@gmail.com
+Password:admin123
+Password (again):admin123
+
+
+
+
+<h5 class="card-title" style="font-size: 20px;"><b style="font-weight: bolder;">{{ user.name }}</b></h5>
+              <p class="card-text">Email: {{ user.email }}</p>
+              <p class="card-text">Address: {{ user.address }},{{ user.pin_code }}</p>
+              <p class="card-text">Contact: {{ user.phone_number }}</p>
+              <p class="card-text"><small class="text-muted">Joined on:{{ user.date_joined }}</small></p>

@@ -1,0 +1,196 @@
+{% extends 'header.html' %}
+ {% load static %}
+   {% block content %}
+   <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+   <style>
+   .blog-section {
+       padding: 40px 0;
+       background-color: #f8f9fa;
+       text-align: center;
+   }
+   .coffee_taital {
+       font-size: 32px;
+       font-weight: bold;
+       margin-bottom: 0px;
+       color: #242c2f;
+   }
+   .blog-container {
+       display: flex;
+       flex-wrap: wrap;
+       justify-content: space-between;
+       margin:10px;
+   }
+   .blog-box {
+       width: 30%; /* Ensures 3 blogs per row */
+       background: white;
+       border-radius: 10px;
+       overflow: hidden;
+       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+       transition: transform 0.3s ease-in-out;
+       padding: 15px;
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+   }
+   .blog-box:hover {
+       transform: translateY(-5px);
+   }
+   .blog-img {
+       width: 100%;
+       height: 200px;
+       object-fit: cover;
+       border-radius: 10px;
+   }
+   .title {
+       font-size: 18px;
+       font-weight: bold;
+       color: #333;
+       margin-bottom: 5px;
+   }
+   .blog-date {
+       font-size: 14px;
+       color: #888;
+   }
+   .description {
+       font-size: 14px;
+       color: #666;
+       text-align: center;
+       height: 50px; /* Reduced height */
+       overflow: hidden;
+       text-overflow: ellipsis;
+       display: -webkit-box;
+       -webkit-line-clamp: 2;
+       -webkit-box-orient: vertical;
+       word-break: break-word;
+       padding: 0 10px;
+   }
+   .read_btn a {
+       display: inline-block;
+       text-decoration: none;
+       background: #d61818;
+       color: white;
+       padding: 8px 15px;
+       border-radius: 5px;
+       font-size: 13px;
+   }
+   .read_btn a:hover {
+       background: white;
+       color:black;
+   }
+   @media (max-width: 1024px) {
+       .blog-box {
+           width: 48%; /* 2 blogs per row */
+       }
+   }
+   @media (max-width: 768px) {
+       .blog-box {
+           width: 100%; /* 1 blog per row */
+       }
+   }
+   .fa {
+      display: inline-block;
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 1;
+      margin-top: 0px;
+   }
+   i.fa.fa-shopping-cart{
+      font-size: 24px;
+      margin-top: 0px;
+   }
+      .subscribe_bt a {
+         width: 100%;
+         float: left;
+         color: #fefefd;
+         font-size: 16px;
+         padding: 14px 0px 14px 0px;
+         background-color: #f01c1c;
+         text-transform: uppercase;
+         text-align: center;
+      }
+      .footer_social_icon li a {
+         float: left;
+         padding: 5px 10px;
+         background-color: #fff;
+         color: #1d1d1d;
+         border-radius: 100%;
+         font-size: 19px;
+         margin-right: 5px;
+         width: 44px;
+         text-align: center;
+         margin-top: 0px;
+      }
+      .update_mail{
+            height:50px !important;
+      }
+   </style>
+<body>
+  <section class="blog-section">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <h1 class="coffee_taital">Our Blog</h1>
+            </div>
+         </div>
+         <div class="blog-container">
+            {% for i in blogs %}
+            <div class="blog-box">
+               {% if i.image %}
+                  <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
+               {% endif %}
+               <h2 class="title">{{ i.title }}</h2>
+               <span class="blog-date">{{ i.date }}</span>
+               <p class="description">{{ i.description }}</p>
+               <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
+            </div>
+            {% endfor %}
+         </div>
+      </div>
+   </section>
+   <div class="footer_section layout_padding margin_top90">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="footer_social_icon">
+                  <ul>
+                     <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                  </ul>
+               </div>
+               <div class="location_text">
+                  <ul>
+                     <li>
+                        <a href="#">
+                        <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#">
+                        <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+               <div class="form-group">
+                  <textarea class="update_mail" placeholder="Your Email" rows="5" id="comment" name="Your Email"></textarea>
+                  <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="copyright_section">
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-12">
+               <p class="copyright_text">2020 All Rights Reserved. Design by</p>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+{% endblock %}

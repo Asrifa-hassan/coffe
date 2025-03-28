@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>blog_read</title>
+    <link  href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
+    <link  href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <style>
+      .blog {
+         display: flex;
+         height: 578px;
+         width: 500px;
+         gap: 1.5rem;
+         margin-top: 10px;
+      }
+      .blog-box{
+         background: var(--bg-color);
+         box-shadow: 0 4px 14px hsl(355deg 25% 15% / 10%);
+         padding: 15px;
+         border-radius: 0.5rem;
+      }
+      .blog-img {
+         width: 100%;
+         height: 200px;
+         object-fit: contain;
+         object-position: center;
+         border-radius: 0.5rem;
+      }
+      .blog-title{
+         font-weight: 600;
+         color: var(--text-color);
+         display: -webkit-box;
+         -webkit-line-clamp:2;
+         overflow: hidden;
+      }
+      .blog-date{
+         display: flex;
+         font-size: 0.875rem;
+         text-transform: uppercase;
+         font-weight: 400;
+         justify-content: center;
+         margin-top:4px ;
+      }
+      .blog-description{
+         font-size: 0.9rem;
+         line-height: 1.5rem;
+         margin: 5px 0 10px;
+         font-weight: 400;
+         overflow: hidden;
+      }
+      .update_mail{
+         height:50px !important;
+      }
+    </style>
+</head>
+<body>
+   <div class="blog container">
+      {% for i in blogs %}
+      <div class="blog-box">
+         <img src="{{ i.image.url }}" alt="" class="blog-img">
+         <span class="blog-date">{{ i.date }}</span>
+         <div class="blog-title">{{ i.title }}</div>
+         <p class="blog-description" style="color: #606060;">{{ i.description }}</p>
+      </div>
+      {% endfor %}
+   </div>

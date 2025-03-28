@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>cofe_read</title>
+    <link  href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
+    <link  href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        .coffee_section_2 {
+            width: 90%;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 40px;
+        }
+        .container-fluid {
+            width: 50%;
+        }
+        .coffee_img img {
+            width: 78%;
+            float: left;
+            height: 355px;
+        }
+        .coffee_box {
+            width: 78%;
+            float: left;
+            background-color: #242c2f;
+            height: auto;
+            padding: 20px 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            vertical-align: middle;
+            border-style: none;
+        }
+        .col-md-12{
+            position: relative;
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        .pro-d-title{
+            text-align: center;
+            margin-top: 100px;
+            font-weight: 600;
+            font-size: 31px;
+        }
+        p{
+           font-size:17px;
+           color:grey;
+        }
+        .update_mail{
+            height:50px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="coffee_section_2">
+        <div class="col-md-12">
+            {% for i in data %}
+            <section class="panel">
+                <div class="panel-body ">
+                    <div class="col-md-6 ">
+                        <div class="pro-img-details align-content-center " style="height: 400px;">
+                            <img src="{{ i.image.url }}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="pro-d-title">
+                            <a href="#" class="">
+                                {{ i.item_name }}
+                            </a>
+                        </h4>
+                        <p>
+                            {{ i.description }}
+                        </p>
+                        <div class="price"> <strong>Price : </strong><span class="pro-price"> ₹{{ i.price }}</span>
+                        </div>
+                        {% if user.is_active == 1 %}
+                            <div class="read_btn"><a href="{% url 'add_to_cart' i.id %}">Add to cart</a></div>
+                        {% else %}
+                            <div class="read_btn"><a href="{% url 'login_page' %}">Add to cart</a></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <script src="{% static 'admin/js/jquery.min.js' %}"></script>
+    <script src="{% static 'admin/js/popper.js' %}"></script>
+    <script src="{% static 'admin/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'admin/js/main.js' %}"></script>
+</body>
+</html>
+<!--        {% for i in data %}-->
+<!--        <div class="container-fluid">-->
+<!--            <div class="coffee_img"><img src="{{ i.image.url }}"></div>-->
+<!--                <div class="coffee_box">-->
+<!--                    <h3 class="types_text">{{ i.item_name }}</h3>-->
+<!--                    <p class="looking_text">{{ i.description }}</p>-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Notification</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{% static 'admin/css/style.css' %}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .sidenav {
+        background: #333;
+        color: white;
+        height: 100vh;
+        padding-top: 20px;
+        position: fixed;
+        width: 25%;
+        overflow: auto;
+    }
+
+    .sidenav h2 {
+        text-align: center;
+        font-size: 24px;
+        color: white;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .sidenav ul {
+        padding: 0;
+        list-style: none;
+    }
+
+    .sidenav ul li {
+        padding: 9px;
+    }
+
+    .sidenav ul li a {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    .sidenav ul li a:hover,
+    .sidenav ul .active a {
+        background: #007bff;
+        color: white;
+        padding: 12px;
+        border-radius: 5px;
+    }
+    .main {
+        margin-left: 25%;
+        padding: 20px;
+        width: 75%;
+    }
+
+    .main-skills {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .notification-banner {
+      gap: 15px;
+      max-width: 100%;
+      position: relative;
+    }
+    .notification-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 15px;
+      z-index: -1;
+    }
+    .notification-content {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-left: 20px;
+      color: rgb(0, 0, 0);
+    }
+    .notification-title {
+      font-size: 15px;
+      font-weight: bold;
+      margin: 0;
+      color: black;
+      text-shadow: 0 0 1px black;
+    }
+    .notification-body {
+      font-size: 15px;
+      margin: 0;
+      color: rgba(0, 0, 0, 0.6);
+    }
+    .timestamp {
+      font-size: 0.8em;
+      color: rgba(0, 0, 0, 0.5);
+      margin-top: 0px;
+      align-self: self-end;
+      margin-right:55px;
+    }
+    .h1{
+      font-size: 30px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row content">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <h2>COFFO</h2>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li><a href="{% url 'admin_products' %}">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="nav-item">Products</span>
+          </a></li>
+          <li><a href="{% url 'admin_orders' %}">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="nav-item">Order</span>
+          </a></li>
+          <li class="active"><a href="{% url 'notification_admin' %}">
+            <i class='fas fa-bell' style='font-size:24px'></i>
+            <span class="nav-item">Notification</span>
+          </a></li>
+          <li><a href="{% url 'admin_blog' %}">
+              <i class='fas fa-blog' style='font-size:24px'></i>
+              <span class="nav-item">Blog</span>
+          </a></li>
+          <li><a href="{% url 'admin_users' %}">
+            <i class="fas fa-user"></i>
+            <span class="nav-item">Users</span>
+          </a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul><br>
+      </div>
+      <div class="col-sm-9 main" style="height: 500px; overflow-x: hidden;overflow-y: scroll;scroll-snap-type: y mandatory;">
+        <h1 class="h1 mb-4 text-center">NOTIFICATION</h1>
+        {% for i in notification %}
+          <div class="notification-banner" >
+              <div class="notification-content">
+                <p class="notification-body">{{ i.message }}</p>
+                <span class="timestamp">{{ i.time_ago }}</span>
+              </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+  <script src="{% static 'admin/js/jquery.min.js' %}"></script>
+  <script src="{% static 'admin/js/popper.js' %}"></script>
+  <script src="{% static 'admin/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'admin/js/main.js' %}"></script>
+  <script>
+    console.log("Notification banner loaded.");
+  </script>
+</body>
+</html>

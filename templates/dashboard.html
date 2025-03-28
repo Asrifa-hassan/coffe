@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+  <meta charset="UTF-8"/>
+  <title>Dashboard</title>
+  <link  href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    *{
+      margin: 0;
+      padding: 0;
+      outline: none;
+      border: none;
+      text-decoration: none;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .sidenav {
+        background: #333;
+        color: white;
+        height: 100vh;
+        padding-top: 20px;
+        position: fixed;
+        width: 25%;
+        overflow: auto;
+    }
+
+    .sidenav h2 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .sidenav ul {
+        padding: 0;
+        list-style: none;
+    }
+
+    .sidenav ul li {
+        padding: 12px;
+    }
+
+    .sidenav ul li a {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    .sidenav ul li a:hover,
+    .sidenav ul .active a {
+        background: #007bff;
+        color: white;
+        padding: 12px;
+        border-radius: 5px;
+    }
+
+    /* Main Content */
+    .main {
+        margin-left: 25%;
+        padding: 20px;
+        width: 75%;
+    }
+
+    .main-skills {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    /* Cards */
+    .card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .card h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        font-size: 22px;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .sidenav {
+            position: relative;
+            height: auto;
+            width: 100%;
+        }
+        
+        .main {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .main-skills {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <h2>COFFO</h2>
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li><a href="{% url 'admin_products' %}">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="nav-item">Products</span>
+          </a></li>
+          <li><a href="{% url 'admin_orders' %}">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="nav-item">Orders</span>
+          </a></li>
+          <li><a href="{% url 'notification_admin' %}">
+            <i class='fas fa-bell' style='font-size:24px'></i>
+            <span class="nav-item">Notification</span>
+          </a></li>
+          <li><a href="{% url 'admin_blog' %}">
+            <i class='fas fa-blog' style='font-size:24px'></i>
+            <span class="nav-item">Blog</span>
+          </a></li>
+          <li><a href="{% url 'admin_users' %}">
+            <i class='fas fa-user' style='font-size:24px'></i>
+            <span class="nav-item">Users</span>
+          </a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul><br>
+      </div>
+    </div>
+    <section class="col-sm-9 main">
+      <div class="main-skills">
+        <div class="card">
+          <h3>Users</h3>
+          <p>{{ user_count }}</p>
+        </div>
+        <div class="card">
+          <h3>Items</h3>
+          <p>{{ food_count }}</p>
+        </div>
+        <div class="card">
+          <h3>Notification</h3>
+          <p>{{ notification_count }}</p>
+        </div>
+        <div class="card">
+          <h3>Blog</h3>
+          <p>{{ blog_count }}</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

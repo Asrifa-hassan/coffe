@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+  {% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ADD_ITEMS</title>
+    <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+      body {
+          font-family: 'Poppins', sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+      }
+      .sidenav {
+          background: #333;
+          color: white;
+          height: 100vh;
+          padding-top: 19px;
+          width: 25%;
+          position: fixed;
+          overflow-y: auto;
+      }
+
+      .sidenav h2 {
+          text-align: center;
+          font-size: 24px;
+          font-weight: bold;
+          color: white;
+          margin-bottom: 20px;
+      }
+
+      .sidenav ul {
+          padding: 0;
+          list-style: none;
+      }
+
+      .sidenav ul li {
+          padding: 12px;
+      }
+
+      .sidenav ul li a {
+          text-decoration: none;
+          color: white;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 16px;
+      }
+
+      .sidenav ul li a:hover,
+      .sidenav ul .active a {
+          background: #007bff;
+          color: white;
+          padding: 12px;
+          border-radius: 5px;
+      }
+
+      /* Main Content */
+      .main {
+          margin-left: 25%;
+          padding: 20px;
+          width: 75%;
+      }
+
+      .table {
+          width: 100%;
+          border-collapse: collapse;
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .table th, .table td {
+          padding: 8px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+      }
+
+      .table th {
+          background: #007bff;
+          color: white;
+          text-transform: uppercase;
+      }
+
+      .table tr:hover {
+          background: #f1f1f1;
+      }
+      input {
+          display: block;
+          width: 100%;
+          height: 50px;
+          margin: 10px 0px;
+          padding-left: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+      }
+      .btn {
+          padding: 10px 20px;
+          font-size: 14px;
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+          width: 14%;
+          height: 42px;
+      }
+      .btn-danger {
+          background: #038ecf;
+          color: white;
+          border: none;
+      }
+
+      .btn-danger:hover {
+          background: #0275a6;
+      }
+      input[type="file"] {
+          width: 100%;
+          padding: 10px;
+          font-size: 16px;
+          color: #333;
+          background-color: #f8f9fa;
+          border: 2px solid #ccc;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+      }
+
+      input[type="file"]:hover {
+          border-color: #007bff;
+      }
+
+      input[type="file"]:focus {
+          outline: none;
+          border-color: #0056b3;
+          box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+      }
+
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+          .sidenav {
+              width: 100%;
+              height: auto;
+              position: relative;
+          }
+          
+          .main {
+              margin-left: 0;
+              width: 100%;
+          }
+
+          .table {
+              font-size: 12px;
+          }
+      }
+
+    </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row content" style="height: 602px;">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <h2>COFFO</h2>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li><a href="{% url 'admin_products' %}">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="nav-item">Products</span>
+          </a></li>
+          <li><a href="{% url 'admin_orders' %}">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="nav-item">Order</span>
+          </a></li>
+          <li><a href="{% url 'notification_admin' %}">
+            <i class='fas fa-bell' style='font-size:24px'></i>
+            <span class="nav-item">Notification</span>
+          </a></li>
+          <li class="active"><a href="{% url 'admin_blog' %}">
+            <i class='fas fa-blog' style='font-size:24px'></i>
+            <span class="nav-item">Blog</span>
+          </a></li>
+          <li><a href="{% url 'admin_users' %}">
+            <i class="fas fa-user"></i>
+            <span class="nav-item">Users</span>
+          </a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul><br>
+      </div>
+      <div class="col-sm-9 main">
+        <h2>New Blog</h2>
+        <div class="row align-content-center">
+          <div class="box text-center mx-auto" style="width: 90%; margin: 0 auto;">
+            <form action="{% url 'add_blog' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="text" id="" name="title" placeholder="Title" required>
+              <input type="date" id="" name="date" placeholder="Date" required>
+              <input type="text" id="" name="description" placeholder="description">
+              <input type="file" id="" name="image" placeholder="Choose File"><br>
+              <button class="btn btn-round btn-danger" type="submit">Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <div
+             {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+          {{ message }}
+        </div>
+    {% endfor %}
+</ul>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+  {% load static %}
+<html lang="en">
+<head>
+  <title>ORDERS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{% static 'admin/css/style.css' %}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    .sidenav {
+        background: #333;
+        color: white;
+        height: 100vh;
+        padding-top: 19px;
+        position: relative;
+        width: 25%;
+        overflow: auto;
+    }
+    .ftco-section {
+      padding: 0em 0;
+    }
+    .container-fluid{
+      display: flex;
+      padding-right: 0px;
+      padding-left: 0px;
+      margin-right: auto;
+      margin-left: auto;
+      height:602px
+    }
+    nav{
+      position: relative;
+      top: 0;
+      bottom: 0;
+      height: 100vh;
+      left: 0;
+      background: #fff;
+      width: 280px;
+      overflow: hidden;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    }
+    .logo{
+      text-align: center;
+      display: flex;
+      margin: 10px 0 0 10px;
+    }
+    .logo img{
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+    .logo span{
+      font-weight: bold;
+      padding-left: 15px;
+      font-size: 18px;
+      text-transform: uppercase;
+    }
+    .row {
+      margin-right: 0px;
+      margin-left: 0px;
+    }
+    .sidenav ul li {
+        padding: 10px;
+    }
+    .sidenav ul li a {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+    }
+    .sidenav h2 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 20px;
+    }
+    .sidenav ul li a:hover, .sidenav ul .active a {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+      line-height: 1.42857143;
+      vertical-align: center;
+      border-top: 1px solid #ddd;
+    }
+    .table thead.thead-primary {
+      background: black;
+      color: white;
+      font-size: 18px;
+    }
+    .table tbody td .email span:last-child {
+      font-size: 16px;
+      color: rgb(0, 0, 0);
+    }
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+    }
+    .btn-accept {
+      background-color: green;
+    }
+    .btn-cancel {
+      background-color: red;
+    }
+    .btn:hover {
+      opacity: 0.8;
+    }
+    p{
+      font-size: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+  <div class="container-fluid">
+    <div class="row content" style="height: 602px; width: 100%;">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <h2>COFFO</h2>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+          <li><a href="{% url 'admin_products' %}">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="nav-item">Products</span>
+          </a></li>
+          <li class="active"><a href="{% url 'admin_orders' %}">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="nav-item">Order</span>
+          </a></li>
+          <li><a href="{% url 'notification_admin' %}">
+            <i class='fas fa-bell' style='font-size:24px'></i>
+            <span class="nav-item">Notification</span>
+          </a></li>
+          <li><a href="{% url 'admin_blog' %}">
+              <i class='fas fa-blog' style='font-size:24px'></i>
+              <span class="nav-item">Blog</span>
+          </a></li>
+          <li><a href="{% url 'admin_users' %}">
+            <i class="fas fa-user"></i>
+            <span class="nav-item">Users</span>
+          </a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul><br>
+      </div>
+      <div class="col-sm-9" style="height: 500px; overflow-x: hidden;overflow-y: scroll;scroll-snap-type: y mandatory;">
+        <!-- new orders  -->
+        <section class="ftco-section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-9">
+                    <h1 class="h1 mb-4 text-center">NEW ORDERS</h1>
+                  </div>
+                </div>
+                <div class="table-wrap">
+                  {% if new_orders %}
+                    <table class="table">
+                      <thead class="thead-primary">
+                        <tr>
+                          <th>#</th>
+                          <th colspan="2">Item</th>
+                          <th>Quantity</th>
+                          <th>Total</th>
+                          <th>Time</th>
+                          <th colspan="2">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for i in new_orders %}
+                          {% for j in coffee_details %}
+                            {% if i.item_id == j.id %}
+                              {% if i.status == 1 %}
+                                <tr class="alert" role="alert">
+                                  <td class="align-content-start">{{ forloop.parentloop.counter }}</td> {# Use the stored counter here #}
+                                  <td class="align-content-start"><img src="{{ j.image.url }}" width="50px"></td>
+                                  <td class="align-content-center"><span>{{ j.item_name }}</span></td>
+                                  <td class="align-content-center">{{ i.quantity }}</td>
+                                  <td class="align-content-center">₹{{ i.total_price }}</td>
+                                  <td class="align-content-center">{{ i.order_time }}</td>
+                                  <td class="align-content-center"><a href="{% url 'Accept_item' i.id %}" class="btn btn-accept">Accept</a></td>
+                                  <td class="align-content-center"><a href="{% url 'Cancel_item' i.id %}" class="btn btn-cancel">Cancel</a></td>
+                                </tr>
+                              {% endif %}
+                            {% endif %}
+                          {% endfor %}
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  {% else %}
+                    <p>No New Orders</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      <!--accepted_orders-->
+        <section class="ftco-section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-9">
+                    <h1 class="h1 mb-4 text-center">ACCEPTED ORDERS</h1>
+                  </div>
+                </div>
+                <div class="table-wrap">
+                {% if accepted_orders %}
+                  <table class="table">
+                    <thead class="thead-primary">
+                      <tr>
+                        <th>#</th>
+                        <th colspan="2">Item</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Time</th>
+                        <th colspan="2">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in accepted_orders %}
+                        {% for j in coffee_details %}
+                          {% if i.item_id == j.id %}
+                            {% if i.status == 2 %}
+                              <tr class="alert" role="alert">
+                                <td class="align-content-start">{{ forloop.parentloop.counter }}</td> {# Use the stored counter here #}
+                                <td class="align-content-start"><img src="{{ j.image.url }}" width="50px"></td>
+                                <td class="align-content-center"><span>{{ j.item_name }}</span></td>
+                                <td class="align-content-center">{{ i.quantity }}</td>
+                                <td class="align-content-center">₹{{ i.total_price }}</td>
+                                <td class="align-content-center">{{ i.order_time }}</td>
+                                <td class="align-content-center"><a href="{% url 'Pending_item' i.id %}" class="btn btn-accept">delivered</a></td>
+                                <td class="align-content-center"><a href="{% url 'Cancel_item' i.id %}" class="btn btn-cancel">Cancel</a></td>
+                              </tr>
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                {% else %}
+                  <p> No Pending Orders</p>
+                {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--delivered_orders-->
+        <section class="ftco-section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-9">
+                    <h1 class="h1 mb-4 text-center">DELIVERED ORDERS</h1>
+                  </div>
+                </div>
+                <div class="table-wrap">
+                {% if delivered_orders %}
+                  <table class="table">
+                    <thead class="thead-primary">
+                      <tr>
+                        <th>#</th>
+                        <th colspan="2">Item</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in delivered_orders %}
+                        {% for j in coffee_details %}
+                          {% if i.item_id == j.id %}
+                            {% if i.status == 3 %}
+                              <tr class="alert" role="alert">
+                                <td class="align-content-start">{{ forloop.parentloop.counter }}</td> {# Use the stored counter here #}
+                                <td class="align-content-start"><img src="{{ j.image.url }}" width="50px"></td>
+                                <td class="align-content-center"><span>{{ j.item_name }}</span></td>
+                                <td class="align-content-center">{{ i.quantity }}</td>
+                                <td class="align-content-center">₹{{ i.total_price }}</td>
+                                <td class="align-content-center">{{ i.order_time }}</td>
+                              </tr>
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                {% else %}
+                  <p>No Delivered Orders</p>
+                {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+<!--        cancelled_orders-->
+        <section class="ftco-section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-9">
+                    <h1 class="h1 mb-4 text-center">CANCELLED ORDERS</h1>
+                  </div>
+                </div>
+                <div class="table-wrap">
+                {% if cancelled_orders %}
+                  <table class="table">
+                    <thead class="thead-primary">
+                      <tr>
+                        <th>#</th>
+                        <th colspan="2">Item</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for i in cancelled_orders %}
+                        {% for j in coffee_details %}
+                          {% if i.item_id == j.id %}
+                            {% if i.status == 4 %}
+                              <tr class="alert" role="alert">
+                                <td class="align-content-start">{{ forloop.parentloop.counter }}</td> {# Use the stored counter here #}
+                                <td class="align-content-start"><img src="{{ j.image.url }}" width="50px"></td>
+                                <td class="align-content-center"><span>{{ j.item_name }}</span></td>
+                                <td class="align-content-center">{{ i.quantity }}</td>
+                                <td class="align-content-center">₹{{ i.total_price }}</td>
+                                <td class="align-content-center">{{ i.order_time }}</td>
+                              </tr>
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                {% else %}
+                  <p>No Cancelled Orders</p>
+                {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'admin/js/jquery.min.js' %}"></script>
+  <script src="{% static 'admin/js/popper.js' %}"></script>
+  <script src="{% static 'admin/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'admin/js/main.js' %}"></script>
+
+</body>
+</html>
