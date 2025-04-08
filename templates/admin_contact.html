@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
 <head>
-  <title>BLOG DETAILS</title>
+  <title>ADMIN CONTACT</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
@@ -140,7 +140,7 @@
     .product-list img{
         width: 100%;
         border-radius: 4px 4px 0 0;
-        -webkit-border-radius: 4px 4px 0 0;
+        -webkit-border-radius: 4px4px 0 0;
     }
 
     .product-list .pro-img-box {
@@ -230,6 +230,10 @@
         margin-right: 10px;
         margin-bottom: 10px;
     }
+    .table thead.thead-primary {
+        background: black;
+    }
+
 
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
@@ -256,11 +260,11 @@
                 <i class='fas fa-bell' style='font-size:24px'></i>
                 <span class="nav-item">Notification</span>
               </a></li>
-              <li class="active"><a href="{% url 'admin_blog' %}">
+              <li><a href="{% url 'admin_blog' %}">
                 <i class='fas fa-blog' style='font-size:24px'></i>
                 <span class="nav-item">Blog</span>
               </a></li>
-              <li><a href="{% url 'admin_contact' %}">
+              <li class="active"><a href="{% url 'admin_contact' %}">
                 <i class='fas fa-phone-alt' style='font-size:24px'></i>
                 <span class="nav-item">Contact</span>
               </a></li>
@@ -270,62 +274,52 @@
               </a></li>
               <li><a href="{% url 'logout' %}">Logout</a></li>
             </ul><br>
-            </div>
-            <div class="col-sm-9">
-                <section class="ftco-section">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1 class="h1 mb-4 text-center">BLOG DETAIL</h1>
-                                <div class="container bootdey">
-                                    <div class="col-md-12">
-                                        <section class="panel">
-                                            <div class="panel-body">
-                                                <div class="col-md-6 ">
-                                                    <div class="pro-img-details align-content-center " style="height: 406px;width: 100%;">
-                                                      {% if blog.image %}
-                                                        <img src="{{ blog.image.url }}" alt="">
-                                                      {% endif %}
-                                                      <span class="date">{{ blog.date }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <h1 class="pro-d-title">{{ blog.title }}</h1>
-                                                    <p class="note">
-                                                        {{ blog.description }}
-                                                    </p>
-                                                    <p>
-                                                      <a href="{% url 'edit_blog' blog.id %}"><button class="btn btn-round btn-danger" type="button">Edit</button></a>
-                                                      <a href="{% url 'delete_blog' blog.id %}"><button class="btn btn-round btn-danger" type="button" onclick="confirmation()">Delete</button></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
+        </div>
+        <div class="col-sm-9">
+        <br>
+        <section class="ftco-section">
+           <div class="container">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-9">
+                          <h1 class="h1 mb-4 text-center">GET IN TOUCH</h1>
                         </div>
-                    </div>
-                </section>
-            </div>
+                      </div>
+                      <div class="table-wrap">
+                        <table class="table">
+                          <thead class="thead-primary">
+                            <tr>
+                              <th>S/N</th>
+                              <th>Contact ID</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Phone</th>
+                              <th>Date&Time</th>
+                              <th>Subject</th>
+                              <th>Message</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for i in contacts %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ i.id }}</td>
+                                <td>{{ i.name }}</td>
+                                <td>{{ i.email }}</td>
+                                <td>{{ i.phone }}</td>
+                                <td>{{ i.created_at }}</td>
+                                <td>{{ i.subject }}</td>
+                                <td>{{ i.message }}</td>
+                            </tr>
+                          {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+              </div>
+           </div>
+        </section>
         </div>
     </div>
-  <script src="{% static 'admin/js/jquery.min.js' %}"></script>
-  <script src="{% static 'admin/js/popper.js' %}"></script>
-  <script src="{% static 'admin/js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'admin/js/main.js' %}"></script>
-
-    <script>
-    function confirmation() {
-        var result = confirm("Are you sure you want to delete?");
-        if (result) {
-            // Delete logic goes here
-            console.log("Item deleted.");
-        } else {
-            console.log("Deletion canceled.");
-        }
-    }
-    </script>
-
 </body>
-</html>

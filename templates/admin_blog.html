@@ -167,6 +167,10 @@
               <i class='fas fa-blog' style='font-size:24px'></i>
               <span class="nav-item">Blog</span>
             </a></li>
+            <li><a href="{% url 'admin_contact' %}">
+              <i class='fas fa-phone-alt' style='font-size:24px'></i>
+              <span class="nav-item">Contact</span>
+            </a></li>
             <li><a href="{% url 'admin_users' %}">
               <i class="fas fa-user"></i>
               <span class="nav-item">Users</span>
@@ -177,7 +181,7 @@
         <div class="col-sm-9">
           <br>
            {% if messages %}
-            <ul class="messages" style="display:none;">
+            <ul class="messages" style="display:block;">
                 {% for message in messages %}
                     <li class="message-item">
                         {% if 'warning' in message.tags %}

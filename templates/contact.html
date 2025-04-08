@@ -63,6 +63,15 @@
    .update_mail{
       height:50px !important;
    }
+   .send_bt {
+      width: 172px;
+      height: 39px;
+      background: red;
+      margin: 0 auto;
+      text-align: center;
+      display: block;
+      color: white;
+   }
 </style>
    <div class="contact_section layout_padding">
       <div class="container">
@@ -77,11 +86,15 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="mail_section_1">
-                     <input type="text" class="mail_text" placeholder="Your Name"  id="name" name="name">
-                     <input type="text" class="mail_text" placeholder="Your Email" id="email" name="email">
-                     <input type="text" class="mail_text" placeholder="Your Phone" id="phone" name="phone">
-                     <textarea class="message-bt" placeholder="Message" rows="5" id="message" name="message" style="height: 105px;margin-top: 25px; width: 100%;"></textarea>
-                     <div class="send_bt"><a href="#">Send</a></div>
+                     <form action="{% url 'contact' %}" method="post" enctype="multipart/form-data">
+                     {% csrf_token %}
+                        <input type="text" class="mail_text" placeholder="Your Name"  id="name" name="name" required>
+                        <input type="text" class="mail_text" placeholder="Your Email" id="email" name="email" required>
+                        <input type="text" class="mail_text" placeholder="Your Phone" id="phone" name="phone"  required>
+                        <input type="text" class="mail_text" placeholder="subject" id="" name="subject" required>
+                        <textarea class="message-bt" placeholder="Message" rows="5" id="message" name="message" style="height: 105px;margin-top: 25px; width: 100%;"></textarea>
+                        <button type="submit" class="send_bt">send</button>
+                     </form>
                   </div>
                </div>
                <div class="map_main">

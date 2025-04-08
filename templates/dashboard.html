@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
     *{
@@ -80,7 +81,7 @@
 
     .main-skills {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 20px;
         margin-top: 20px;
     }
@@ -104,6 +105,31 @@
         font-size: 22px;
         font-weight: bold;
         color: #007bff;
+    }
+    .main-content {
+      display: flex;
+      justify-content: center;
+    }
+
+    .chart-card {
+      width: 600px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    .chart-title {
+      margin-bottom: 10px;
+      font-size: 16px;
+      text-align: center;
+      color: #333;
+      font-weight: 600;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 180px !important;
     }
 
     /* Responsive Design */
@@ -148,6 +174,10 @@
             <i class='fas fa-blog' style='font-size:24px'></i>
             <span class="nav-item">Blog</span>
           </a></li>
+          <li><a href="{% url 'admin_contact' %}">
+            <i class='fas fa-phone-alt' style='font-size:24px'></i>
+            <span class="nav-item">Contact</span>
+          </a></li>
           <li><a href="{% url 'admin_users' %}">
             <i class='fas fa-user' style='font-size:24px'></i>
             <span class="nav-item">Users</span>
@@ -174,8 +204,78 @@
           <h3>Blog</h3>
           <p>{{ blog_count }}</p>
         </div>
+        <div class="card">
+          <h3>Order</h3>
+          <p>{{ notification_count }}</p>
+        </div>
       </div>
     </section>
+    <section class="col-sm-3 main">
+      <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Total Price</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for i in new_order %}
+          <tr>
+            <td>{{ i.id }}</td>
+            <td>₹{{ i.total_price }}</td>
+            <td>{{ i.status }}</td>
+            <td>{{ i.order_time }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
   </div>
+  <div class="main-content">
+    <div class="chart-card">
+      <div class="chart-title">Dashboard Overview</div>
+      <canvas id="dashboardChart"></canvas>
+    </div>
+  </div>
+  <script>
+    const ctx = document.getElementById('dashboardChart').getContext('2d');
+    const dashboardChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Users', 'Items', 'Notifications', 'Blogs', 'Orders'],
+        datasets: [{
+          label: 'Count',
+          data: [{{ user_count }}, {{ food_count }}, {{ notification_count }}, {{ blog_count }}, {{ order_count }}],
+          backgroundColor: [
+            '#4caf50', '#2196f3', '#ff9800', '#9c27b0', '#f44336'
+          ],
+          borderRadius: 8,
+          barPercentage: 0.6
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+  </script>
+
 </body>
 </html>

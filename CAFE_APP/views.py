@@ -6,8 +6,10 @@ from .models import Cart
 from django.conf import settings
 from datetime import datetime, timedelta
 from django.contrib import messages
+import re
 from django.utils import timezone
 from .models import *
+from datetime import date
 
 
 # Create your views here.
@@ -52,27 +54,15 @@ def contact(request):
         phone = request.POST.get('phone')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
-        contact_message = Contact.objects.create(name=name,
-                                                 email=email,
-                                                 phone=phone,
-                                                 subject=subject,
-                                                 message=message,
-                                                 datetime=timezone.now()
-                                                 )
-        contact_message.save()
-
-        admin = User.objects.get(id=1)
-        admin_message = "You have a new contact message from {} ({}):\n subjuct: {}\n message: {}".format(contact_message .name,
-                                                                                                            contact_message .email,
-                                                                                                            contact_message.subject,
-                                                                                                            contact_message.message)
-        Notifications.objects.create(user=admin,
-                                     read=False,
-                                     message=admin_message,
-                                     datetime=timezone.now()
-                                     )
-
-        messages.success(request, "Thanks for contacting us")
+        created_at = request.POST.get('created_at')
+        contacts = Contact.objects.create(name=name,
+                                          email=email,
+                                          phone=phone,
+                                          subject=subject,
+                                          message=message,
+                                          created_at=created_at
+                                          )
+        return redirect('index')
     return render(request, 'contact.html', locals())
 
 
@@ -117,7 +107,6 @@ def login_function(request):
         password = request.POST.get('password')
         user = authenticate(username=email, password=password)
         if user is not None:
-
             if user.is_superuser:
                 login(request, user)
                 if user.user_type == 1:
@@ -135,7 +124,6 @@ def login_function(request):
             return render(request, 'login.html')
     else:
         return render(request, 'login.html')
-
 
 def forgot_password(request):
     if request.method == 'POST':
@@ -165,6 +153,8 @@ def Dashboard(request):
     blog_count = Blog.objects.all().count()
     notification_count = Notifications.objects.all().count()
     user_count = User.objects.all().count()
+    order_count = Orders.objects.all().count()
+    new_order = Orders.objects.filter(order_time__date=date.today()).order_by('-order_time')[:5]
     return render(request, 'dashboard.html', locals())
 
 def admin_blog(request):
@@ -218,6 +208,14 @@ def delete_blog(request, id):
     messages.add_message(request, messages.SUCCESS, msg)
     blogs = Blog.objects.all()
     return render(request, 'admin_blog.html', locals())
+
+def admin_contact(request):
+    contacts = Contact.objects.all()
+    print(contacts)
+    return render(request, 'admin_contact.html',{'contacts':contacts})
+
+
+
 
 @login_required
 def admin_products(request):
@@ -567,11 +565,10 @@ def profile(request):
     notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
     count = Cart.objects.filter(user_id=request.user.id).count()
     user = request.user
-    try:
-        address = Address.objects.filter(user_id=user)
-        print(address)
-    except:
-        pass
+
+    address = Address.objects.filter(user_id=user)
+    print(address)
+
     return render(request, 'profile.html', locals())
 
 @login_required
@@ -597,29 +594,35 @@ def add_address(request):
     return render(request,'add_address.html', locals())
 
 
+def get_address(request, id):
+    notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
+    count = Cart.objects.filter(user_id=request.user.id).count()
+    address=Address.objects.get(id=id)
+    return render(request, 'change_address.html', locals())
 
 
 @login_required
-def change_address(request):
+def change_address(request, id):
     notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
     count = Cart.objects.filter(user_id=request.user.id).count()
     user_data = User.objects.get(id=request.user.id)
+    address=Address.objects.get(id=id)
     if request.method == 'POST':
-        address = request.POST.get('address')
-        Zipcode = request.POST.get('Zipcode')
-        city = request.POST.get('city')
-        Land_Mark = request.POST.get('Land_Mark')
-        phone_number = request.POST.get('phone_number')
-        Address.objects.filter(user_id=user_data).update(address=address,
-                                                         Zipcode=Zipcode,
-                                                         city=city,
-                                                         Land_Mark=Land_Mark,
-                                                         phone_number=phone_number,
-                                                         )
-        return redirect(profile)
-    else:
-        data = Address.objects.filter(user_id=user_data)
-        return render(request, 'change_address.html', locals())
+        address.address = request.POST.get('address')
+        address.city = request.POST.get('city')
+        address.phone_number = request.POST.get('phone_number')
+        address.Zipcode = request.POST.get('Zipcode')
+        address.Land_Mark = request.POST.get('Land_Mark')
+        address.save()
+        return redirect('profile',)
+
+
+def delete_address(request, id):
+    address = get_object_or_404(Address, id=id)
+    address.delete()
+    messages.success(request, "Address deleted successfully.")
+    return redirect('profile')
+
 
 @login_required
 def user_notification(request):

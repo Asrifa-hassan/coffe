@@ -343,7 +343,8 @@
     }
 </style>
 <body>
-    <div class="container" style="padding-top:82px;">
+  <div class="coffee_section">
+    <div class="container" style="padding-top:10px;">
         <div class="card">
             {% if cart_data %}
             <div class="row">
@@ -394,11 +395,11 @@
                         <div class="col text-right">₹ {{ grand_total }}</div>
                     </div>
                     <div class="address-section">
-                    <h5><b>Delivery Address</b></h5>
+                    <h5 style="font-size:15px;"><b>Delivery Address</b></h5>
                     {% if address %}
                     <form action="{% url 'order_items' %}" method="POST">
                     {% csrf_token %}
-                    <label for="address">Select Address:</label>
+                    <label for="address" >Select Address:</label>
                     <select id="address" name="address" class="form-control">
                         {% for i in address %}
                             <option value="{{ i.id }}">{{ i.city }}, {{ i.Zipcode }}, {{ i.Land_Mark }}</option>
@@ -408,7 +409,7 @@
                    </form>
                    {% else %}
                       <div class="buttons">
-                         <a href="{% url 'add_address'%}" class="button"  type="submit">Add Address</a>
+                         <a href="{% url 'add_address'%}" class="btn-danger" style="height: 35px; width: 61%;font-size: 14px;text-align: center;margin-top: 8px;padding-top: 8px;"  type="submit">Add Address</a>
                      </div>
                    {% endif %}
                     <div id="new-address" style="display: none; margin-top: 10px;">
@@ -434,8 +435,9 @@
             {% endif %}
         </div>
     </div>
-    <div class="footer_section layout_padding">
-        <div class="container">
+  </div>
+  <div class="footer_section layout_padding">
+      <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="footer_social_icon">
@@ -467,8 +469,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="copyright_section">
+      </div>
+      <div class="copyright_section">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -476,7 +478,8 @@
                 </div>
             </div>
         </div>
-    </div>
+      </div>
+  </div>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
 <!--        document.addEventListener('DOMContentLoaded', () => {-->
