@@ -701,6 +701,18 @@
                 background: #fff;
             }
         }
+        .swiper {
+          width: 100%;
+          padding: 40px 80px;
+          box-sizing: border-box;
+        }
+        .swiper-wrapper {
+          display: flex;
+        }
+        .swiper-slide {
+          width: auto;
+          flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
@@ -798,12 +810,11 @@
                </div>
             </div>
         </div>
-        <div class="carousel-item active">
-          <div class="slide-container swiper">
-            <div id="main_slider" class="slide-content">
-              <div class="card-wrapper swiper-wrapper">
-                {% for i in data %}
-                <div class="card swiper-slide">
+        <div class="swiper">
+           <div class="swiper-wrapper">
+             {% for i in data %}
+             <div class="swiper-slide">
+                <div class="card">
                   <div class="image-content">
                     <span class="overlay"></span>
                     <div class="card-image">
@@ -817,11 +828,10 @@
                     <div class="read_btn"><a href="{% url 'cofe_read' i.id %}">Read More</a></div>
                   </div>
                 </div>
-                {% endfor %}
-              </div>
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
+             </div>
+             {% endfor %}
+           </div>
+          <div class="swiper-pagination"></div>
         </div>
     </div>
     <div class="blog_section layout_padding">
@@ -922,8 +932,21 @@
             </div>
         </div>
     </div>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-    <script src="{% static 'js/script.js' %}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        new Swiper(".swiper", {
+          slidesPerView: 3,
+          spaceBetween: 30,
+          loop: true,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+        });
+      });
+   </script>
+   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+   <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+   <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

@@ -249,43 +249,55 @@
       .update_mail{
          height:50px !important;
       }
+      .swiper {
+        width: 100%;
+        padding: 40px 80px;
+        box-sizing: border-box;
+      }
+      .swiper-wrapper {
+        display: flex;
+      }
+      .swiper-slide {
+        width: auto;
+        flex-shrink: 0;
+      }
    </style>
 <body>
    <div class="coffee_section">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
-            </div>
+     <div class="container">
+       <div class="row">
+         <div class="col-md-12">
+           <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
          </div>
-      </div>
-      <div class="slide-container swiper">
-         <div id="main_slider" class="slide-content">
-            <div class="card-wrapper swiper-wrapper">
-               {% for i in data %}
-               <div class="card swiper-slide">
-                  <div class="image-content">
-                     <span class="overlay"></span>
-                     <div class="card-image">
-                        <img src="{{ i.image.url }}" alt="" class="card-img">
-                     </div>
-                  </div>
-                  <div class="card-content">
-                     <h2 class="name">{{ i.item_name }}</h2>
-                     <p class="description">{{ i.description }}</p>
-                     <h4 class="price">{{ i.price }}</h4>
-                     {% if user.is_active == 1 %}
-                        <div class="read_bt"><a href="{% url 'add_to_cart' i.id %}">Add to cart</a></div>
-                     {% else %}
-                        <div class="read_bt"><a href="{% url 'login_page' %}">Add to cart</a></div>
-                     {% endif %}
-                  </div>
+       </div>
+     </div>
+     <div class="swiper">
+       <div class="swiper-wrapper">
+         {% for i in data %}
+         <div class="swiper-slide">
+           <div class="card">
+             <div class="image-content">
+               <span class="overlay"></span>
+               <div class="card-image">
+                 <img src="{{ i.image.url }}" alt="" class="card-img">
                </div>
-               {% endfor %}
-            </div>
+             </div>
+             <div class="card-content">
+               <h2 class="name">{{ i.item_name }}</h2>
+               <p class="description">{{ i.description }}</p>
+               <h4 class="price">{{ i.price }}</h4>
+               {% if user.is_active == 1 %}
+                 <div class="read_bt"><a href="{% url 'add_to_cart' i.id %}">Add to cart</a></div>
+               {% else %}
+                 <div class="read_bt"><a href="{% url 'login_page' %}">Add to cart</a></div>
+               {% endif %}
+             </div>
+           </div>
          </div>
-         <div class="swiper-pagination"></div>
-      </div>
+         {% endfor %}
+       </div>
+       <div class="swiper-pagination"></div>
+     </div>
    </div>
    <div class="footer_section layout_padding">
       <div class="container">
@@ -330,6 +342,19 @@
          </div>
       </div>
    </div>
+   <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        new Swiper(".swiper", {
+          slidesPerView: 3,
+          spaceBetween: 30,
+          loop: true,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+        });
+      });
+   </script>
    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
    <script src="{% static 'js/script.js' %}"></script>

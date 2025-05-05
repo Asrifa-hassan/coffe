@@ -173,19 +173,37 @@
         .login-register p a:hover{
             text-decoration: underline;
         }
+        .message-box {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4d4d4;
+            color: #155724;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
     </style>
 </head>
 <body>
     {% if messages %}
       {% for message in messages %}
-        <div style="padding: 10px; margin: 10px 0; border-radius: 5px;
-                    {% if message.tags == 'success' %}
-                      background-color: #d4edda; color: #155724;
-                    {% elif message.tags == 'warning' %}
-                      background-color: #fff3cd; color: #856404;
-                    {% else %}
-                      background-color: #f8d7da; color: #721c24;
-                    {% endif %}">
+        <div class="
+            message-box
+            {% if message.tags == 'success' %}
+                success
+            {% elif message.tags == 'warning' %}
+                warning
+            {% else %}
+                error
+            {% endif %}">
           {{ message }}
         </div>
       {% endfor %}
