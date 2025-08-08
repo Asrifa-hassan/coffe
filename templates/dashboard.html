@@ -206,7 +206,7 @@
         </div>
         <div class="card">
           <h3>Order</h3>
-          <p>{{ notification_count }}</p>
+          <p>{{ order_count }}</p>
         </div>
       </div>
     </section>
@@ -240,6 +240,9 @@
     </div>
   </div>
   <script>
+    const counts = JSON.parse(document.getElementById('chart-data').textContent);
+    console.log(counts); // Check in browser console
+
     const ctx = document.getElementById('dashboardChart').getContext('2d');
     const dashboardChart = new Chart(ctx, {
       type: 'bar',
@@ -247,7 +250,13 @@
         labels: ['Users', 'Items', 'Notifications', 'Blogs', 'Orders'],
         datasets: [{
           label: 'Count',
-          data: [{{ user_count }}, {{ food_count }}, {{ notification_count }}, {{ blog_count }}, {{ order_count }}],
+          data: [
+            counts.users,
+            counts.items,
+            counts.notifications,
+            counts.blogs,
+            counts.orders
+          ],
           backgroundColor: [
             '#4caf50', '#2196f3', '#ff9800', '#9c27b0', '#f44336'
           ],
@@ -258,24 +267,17 @@
       options: {
         responsive: true,
         plugins: {
-          legend: {
-            display: false
-          },
-          title: {
-            display: false
-          }
+          legend: { display: false },
+          title: { display: false }
         },
         scales: {
           y: {
             beginAtZero: true,
-            ticks: {
-              stepSize: 1
-            }
+            ticks: { stepSize: 1 }
           }
         }
       }
     });
   </script>
-
 </body>
 </html>
