@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 
-urlpatterns =[
+urlpatterns=[
+        
         path('', views.index, name='index'),
         path('about/', views.about, name='about'),
         path('coffees/', views.coffees, name='coffees'),
@@ -14,9 +15,6 @@ urlpatterns =[
         path('login_function/', views.login_function, name='login_function'),
         path('forgot_password/', views.forgot_password, name='forgot_password'),
         path('logout/', views.logout_function, name='logout'),
-
-
-        # ------------ user module--------------------------
         path('user_home/', views.user_home, name='user_home'),
         path('cart-item/', views.cart_item, name='cart_item'),
         path('add_to_cart/<int:id>', views.add_to_cart, name='add_to_cart'),
@@ -25,16 +23,13 @@ urlpatterns =[
         path('delete_cart_item/<int:id>', views.delete_cart_item, name='delete_cart_item'),
         path('order_items/', views.order_items, name='order_items'),
         path('empty_cart/', views.empty_cart, name='empty_cart'),
-        path('profile/<int:id>/', views.profile, name='profile')
+        path('profile/<int:id>/', views.profile, name='profile'),
         path('add_address/', views.add_address, name='add_address'),
         path('get_address/<int:id>', views.get_address, name='get_address'),
         path('change_address/<int:id>', views.change_address, name='change_address'),
         path('delete_address/<int:id>', views.delete_address, name='delete_address'),
         path('user_notification/', views.user_notification, name='user_notification'),
         path('read_notifications/<int:id>/', views.read_notifications, name='read_notifications'),
-
-
-        #------------- admin module -----------------------
         path('dashboard/', views.Dashboard, name='dashboard'),
         path('admin_products/', views.admin_products, name='admin_products'),
         path('admin_view_product/<int:id>', views.admin_view_product, name='admin_view_product'),
@@ -53,5 +48,5 @@ urlpatterns =[
         path('edit_blog/<int:id>', views.edit_blog, name='edit_blog'),
         path('delete_blog/<int:id>', views.delete_blog, name='delete_blog'),
         path('admin_view_blog/<int:id>', views.admin_view_blog, name='admin_view_blog'),
-]
+    ]
         
