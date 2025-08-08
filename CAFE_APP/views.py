@@ -614,7 +614,7 @@ def change_address(request, id):
         address.Zipcode = request.POST.get('Zipcode')
         address.Land_Mark = request.POST.get('Land_Mark')
         address.save()
-    return redirect('profile',locals())
+    return redirect('profile')
 
 
 def delete_address(request, id):
