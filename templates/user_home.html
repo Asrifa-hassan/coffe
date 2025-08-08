@@ -742,7 +742,7 @@
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                     </span></a>
                                     <div class="dropdown-content" style="color:black;margin-top: 63px;margin-left: -27px;">
-                                        <a href="{% url 'profile' %}">My profile</a>
+                                        <a href="{% url 'profile' user.id %}">My profile</a>
                                         <a href="{% url 'logout' %}">LOGOUT</a>
                                     </div>
                                 </div>
