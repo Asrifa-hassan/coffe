@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-cn3i-2xz8h(tf-loqs7^%#vg)eoa@udc8j%8)vw-hxklnr__s!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://coffee-rnvk.onrender.com']
+ALLOWED_HOSTS = ['coffee-rnvk.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
