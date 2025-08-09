@@ -25,7 +25,7 @@ def user_home(request):
     notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
     count = Cart.objects.filter(user_id=request.user.id).count()
     data = Food_items.objects.all()
-    return render(request, 'user_home.html', locals())
+    return render(request, 'user_home.html', {'user': request.user})
 
 
 def about(request):
@@ -564,7 +564,7 @@ def order_items(request):
 def profile(request):
     notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
     count = Cart.objects.filter(user_id=request.user.id).count()
-    user = request.user
+    profile_user = request.user
 
     address = Address.objects.filter(user_id=user)
     print(address)
@@ -614,7 +614,7 @@ def change_address(request, id):
         address.Zipcode = request.POST.get('Zipcode')
         address.Land_Mark = request.POST.get('Land_Mark')
         address.save()
-    return redirect('profile')
+    return redirect('profile',locals())
 
 
 def delete_address(request, id):
