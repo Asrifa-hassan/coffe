@@ -2,7 +2,7 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Cart
+from .models import Notifications, Cart, Food_items
 from django.conf import settings
 from datetime import datetime, timedelta
 from django.contrib import messages
@@ -22,11 +22,22 @@ def index(request):
 
 @login_required
 def user_home(request):
-    notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
+    notification_count = Notifications.objects.filter(
+        user_id=request.user.id, read=False
+    ).count()
     count = Cart.objects.filter(user_id=request.user.id).count()
     data = Food_items.objects.all()
-    return render(request, 'user_home.html', {'user': request.user})
 
+    # Only pass profile_id if user has a related profile object
+    profile_id = getattr(getattr(request.user, "profile", None), "id", None)
+
+    return render(request, 'user_home.html',{
+        'user': request.user,
+        'profile_id': profile_id,
+        'notification_count': notification_count,
+        'count': count,
+        'data': data,
+    })
 
 def about(request):
     notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
