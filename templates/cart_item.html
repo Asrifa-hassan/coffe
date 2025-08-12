@@ -363,10 +363,10 @@
                                 <div class="col">
                                     <div class="row text-muted" id="item">{{ j.item_name }}</div>
                                 </div>
-                                <div class="quantity-control">
-                                    <a href="{% url 'decrement_quantity' i.item_id %}" class="decrement">-</a>
+                                <div class="quantity-control" data-item-id="{{ i.item_id }}">
+                                    <button class="decrement">-</button>
                                     <span class="quantity">{{ i.quantity }}</span>
-                                    <a href="{% url 'increment_quantity' i.item_id %}" class="increment">+</a>
+                                    <button class="increment">+</button>
                                 </div>
                                 <div class="col">{{ i.item_total }}</div>
                                 <span><a href="{% url 'delete_cart_item' i.item_id %}"  style="color: black;"><i class="fa fa-times" style="font-size:12px;"></i></a></span>
@@ -482,7 +482,43 @@
   </div>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
+    function getCSRFToken() {
+        let cookieValue = null;
+        const name = 'csrftoken';
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('increment') || e.target.classList.contains('decrement')) {
+            const parent = e.target.closest('.quantity-control');
+            const itemId = parent.getAttribute('data-item-id');
+            const action = e.target.classList.contains('increment') ? 'increment' : 'decrement';
 
+            fetch(`/cart/${action}/${itemId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken(),
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                parent.querySelector('.quantity').textContent = data.quantity;
+            })
+            .catch(err => console.error(err));
+        }
+    });
+    </script>
+    <script>
         document.getElementById('address').addEventListener('change', function() {
             if (this.value === 'new') {
                 document.getElementById('new-address').style.display = 'block';
@@ -490,7 +526,6 @@
                 document.getElementById('new-address').style.display = 'none';
             }
         });
-
     </script>
 </body>
 {% endblock %}

@@ -437,33 +437,22 @@ def add_to_cart(request, id):
 
     return redirect('coffees')
 
-@login_required
 def increment_quantity(request, item_id):
-    items = Cart.objects.filter(item=item_id)
-    if not items.exists():
-        raise Http404("No cart item found.")
+    if request.method == "POST":
+        cart_item = get_object_or_404(CartItem, id=item_id)
+        cart_item.quantity += 1
+        cart_item.save()
+        return JsonResponse({'quantity': cart_item.quantity})
 
-    for item in items:
-        item.quantity += 1
-        item.save()
-
-    return redirect(cart_item)
-
-@login_required
 def decrement_quantity(request, item_id):
-    items = Cart.objects.filter(item=item_id)
+    if request.method == "POST":
+        cart_item = get_object_or_404(CartItem, id=item_id)
+        if cart_item.quantity > 1:
+            cart_item.quantity -= 1
+            cart_item.save()
+        return JsonResponse({'quantity': cart_item.quantity})
 
-    if not items.exists():
-        raise Http404("No cart item found.")
 
-    for item in items:
-        if item.quantity > 1:
-            item.quantity -= 1
-            item.save()
-        else:
-            item.delete()  # Remove item if quantity reaches 0
-
-    return redirect(cart_item)
 
 @login_required
 def cart_item(request):
