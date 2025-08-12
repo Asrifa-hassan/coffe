@@ -49,7 +49,7 @@ class Food_items(models.Model):
 
 class Cart(models.Model):
     item = models.ForeignKey(Food_items,null=True, blank=True, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     item_total = models.DecimalField(max_digits=10, decimal_places=2)
 

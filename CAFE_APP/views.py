@@ -2,13 +2,15 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Notifications, Cart, Food_items
 from django.conf import settings
 from datetime import datetime, timedelta
 from django.contrib import messages
 import re
 from django.utils import timezone
 from .models import *
+from .models import Notifications, Cart, Food_items, Orders, Address, Blog, Contact
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from datetime import date
 
 
@@ -25,19 +27,22 @@ def user_home(request):
     notification_count = Notifications.objects.filter(
         user_id=request.user.id, read=False
     ).count()
+
     count = Cart.objects.filter(user_id=request.user.id).count()
+
     data = Food_items.objects.all()
 
-    # Only pass profile_id if user has a related profile object
+    # Safe profile_id extraction
     profile_id = getattr(getattr(request.user, "profile", None), "id", None)
 
-    return render(request, 'user_home.html',{
+    context = {
         'user': request.user,
         'profile_id': profile_id,
         'notification_count': notification_count,
         'count': count,
         'data': data,
-    })
+    }
+    return render(request, 'user_home.html', context)
 
 def about(request):
     notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
@@ -411,31 +416,26 @@ def coffees(request):
 def add_to_cart(request, id):
     notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
     count = Cart.objects.filter(user_id=request.user.id).count()
-    try:
-        Cart.objects.get(item_id=id)
-        data = Cart.objects.filter(item_id=id, user_id=request.user.id)
-        food_details = Food_items.objects.all()
-        for i in data:
-            for j in food_details:
-                if j.id == i.item_id:
-                    quantity = i.quantity
-                    price = j.price
-        quantity += 1
-        item_total = quantity * price
-        print(quantity, price, item_total)
-        Cart.objects.filter(item_id=id, user_id=request.user.id).update(quantity=quantity, item_total=item_total)
 
-        return redirect(coffees)
-    except:
-        data = Food_items.objects.get(id=id)
-        user = request.user
-        price = data.price
-        quantity = 1
-        total = price * quantity
-        cart = Cart.objects.create(item_id=id, user_id=user, quantity=quantity, item_total=total)
-        cart.save()
-        return redirect(coffees)
+    cart_item = Cart.objects.filter(item_id=id, user_id=request.user.id).first()
 
+    if cart_item:
+        # If already in cart → increment quantity
+        food = get_object_or_404(Food_items, id=id)
+        cart_item.quantity += 1
+        cart_item.item_total = cart_item.quantity * food.price
+        cart_item.save()
+    else:
+        # If not in cart → create new
+        food = get_object_or_404(Food_items, id=id)
+        Cart.objects.create(
+            item=food,
+            user=request.user,
+            quantity=1,
+            item_total=food.price
+        )
+
+    return redirect('coffees')
 
 @login_required
 def increment_quantity(request, item_id):
@@ -468,7 +468,7 @@ def decrement_quantity(request, item_id):
 @login_required
 def cart_item(request):
     notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
-    cart_data = Cart.objects.filter(user_id=request.user)
+    cart_data = Cart.objects.filter(user_id=request.user.id)
     address = Address.objects.filter(user_id=request.user)
     # print(cart_data)
     coffee_details = Food_items.objects.all()
@@ -495,7 +495,7 @@ def delete_cart_item(request, id):
 
 @login_required
 def empty_cart(request):
-    Cart.objects.filter(user_id=request.user).delete()
+    Cart.objects.filter(user_id=request.user.id).delete()
     return redirect(cart_item)
 
 # import uuid
@@ -572,14 +572,12 @@ def order_items(request):
         return render(request, 'invoice.html', locals())
     return redirect(cart_item)
 
+@login_required
 def profile(request):
     notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
-    count = Cart.objects.filter(user_id=request.user.id).count()
+    count = Cart.objects.filter(user=request.user).count()
     profile_user = request.user
-
-    address = Address.objects.filter(user_id=user)
-    print(address)
-
+    address = Address.objects.filter(user_id=request.user.id)
     return render(request, 'profile.html', locals())
 
 @login_required
@@ -625,7 +623,7 @@ def change_address(request, id):
         address.Zipcode = request.POST.get('Zipcode')
         address.Land_Mark = request.POST.get('Land_Mark')
         address.save()
-    return redirect('profile',locals())
+    return redirect('profile')
 
 
 def delete_address(request, id):
