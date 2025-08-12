@@ -723,14 +723,16 @@
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'images/logo.png' %}" alt="Logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false"
-                        aria-label="Toggle navigation">
+
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Collapsible content -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'index' %}">Home</a>
                         </li>
@@ -751,14 +753,10 @@
                                 <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:24px"></i>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login_page' %}">Login</a>
+                        </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <div class="login-bt">
-                            <ul>
-                                <li><a href="{% url 'login_page' %}">login</a></li>
-                            </ul>
-                        </div>
-                    </form>
                 </div>
             </nav>
         </div>
