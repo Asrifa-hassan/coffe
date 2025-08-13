@@ -105,21 +105,16 @@
             height: 50px;
         }
 
-        /* Spacing for nav items */
-        .nav-item {
-            margin: 0 5px;
-        }
-
         /* Font styling */
         .navbar-nav .nav-link {
             font-size: 16px;
             font-weight: 500;
         }
 
-        /* Mobile adjustments */
+        /* On mobile: float left instead of center */
         @media (max-width: 991px) {
             .navbar-nav {
-                text-align: center;
+                text-align: left;
             }
             .navbar-nav .nav-item {
                 margin-bottom: 10px;
@@ -744,15 +739,21 @@
     <div class="Header_section">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <!-- Logo -->
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'images/logo.png' %}" alt="Logo">
                 </a>
+
+                <!-- Toggle Button -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Menu -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav mr-auto">
+                        <!-- Main Links -->
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'index' %}">Home</a>
                         </li>
@@ -768,11 +769,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                         </li>
+
+                        <!-- Cart -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login_page' %}">
-                                <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:20px"></i>
+                                <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:20px"></i> Cart
                             </a>
                         </li>
+
+                        <!-- Login -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login_page' %}">Login</a>
                         </li>
