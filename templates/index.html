@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-    {% load static %}
 <head>
     <meta charset="UTF-8">
     <title>COFFO</title>
@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
     <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
     <link  href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/solid.min.css" integrity="sha512-/r+0SvLvMMSIf41xiuy19aNkXxI+3zb/BN8K9lnDDWI09VM0dwgTMzK7Qi5vv5macJ3VH4XZXr60ip7v13QnmQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         *{
             margin: 0;
@@ -100,6 +100,30 @@
             font-size: 20px;
             margin-left: 30px;
 
+        }
+         .navbar-brand img {
+            height: 50px;
+        }
+
+        /* Spacing for nav items */
+        .nav-item {
+            margin: 0 5px;
+        }
+
+        /* Font styling */
+        .navbar-nav .nav-link {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 991px) {
+            .navbar-nav {
+                text-align: center;
+            }
+            .navbar-nav .nav-item {
+                margin-bottom: 10px;
+            }
         }
         .form-inline {
             display: flex;
@@ -723,16 +747,12 @@
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'images/logo.png' %}" alt="Logo">
                 </a>
-
-                <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <!-- Collapsible content -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'index' %}">Home</a>
                         </li>
@@ -749,8 +769,15 @@
                             <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                         </li>
                         <li class="nav-item">
+                          <a class="nav-link" href="{% url 'cart_item' %}">
+                            <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:24px;margin-top:0px">
+                              <span class="cart-count-badge">{{ count }}</span>
+                            </i>
+                          </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'login_page' %}">
-                                <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:24px"></i>
+                                <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:20px"></i> Cart
                             </a>
                         </li>
                         <li class="nav-item">
