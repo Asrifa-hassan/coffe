@@ -5,59 +5,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Navbar</title>
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <style>
-        .navbar-nav {
-            width: 100%;
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
         }
-        .navbar-nav .nav-item {
-            text-align: left;
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
         }
-        .cart-count-badge,
-        .notification-badge {
-            background-color: red;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
-            position: relative;
-            top: -10px;
-            left: -5px;
+        .topnav a {
+          float: left;
+          display: block;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
         }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-            min-width: 120px;
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
         }
-        .dropdown:hover .dropdown-content {
+        .topnav a.active {
+          background-color: #04AA6D;
+          color: white;
+        }
+        .topnav .icon {
+          display: none;
+        }
+        @media screen and (max-width: 600px) {
+          .topnav a:not(:first-child) {display: none;}
+          .topnav a.icon {
+            float: right;
             display: block;
+          }
+        }
+        @media screen and (max-width: 600px) {
+          .topnav.responsive {position: relative;}
+          .topnav.responsive .icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+          }
+          .topnav.responsive a {
+            float: none;
+            display: block;
+            text-align: left;
+          }
+        }
+        .cart-count-badge {
+            background: red;
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            right: -5px;
+        }
+        .notification-badge {
+            background: orange;
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            right: -5px;
         }
     </style>
 </head>
 <body>
-
 <div class="header_section header_bg">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="{% static 'images/logo.png' %}" alt="Logo">
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
+            <div class="topnav" id="myTopnav">
+                <ul class="navbar-nav ml-auto">
                     {% if user.is_active == 1 %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'user_home' %}">Home</a>
@@ -65,14 +94,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'coffees' %}">Coffees</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item position-relative">
                             <a class="nav-link" href="{% url 'cart_item' %}">
-                                <i class="fa fa-shopping-cart" style="font-size:24px;">
+                                <i class="fa fa-shopping-cart" style="font-size:24px">
                                     <span class="cart-count-badge">{{ count }}</span>
                                 </i>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item position-relative">
                             <a class="nav-link" href="{% url 'user_notification' %}">
                                 <i class="fa fa-bell" style="font-size:20px;">
                                     <span class="notification-badge">{{ notification_count }}</span>
@@ -80,13 +109,17 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user"></i>
                             </a>
-                            <div class="dropdown-content">
-                                <a href="{% url 'profile' %}">My Profile</a>
-                                <a href="{% url 'logout' %}">LOGOUT</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                             </div>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -109,7 +142,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login_page' %}">
-                                <i class="fa fa-shopping-cart" style="font-size:24px;"></i>
+                                <i class="fa fa-shopping-cart" style="font-size:24px"></i>
                             </a>
                         </li>
                     {% endif %}
@@ -119,33 +152,19 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function getCartCount() {
-            return parseInt(localStorage.getItem('cartCount')) || 0; // Default to 0 if no value in storage
-        }
-        function updateCartCount() {
-            const cartCountElement = document.getElementById('cart-count');
-            cartCountElement.textContent = getCartCount();
-        }
-        function addToCart() {
-            let currentCount = getCartCount();
-            currentCount++; // Increment the count
-            localStorage.setItem('cartCount', currentCount); // Save updated count to localStorage
-            updateCartCount(); // Reflect updated count in the navbar
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCartCount();
-            const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
-            addToCartButtons.forEach(button => {
-                button.addEventListener('click', addToCart);
-            });
-        });
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        console.log("Current count:", currentCount);
-        console.log("Cart count updated to:", getCartCount());
-    </script>
 </body>
 </html>
