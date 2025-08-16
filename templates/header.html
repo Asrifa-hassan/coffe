@@ -7,53 +7,7 @@
     <title>Responsive Navbar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-        body {
-          margin: 0;
-          font-family: Arial, Helvetica, sans-serif;
-        }
-        .topnav {
-          overflow: hidden;
-          background-color: #333;
-        }
-        .topnav a {
-          display: block;
-          color: #f2f2f2;
-          text-align: center;
-          padding: 14px 16px;
-          text-decoration: none;
-          font-size: 17px;
-        }
-        .topnav a:hover {
-          background-color: #ddd;
-          color: black;
-        }
-        .topnav a.active {
-          background-color: #04AA6D;
-          color: white;
-        }
-        .topnav .icon {
-          display: none;
-        }
-        @media screen and (max-width: 600px) {
-          .topnav a:not(:first-child) {display: none;}
-          .topnav a.icon {
-            float: right;
-            display: block;
-          }
-        }
-        @media screen and (max-width: 600px) {
-          .topnav.responsive {position: relative;}
-          .topnav.responsive .icon {
-            position: absolute;
-            right: 0;
-            top: 0;
-          }
-          .topnav.responsive a {
-            float: none;
-            display: block;
-          }
-        }
+    <style>
         .cart-count-badge {
             background: red;
             color: white;
@@ -80,11 +34,20 @@
 <div class="header_section header_bg">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- Logo -->
             <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="{% static 'images/logo.png' %}" alt="Logo">
             </a>
-            <div class="topnav" id="myTopnav">
-                <ul class="navbar-nav ">
+
+            <!-- Toggler button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar items -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
                     {% if user.is_active == 1 %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'user_home' %}">Home</a>
@@ -106,18 +69,16 @@
                                 </i>
                             </a>
                         </li>
+                        <!-- User dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user"></i>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
                                 <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                             </div>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -150,19 +111,9 @@
     </div>
 </div>
 
-<script>
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-</script>
+<!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>
