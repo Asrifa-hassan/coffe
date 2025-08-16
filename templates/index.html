@@ -739,21 +739,11 @@
     <div class="Header_section">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <!-- Logo -->
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'images/logo.png' %}" alt="Logo">
                 </a>
-
-                <!-- Toggle Button -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Menu -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="topnav" id="myTopnav">
                     <ul class="navbar-nav mr-auto" style="float:right;">
-                        <!-- Main Links -->
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'index' %}">Home</a>
                         </li>
@@ -769,17 +759,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                         </li>
-
-                        <!-- Cart -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login_page' %}">
                                 <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:20px"></i> Cart
                             </a>
                         </li>
-
-                        <!-- Login -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login_page' %}">Login</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -914,8 +903,10 @@
         </div>
       </div>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
         new Swiper(".swiper", {
           slidesPerView: 3,
           spaceBetween: 30,
@@ -925,19 +916,24 @@
             clickable: true,
           },
         });
-      });
-   </script>
-   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-   <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-   <script src="{% static 'js/script.js' %}"></script>
-<!-- jQuery -->
+    });
+
+
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+
+</script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Popper.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-
-<!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>
