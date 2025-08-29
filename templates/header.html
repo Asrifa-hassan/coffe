@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .navbar {
-            background-color: #333 !important;
+            background-color: #c93434 !important;
         }
         .navbar-nav .nav-link {
             color: #f2f2f2 !important;
@@ -46,7 +46,7 @@
             <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="{% static 'images/logo.png' %}" alt="Logo" style="height:40px;">
             </a>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ">  <!-- right aligned always -->
                     {% if user.is_active == 1 %}
                         <li class="nav-item">
