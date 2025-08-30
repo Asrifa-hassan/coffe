@@ -1,266 +1,56 @@
-<!-- {% extends 'header.html' %} -->
+{% extends 'header.html' %}
 {% load static %}
 {% block content %}
-<style>
-    /* General Reset */
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-    .about-section {
-        width: 100%;
-        padding: 80px 0;
-    }
-
-    .about-section_2 {
-        width: 100%;
-    }
-
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .col-md-6 {
-        flex: 1 1 50%;
-        padding: 15px;
-    }
-
-    /* Text box */
-    .about_taital_box {
-        padding-top: 15px;
-    }
-
-    .about_taital {
-        font-size: 2.5rem;
-        color: #3b3b3b;
-        text-transform: uppercase;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .about_taital_1 {
-        font-size: 1.8rem;
-        color: #3b3b3b;
-        margin: 10px 0;
-    }
-
-    .about_text {
-        font-size: 1rem;
-        color: #232222;
-        line-height: 1.6;
-    }
-
-    .about_img {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-    }
-
-    /* Buttons */
-    .readmore-btn {
-        margin-top: 30px;
-    }
-
-    .readmore-btn a {
-        display: inline-block;
-        font-size: 1rem;
-        color: #f01c1c;
-        text-transform: uppercase;
-        border: 1px solid #f01c1c;
-        padding: 10px 20px;
-        border-radius: 5px;
-        transition: all 0.3s ease;
-    }
-
-    .readmore-btn a:hover {
-        background: #f01c1c;
-        color: #fff;
-    }
-
-    /* Footer */
-    .footer_section {
-        background: #111;
-        color: #fff;
-        padding: 40px 0;
-        text-align: center;
-    }
-
-    .footer_social_icon ul {
-        padding: 0;
-        margin: 0 0 20px 0;
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    .footer_social_icon li a {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        background: #fff;
-        color: #1d1d1d;
-        border-radius: 50%;
-        line-height: 40px;
-        font-size: 18px;
-        transition: 0.3s;
-    }
-
-    .footer_social_icon li a:hover {
-        background: #f01c1c;
-        color: #fff;
-    }
-
-    .location_text ul {
-        list-style: none;
-        padding: 0;
-        margin: 20px 0;
-    }
-
-    .location_text li {
-        margin: 10px 0;
-    }
-
-    .location_text a {
-        color: #fff;
-        text-decoration: none;
-    }
-
-    .update_mail {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        margin-top: 10px;
-    }
-
-    .subscribe_bt a {
-        display: inline-block;
-        padding: 12px 20px;
-        background: #f01c1c;
-        color: #fff;
-        text-transform: uppercase;
-        border-radius: 5px;
-        margin-top: 10px;
-        transition: 0.3s;
-    }
-
-    .subscribe_bt a:hover {
-        background: #c11212;
-    }
-
-    .copyright_section {
-        background: #000;
-        color: #aaa;
-        padding: 15px 0;
-        text-align: center;
-        font-size: 0.9rem;
-    }
-
-    /* RESPONSIVE DESIGN */
-    @media (max-width: 992px) {
-        .about_taital {
-            font-size: 2rem;
-        }
-        .about_taital_1 {
-            font-size: 1.5rem;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .row {
-            flex-direction: column;
-            text-align: center;
-        }
-        .col-md-6 {
-            flex: 1 1 100%;
-        }
-        .about_taital,
-        .about_taital_1 {
-            text-align: center;
-        }
-        .readmore-btn {
-            margin: 20px auto;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .about_taital {
-            font-size: 1.6rem;
-        }
-        .about_taital_1 {
-            font-size: 1.2rem;
-        }
-        .about_text {
-            font-size: 0.9rem;
-        }
-    }
-</style>
-
-<body>
-    <div class="about-section">
-        <div class="container">
-            <div class="about-section_2">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="about_taital_box">
-                            <h1 class="about_taital">About Our Shop</h1>
-                            <h1 class="about_taital_1">Coffee Distribution</h1>
-                            <p class="about_text">
-                                Has a more-or-less normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English. Many desktop
-                                publishing packages and web page editors...
-                            </p>
-                            <div class="readmore-btn">
-                                <a href="#">Read More</a>
-                            </div>
+<div class="about-section">
+    <div class="container">
+        <div class="about-section_2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="about_taital_box">
+                        <h1 class="about_taital">About Our Shop</h1>
+                        <h1 class="about_taital_1">Coffee Distribution</h1>
+                        <p class="about_text">
+                            Has a more-or-less normal distribution of letters, as opposed to using
+                            'Content here, content here', making it look like readable English. 
+                        </p>
+                        <div class="readmore-btn">
+                            <a href="#">Read More</a>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <img src="{% static 'images/about-img.png' %}" class="about_img">
-                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="{% static 'images/about-img.png' %}" class="about_img">
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Footer -->
-    <div class="footer_section">
-        <div class="container">
-            <div class="footer_social_icon">
-                <ul>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                </ul>
-            </div>
-            <div class="location_text">
-                <ul>
-                    <li><a href="#"><i class="fa fa-phone"></i> +01 1234567890</a></li>
-                    <li><a href="#"><i class="fa fa-envelope"></i> demo@gmail.com</a></li>
-                </ul>
-            </div>
-            <textarea class="update_mail" placeholder="Your Email"></textarea>
-            <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right"></i></a></div>
+<!-- Footer -->
+<div class="footer_section">
+    <div class="container">
+        <div class="footer_social_icon">
+            <ul>
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+            </ul>
         </div>
-    </div>
-
-    <div class="copyright_section">
-        <div class="container">
-            <p class="copyright_text">2025 All Rights Reserved. Design by</p>
+        <div class="location_text">
+            <ul>
+                <li><a href="#"><i class="fa fa-phone"></i> +01 1234567890</a></li>
+                <li><a href="#"><i class="fa fa-envelope"></i> demo@gmail.com</a></li>
+            </ul>
         </div>
+        <textarea class="update_mail" placeholder="Your Email"></textarea>
+        <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right"></i></a></div>
     </div>
+</div>
 
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-</body>
+<div class="copyright_section">
+    <div class="container">
+        <p class="copyright_text">2025 All Rights Reserved. Design by</p>
+    </div>
+</div>
 {% endblock %}
