@@ -1342,6 +1342,15 @@ textarea#comment.update_mail::placeholder {
       }
    }
 /* Coffee Cards */
+.coffee_section .swiper {
+  padding: 20px 0;
+}
+
+.coffee_section .swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
 .coffee_section .card {
   border-radius: 15px;
   overflow: hidden;
@@ -1349,6 +1358,8 @@ textarea#comment.update_mail::placeholder {
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   transition: transform 0.3s ease-in-out;
   text-align: center;
+  width: 100%;
+  max-width: 300px; /* ensures nice row cards */
   padding: 15px;
 }
 
@@ -1356,46 +1367,6 @@ textarea#comment.update_mail::placeholder {
   transform: translateY(-8px);
 }
 
-.coffee_section .card-img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-bottom: 1px solid #eee;
-}
-
-.coffee_section .name {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.coffee_section .description {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 10px;
-  min-height: 50px;
-}
-
-.coffee_section .price {
-  font-size: 18px;
-  font-weight: 600;
-  color: #8B4513;
-  margin-bottom: 10px;
-}
-
-.coffee_section .read_bt a {
-  display: inline-block;
-  background: #8B4513;
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 14px;
-  transition: 0.3s;
-}
-
-.coffee_section .read_bt a:hover {
-  background: #5a2d0c;
-}
 
 /* Footer */
 .footer_section {
