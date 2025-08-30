@@ -1124,7 +1124,6 @@ textarea#comment.update_mail::placeholder {
     border-radius: 5px;
 }
 .navbar-nav .active {
-    background-color: #04AA6D;
     color: white !important;
     border-radius: 5px;
 }
