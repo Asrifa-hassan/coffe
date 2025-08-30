@@ -7,36 +7,42 @@
     <title>Responsive Navbar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .navbar {
-            background-color: #c93434 !important;
-        }
-        .navbar-nav .nav-link {
-            color: #f2f2f2 !important;
-            font-size: 17px;
-        }
-        .navbar-nav .nav-link:hover {
-            background-color: #ddd;
-            color: black !important;
-            border-radius: 5px;
-        }
-        .navbar-nav .active {
-            background-color: #04AA6D;
-            color: white !important;
-            border-radius: 5px;
-        }
-        .cart-count-badge, .notification-badge {
-            font-size: 10px;
-            padding: 2px 5px;
-            border-radius: 50%;
-            position: absolute;
-            top: 0;
-            right: -5px;
-            color: white;
-        }
-        .cart-count-badge { background: red; }
-        .notification-badge { background: orange; }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+    .navbar {
+        background-color: #c93434 !important;
+    }
+    .navbar-nav .nav-link {
+        color: #f2f2f2 !important;
+        font-size: 17px;
+    }
+    .navbar-nav .nav-link:hover {
+        background-color: #ddd;
+        color: black !important;
+        border-radius: 5px;
+    }
+    .navbar-nav .active {
+        background-color: #04AA6D;
+        color: white !important;
+        border-radius: 5px;
+    }
+    .cart-count-badge,
+    .notification-badge {
+        font-size: 10px;
+        padding: 2px 5px;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        right: -5px;
+        color: white;
+    }
+    .cart-count-badge {
+        background: red;
+    }
+    .notification-badge {
+        background: orange;
+    }
+</style>
 </head>
 <body>
 <div class="header_section header_bg">
@@ -46,9 +52,15 @@
             <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="{% static 'images/logo.png' %}" alt="Logo" style="height:40px;">
             </a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ">  <!-- right aligned always -->
-                    {% if user.is_active == 1 %}
+            <!-- Toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto"> <!-- right aligned -->
+                    {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'user_home' %}">Home</a>
                         </li>
@@ -74,7 +86,7 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user"></i>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
                                 <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                             </div>
