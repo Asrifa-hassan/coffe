@@ -1406,12 +1406,13 @@ textarea#comment.update_mail::placeholder {
 /* ✅ Don’t override Swiper’s flex, let it calculate properly */
 .swiper-slide {
   flex-shrink: 0;
-  width: 300px;   /* fixed card width */
+  width: 200px;   /* fixed card width */
   display: flex;
   justify-content: center;
 }
 .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
     bottom: var(--swiper-pagination-bottom, 1px);
+    height: 600px;
     top: var(--swiper-pagination-top, auto);
     left: 0;
     width: 100%;
