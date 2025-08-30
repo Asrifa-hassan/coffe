@@ -2,50 +2,38 @@
 {% load static %}
 {% block content %}
 
-<div class="coffee_section py-5">
-  <div class="container">
-    <div class="row mb-4">
-      <div class="col-md-12 text-center">
-        <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
-      </div>
-    </div>
+<div class="coffee_section">
+  <div class="slide-container swiper">
+    <div class="swiper-wrapper">
 
-    <!-- Swiper Row -->
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        {% for i in data %}
-        <div class="swiper-slide">
-          <div class="card coffee-card h-100">
-            <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
-            <div class="card-body text-center">
-              <h5 class="name">{{ i.item_name }}</h5>
-              <p class="description">{{ i.description|truncatewords:20 }}</p>
-              <h4 class="price">₹{{ i.price }}</h4>
-
-              {% if user.is_authenticated %}
-                <div class="read_bt">
-                  <a href="{% url 'add_to_cart' i.id %}">Add to Cart</a>
-                </div>
-              {% else %}
-                <div class="read_bt">
-                  <a href="{% url 'login_page' %}">Login to Add</a>
-                </div>
-              {% endif %}
+      {% for i in data %}
+      <div class="swiper-slide">
+        <div class="card coffee-card">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
             </div>
           </div>
-        </div>
-        {% empty %}
-        <div class="swiper-slide">
-          <p>No coffee items available right now.</p>
-        </div>
-        {% endfor %}
-      </div>
+          <div class="card-content">
+            <h2 class="name">{{ i.item_name }}</h2>
+            <p class="description">{{ i.description|truncatewords:20 }}</p>
+            <h4 class="price">₹{{ i.price }}</h4>
 
-      <!-- Pagination + Arrows -->
-      <div class="swiper-pagination"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+            {% if user.is_authenticated %}
+              <div class="read_bt"><a href="{% url 'add_to_cart' i.id %}">Add to Cart</a></div>
+            {% else %}
+              <div class="read_bt"><a href="{% url 'login_page' %}">Login to Add</a></div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
     </div>
+
+    <!-- Swiper dots -->
+    <div class="swiper-pagination"></div>
   </div>
 </div>
 
@@ -53,20 +41,21 @@
 <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    new Swiper(".mySwiper", {
+    new Swiper(".slide-container", {
+      slidesPerView: 3,   // 3 cards in one row
+      spaceBetween: 25,
       loop: true,
-      spaceBetween: 20,
-      pagination: { el: ".swiper-pagination", clickable: true },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
+      grabCursor: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
       },
       breakpoints: {
-        320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
-        576: { slidesPerView: 2, spaceBetween: 15 },   // small devices
-        768: { slidesPerView: 3, spaceBetween: 20 },   // tablets
-        1200: { slidesPerView: 4, spaceBetween: 25 },  // desktops
-      }
+        0: { slidesPerView: 1 },    // 1 card on mobile
+        768: { slidesPerView: 2 },  // 2 cards on tablet
+        1024: { slidesPerView: 3 }, // 3 cards on desktop
+      },
     });
   });
 </script>
