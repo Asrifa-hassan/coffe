@@ -35,31 +35,27 @@
 
     </div>
 
-    <!-- Swiper dots -->
+    <!-- Swiper pagination dots -->
     <div class="swiper-pagination"></div>
   </div>
 </div>
 
-<!-- Swiper JS -->
+<!-- Scripts -->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    new Swiper(".slide-container", {
-      slidesPerView: 3,  // 3 cards in a row
-      spaceBetween: 25,
+    new Swiper(".swiper", {
       loop: true,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
+      spaceBetween: 10,
+      pagination: { el: ".swiper-pagination", clickable: true },
       breakpoints: {
-        0: { slidesPerView: 1 },     // Mobile
-        768: { slidesPerView: 2 },   // Tablet
-        1024: { slidesPerView: 3 }   // Desktop
+        320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
+        768: { slidesPerView: 2, spaceBetween: 20 },   // tablet
+        1024: { slidesPerView: 3, spaceBetween: 30 },  // desktop
       }
     });
   });
 </script>
-
 
 {% endblock %}
