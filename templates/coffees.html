@@ -1,99 +1,66 @@
 {% include 'header.html' %}
 {% load static %}
 {% block content %}
-   <div class="coffee_section">
-     <div class="container">
-       <div class="row">
-         <div class="col-md-12">
-           <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
-         </div>
-       </div>
-     </div>
-     <div class="swiper">
-       <div class="swiper-wrapper">
-         {% for i in data %}
-         <div class="swiper-slide">
-           <div class="card">
-             <div class="image-content">
-               <span class="overlay"></span>
-               <div class="card-image">
-                 <img src="{{ i.image.url }}" alt="" class="card-img">
-               </div>
-             </div>
-             <div class="card-content">
-               <h2 class="name">{{ i.item_name }}</h2>
-               <p class="description">{{ i.description }}</p>
-               <h4 class="price">{{ i.price }}</h4>
-               {% if user.is_active == 1 %}
-                 <div class="read_bt"><a href="{% url 'add_to_cart' i.id %}">Add to cart</a></div>
-               {% else %}
-                 <div class="read_bt"><a href="{% url 'login_page' %}">Add to cart</a></div>
-               {% endif %}
-             </div>
-           </div>
-         </div>
-         {% endfor %}
-       </div>
-       <div class="swiper-pagination"></div>
-     </div>
-   </div>
-   <div class="footer_section layout_padding">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="footer_social_icon">
-                  <ul>
-                     <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                  </ul>
-               </div>
-               <div class="location_text">
-                  <ul>
-                     <li>
-                        <a href="#">
-                           <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="#">
-                           <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
-                        </a>
-                     </li>
-                  </ul>
-               </div>
-               <div class="form-group">
-                  <textarea class="update_mail" placeholder="Your Email" name="Your Email"></textarea>
-                  <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
-               </div>
-            </div>
-         </div>
+
+<div class="coffee_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
       </div>
-   </div>
-   <div class="copyright_section">
-      <div class="container">
-         <div class="row">
-            <div class="col-sm-12">
-               <p class="copyright_text">2020 All Rights Reserved. Design by</p>
+    </div>
+  </div>
+
+  <!-- Swiper Slider -->
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {% for i in data %}
+      <div class="swiper-slide">
+        <div class="card">
+          <div class="image-content">
+            <div class="card-image">
+              <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
             </div>
-         </div>
+          </div>
+          <div class="card-content">
+            <h2 class="name">{{ i.item_name }}</h2>
+            <p class="description">{{ i.description|truncatewords:20 }}</p>
+            <h4 class="price">₹{{ i.price }}</h4>
+
+            {% if user.is_authenticated %}
+              <div class="read_bt"><a href="{% url 'add_to_cart' i.id %}">Add to cart</a></div>
+            {% else %}
+              <div class="read_bt"><a href="{% url 'login_page' %}">Add to cart</a></div>
+            {% endif %}
+          </div>
+        </div>
       </div>
-   </div>
-   <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        new Swiper(".swiper", {
-          slidesPerView: 3,
-          spaceBetween: 30,
-          loop: true,
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
-        });
-      });
-   </script>
-   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-   <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-   <script src="{% static 'js/script.js' %}"></script>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+{% include 'footer.html' %}
+
+<!-- Scripts -->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Swiper(".swiper", {
+      loop: true,
+      spaceBetween: 30,
+      pagination: { el: ".swiper-pagination", clickable: true },
+      breakpoints: {
+        320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
+        768: { slidesPerView: 2, spaceBetween: 20 },   // tablet
+        1024: { slidesPerView: 3, spaceBetween: 30 },  // desktop
+      }
+    });
+  });
+</script>
+
 {% endblock %}
