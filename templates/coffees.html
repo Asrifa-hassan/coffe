@@ -2,49 +2,42 @@
 {% load static %}
 {% block content %}
 
-<div class="coffee_section">
+<div class="coffee_section py-5">
   <div class="container">
-    <div class="row">
+    <div class="row mb-4">
       <div class="col-md-12 text-center">
         <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
       </div>
     </div>
-  </div>
 
-  <!-- Swiper Slider -->
-  <div class="swiper">
-    <div class="swiper-wrapper">
+    <div class="row">
       {% for i in data %}
-      <div class="swiper-slide">
-        <div class="card">
-          <div class="image-content">
-            <div class="card-image">
-              <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
-            </div>
-          </div>
-          <div class="card-content">
-            <h2 class="name">{{ i.item_name }}</h2>
-            <p class="description">{{ i.description|truncatewords:20 }}</p>
+      <div class="col-md-4 col-sm-6 mb-4 d-flex">
+        <div class="card coffee-card h-100 w-100">
+          <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img-top">
+          <div class="card-body text-center d-flex flex-column">
+            <h5 class="card-title">{{ i.item_name }}</h5>
+            <p class="card-text flex-grow-1">{{ i.description|truncatewords:20 }}</p>
             <h4 class="price">₹{{ i.price }}</h4>
 
             {% if user.is_authenticated %}
-              <div class="read_bt"><a href="{% url 'add_to_cart' i.id %}">Add to cart</a></div>
+              <a href="{% url 'add_to_cart' i.id %}" class="btn btn-coffee mt-auto">Add to Cart</a>
             {% else %}
-              <div class="read_bt"><a href="{% url 'login_page' %}">Add to cart</a></div>
+              <a href="{% url 'login_page' %}" class="btn btn-coffee mt-auto">Login to Add</a>
             {% endif %}
           </div>
         </div>
       </div>
+      {% empty %}
+        <div class="col-md-12 text-center">
+          <p>No coffee items available right now.</p>
+        </div>
       {% endfor %}
     </div>
-
-    <!-- Pagination -->
-    <div class="swiper-pagination"></div>
   </div>
 </div>
 
-
-<!-- Scripts -->
+<!-- Bootstrap JS -->
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 <script>
