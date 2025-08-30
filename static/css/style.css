@@ -1349,6 +1349,11 @@ textarea#comment.update_mail::placeholder {
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   transition: transform 0.3s ease-in-out;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* push button to bottom */
+  height: 400px; /* 🔥 fixed card height so all match */
+  padding: 10px;
 }
 
 .coffee-card:hover {
@@ -1357,7 +1362,7 @@ textarea#comment.update_mail::placeholder {
 
 .coffee-card .card-img {
   width: 100%;
-  height:fit-content;
+  height: 160px; /* 🔥 fixed image height */
   object-fit: cover;
   border-bottom: 1px solid #eee;
 }
@@ -1372,17 +1377,22 @@ textarea#comment.update_mail::placeholder {
   font-size: 14px;
   color: #555;
   margin-bottom: 10px;
-  min-height: 50px;
+  min-height: 45px; /* 🔥 ensures equal text block height */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* limit to 2 lines */
+  -webkit-box-orient: vertical;
 }
 
 .coffee-card .price {
   font-size: 18px;
   font-weight: 600;
   color: #8B4513;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-/* ✅ Fixed: match class name with HTML (.read_btn instead of .read_bt) */
+/* ✅ Styled button */
 .read_btn a {
   display: inline-block;
   background: #8B4513;
@@ -1396,27 +1406,44 @@ textarea#comment.update_mail::placeholder {
 
 .read_btn a:hover {
   background: #5a2d0c;
+  transform: scale(1.05);
 }
 
+/* ✅ Swiper styles */
 .swiper {
   width: 100%;
   padding: 40px 0;
 }
 
-/* ✅ Don’t override Swiper’s flex, let it calculate properly */
 .swiper-slide {
   flex-shrink: 0;
-  width: 200px;   /* fixed card width */
+  width: 220px; /* 🔥 all cards same width */
   display: flex;
   justify-content: center;
 }
-.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
-    bottom: var(--swiper-pagination-bottom, 1px);
-    height: 600px;
-    top: var(--swiper-pagination-top, auto);
-    left: 0;
-    width: 100%;
+
+/* ✅ Pagination dots */
+.swiper-pagination {
+  position: relative;
+  margin-top: 15px;
+  text-align: center;
 }
+
+.swiper-pagination-bullet {
+  background: #8B4513;
+  opacity: 0.6;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px !important;
+  transition: 0.3s;
+}
+
+.swiper-pagination-bullet-active {
+  background: #5a2d0c;
+  opacity: 1;
+  transform: scale(1.3);
+}
+
 /* Footer */
 .footer_section {
   background: #222;
