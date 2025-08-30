@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 
+<!-- Coffee Section -->
 <div class="coffee_section">
   <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
 
@@ -41,18 +42,22 @@
 </div>
 
 <!-- Scripts -->
+<link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    new Swiper(".swiper", {
+    new Swiper(".slide-container", {   // ✅ FIXED selector
       loop: true,
       spaceBetween: 10,
-      pagination: { el: ".swiper-pagination", clickable: true },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
       breakpoints: {
         320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
         768: { slidesPerView: 2, spaceBetween: 20 },   // tablet
-        1024: { slidesPerView: 3, spaceBetween: 30 },  // desktop
+        1024: { slidesPerView: 3, spaceBetween: 30 }   // desktop
       }
     });
   });

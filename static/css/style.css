@@ -1382,7 +1382,8 @@ textarea#comment.update_mail::placeholder {
   margin-bottom: 15px;
 }
 
-.read_bt a {
+/* ✅ Fixed: match class name with HTML (.read_btn instead of .read_bt) */
+.read_btn a {
   display: inline-block;
   background: #8B4513;
   color: #fff;
@@ -1393,25 +1394,23 @@ textarea#comment.update_mail::placeholder {
   text-decoration: none;
 }
 
-.read_bt a:hover {
+.read_btn a:hover {
   background: #5a2d0c;
 }
+
 .swiper {
   width: 100%;
   padding: 40px 0;
 }
 
-.swiper-wrapper {
-  display: flex; /* Important: makes slides go in a row */
-}
-
+/* ✅ Don’t override Swiper’s flex, let it calculate properly */
 .swiper-slide {
   flex-shrink: 0;
-  width: 300px; /* fixed card width */
-  height: auto;
+  width: 300px;   /* fixed card width */
   display: flex;
   justify-content: center;
 }
+
 /* Footer */
 .footer_section {
   background: #222;
