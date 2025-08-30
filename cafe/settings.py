@@ -27,13 +27,16 @@ SECRET_KEY = 'django-insecure-cn3i-2xz8h(tf-loqs7^%#vg)eoa@udc8j%8)vw-hxklnr__s!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'coffe-d4jf.onrender.com',  # your actual Render domain
-    'coffee-rnvk.onrender.com', # if you still want the old one
+    'coffe-d4jf.onrender.com',  # your Render URL
+    'coffee-rnvk.onrender.com', # keep old one if you want
     '127.0.0.1',
     'localhost'
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://coffee-rnvk.onrender.com']
+CSRF_TRUSTED_ORIGINS = [
+    'https://coffe-d4jf.onrender.com',
+    'https://coffee-rnvk.onrender.com'
+]
 
 
 # Application definition
