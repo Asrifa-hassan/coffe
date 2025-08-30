@@ -10,14 +10,14 @@
       </div>
     </div>
 
-    <!-- Swiper wrapper -->
+    <!-- Swiper -->
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
         {% for i in data %}
         <div class="swiper-slide">
           <div class="card coffee-card h-100">
             <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
-            <div class="card-body">
+            <div class="card-body text-center">
               <h5 class="name">{{ i.item_name }}</h5>
               <p class="description">{{ i.description|truncatewords:20 }}</p>
               <h4 class="price">₹{{ i.price }}</h4>
@@ -49,7 +49,7 @@
   </div>
 </div>
 
-<!-- Scripts -->
+<!-- Swiper JS -->
 <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
