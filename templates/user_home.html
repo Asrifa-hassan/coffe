@@ -711,7 +711,7 @@
                     <img src="{% static 'images/logo.png' %}" >
                 </a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class=" navbar-nav ml-auto">
+                    <ul class=" navbar-nav">
                         {% if user.is_active == 1 %}
                             <li class="nav-item">
                               <a class="nav-link " href="{% url 'user_home' %}">Home</a>
@@ -946,6 +946,7 @@
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
+
 
 
 
