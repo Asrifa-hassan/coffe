@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <!-- Swiper -->
+    <!-- Swiper Row -->
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
         {% for i in data %}
@@ -63,8 +63,9 @@
       },
       breakpoints: {
         320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
-        768: { slidesPerView: 2, spaceBetween: 15 },   // tablet
-        1024: { slidesPerView: 3, spaceBetween: 20 },  // desktop
+        576: { slidesPerView: 2, spaceBetween: 15 },   // small devices
+        768: { slidesPerView: 3, spaceBetween: 20 },   // tablets
+        1200: { slidesPerView: 4, spaceBetween: 25 },  // desktops
       }
     });
   });

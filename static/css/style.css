@@ -1363,7 +1363,7 @@ textarea#comment.update_mail::placeholder {
 }
 
 .coffee-card .name {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   margin: 10px 0;
 }
@@ -1396,7 +1396,6 @@ textarea#comment.update_mail::placeholder {
 .read_bt a:hover {
   background: #5a2d0c;
 }
-
 
 /* Footer */
 .footer_section {
