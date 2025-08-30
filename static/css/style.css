@@ -1396,7 +1396,22 @@ textarea#comment.update_mail::placeholder {
 .read_bt a:hover {
   background: #5a2d0c;
 }
+.swiper {
+  width: 100%;
+  padding: 40px 0;
+}
 
+.swiper-wrapper {
+  display: flex; /* Important: makes slides go in a row */
+}
+
+.swiper-slide {
+  flex-shrink: 0;
+  width: 300px; /* fixed card width */
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
 /* Footer */
 .footer_section {
   background: #222;

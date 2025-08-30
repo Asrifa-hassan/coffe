@@ -3,7 +3,9 @@
 {% block content %}
 
 <div class="coffee_section">
-  <div class="slide-container swiper">
+  <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
+
+  <div class="swiper slide-container">
     <div class="swiper-wrapper">
 
       {% for i in data %}
@@ -17,14 +19,15 @@
           </div>
           <div class="card-content">
             <h2 class="name">{{ i.item_name }}</h2>
-            <p class="description">{{ i.description|truncatewords:20 }}</p>
+            <p class="description">{{ i.description }}</p>
             <h4 class="price">₹{{ i.price }}</h4>
-
-            {% if user.is_authenticated %}
-              <div class="read_bt"><a href="{% url 'add_to_cart' i.id %}">Add to Cart</a></div>
-            {% else %}
-              <div class="read_bt"><a href="{% url 'login_page' %}">Login to Add</a></div>
-            {% endif %}
+            <div class="read_btn">
+              {% if user.is_authenticated %}
+                <a href="{% url 'add_to_cart' i.id %}">Add to Cart</a>
+              {% else %}
+                <a href="{% url 'login_page' %}">Login to Add</a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>
@@ -42,22 +45,21 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     new Swiper(".slide-container", {
-      slidesPerView: 3,   // 3 cards in one row
+      slidesPerView: 3,  // 3 cards in a row
       spaceBetween: 25,
       loop: true,
-      grabCursor: true,
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
-        dynamicBullets: true,
       },
       breakpoints: {
-        0: { slidesPerView: 1 },    // 1 card on mobile
-        768: { slidesPerView: 2 },  // 2 cards on tablet
-        1024: { slidesPerView: 3 }, // 3 cards on desktop
-      },
+        0: { slidesPerView: 1 },     // Mobile
+        768: { slidesPerView: 2 },   // Tablet
+        1024: { slidesPerView: 3 }   // Desktop
+      }
     });
   });
 </script>
+
 
 {% endblock %}
