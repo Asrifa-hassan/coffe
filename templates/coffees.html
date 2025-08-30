@@ -11,14 +11,10 @@
 
       {% for i in data %}
       <div class="swiper-slide">
-        <div class="card coffee-card">
-          <div class="image-content">
-            <span class="overlay"></span>
-            <div class="card-image">
-              <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
-            </div>
-          </div>
-          <div class="card-content" style="height:100%;">
+        <div class="coffee-card">
+          <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
+
+          <div class="card-content">
             <h2 class="name">{{ i.item_name }}</h2>
             <p class="description">{{ i.description }}</p>
             <h4 class="price">₹{{ i.price }}</h4>
@@ -47,9 +43,9 @@
 <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    new Swiper(".slide-container", {   // ✅ FIXED selector
+    new Swiper(".slide-container", {
       loop: true,
-      spaceBetween: 10,
+      spaceBetween: 20,
       pagination: {
         el: ".swiper-pagination",
         clickable: true
