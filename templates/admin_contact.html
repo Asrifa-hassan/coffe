@@ -233,8 +233,30 @@
     .table thead.thead-primary {
         background: black;
     }
-
-
+    .message-cell {
+      max-width: 250px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sidenav {
+        background: #333;
+        color: white;
+        height: 100vh;
+        width: 240px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        overflow-y: auto;
+    }
+    .col-sm-9 {
+        margin-left: 240px;
+    }
+    .sidenav ul li.active a {
+        background: #0056b3 !important;
+        color: #fff !important;
+        border-radius: 5px;
+    }
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
       .row.content {height: auto;}
@@ -286,8 +308,8 @@
                           <h1 class="h1 mb-4 text-center">GET IN TOUCH</h1>
                         </div>
                       </div>
-                      <div class="table-wrap">
-                        <table class="table">
+                      <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
                           <thead class="thead-primary">
                             <tr>
                               <th>S/N</th>
@@ -295,24 +317,24 @@
                               <th>Name</th>
                               <th>Email</th>
                               <th>Phone</th>
-                              <th>Date&Time</th>
+                              <th>Date & Time</th>
                               <th>Subject</th>
                               <th>Message</th>
                             </tr>
                           </thead>
                           <tbody>
-                          {% for i in contacts %}
+                            {% for i in contacts %}
                             <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ i.id }}</td>
-                                <td>{{ i.name }}</td>
-                                <td>{{ i.email }}</td>
-                                <td>{{ i.phone }}</td>
-                                <td>{{ i.created_at }}</td>
-                                <td>{{ i.subject }}</td>
-                                <td>{{ i.message }}</td>
+                              <td>{{ forloop.counter }}</td>
+                              <td>{{ i.id }}</td>
+                              <td>{{ i.name }}</td>
+                              <td>{{ i.email }}</td>
+                              <td>{{ i.phone }}</td>
+                              <td>{{ i.created_at|date:"M d, Y H:i" }}</td>
+                              <td>{{ i.subject }}</td>
+                              <td class="message-cell">{{ i.message }}</td>
                             </tr>
-                          {% endfor %}
+                            {% endfor %}
                           </tbody>
                         </table>
                       </div>

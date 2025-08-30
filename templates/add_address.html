@@ -1,196 +1,177 @@
 {% extends 'header.html' %}
-   {% load static %}
-      {% block content %}
-      <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
-<!--      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">-->
-   <style>
-      .footer_section {
-        width: 100%;
-        float: left;
-        height: auto;
-        background-color: #1d1d1d;
-        background-size: 100%;
-        padding: 50px 0px;
-      }
-      .footer_social_icon {
-         width: 100%;
-         margin: 0 auto;
-         text-align: center;
-      }
-      .footer_social_icon ul {
-         margin: 0px;
-         padding: 0px;
-         display: inline-block;
-      }
-      .footer_social_icon li {
-          float: left;
-      }
-      .form-group{
-          display: flex;
-          width: 50%;
-          margin: 0 auto;
-          text-align: center;
-      }
-      .update_mail {
-          color: #383838;
-          width: 100%;
-          height: 51px;
-          font-size: 18px;
-          padding: 10px 20px 0px 20px;
-          background-color: #efefef;
-          margin: 0 auto;
-          justify-content: center;
-          align-items: center;
-          display: block;
-          margin-top: 20px;
-          border: 1px solid #f01c1c;
-      }
-      .subscribe_bt {
-          width: 70px;
-          float: left;
-          padding-top: 20px;
-      }
-      .subscribe_bt a {
-          width: 100%;
-          float: left;
-          color: #fefefd;
-          font-size: 16px;
-          padding: 13px 0px 14px 0px;
-          background-color: #f01c1c;
-          text-transform: uppercase;
-          text-align: center;
-      }
-       .copyright_section {
-           width: 100%;
-           float: left;
-           background-color: #f01c1c;
-           height: auto;
-       }
-       .copyright_text {
-           width: 100%;
-           float: left;
-           font-size: 16px;
-           color: #fefefd;
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+<style>
+   /* === FOOTER === */
+   .footer_section {
+      width: 100%;
+      background-color: #1d1d1d;
+      padding: 50px 0;
+      text-align: center;
+   }
+   .footer_social_icon ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+   }
+   .footer_social_icon li a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      background: #fff;
+      color: #1d1d1d;
+      border-radius: 50%;
+      font-size: 18px;
+      transition: 0.3s;
+   }
+   .footer_social_icon li a:hover {
+      background: #f01c1c;
+      color: #fff;
+   }
+   .update_mail {
+      color: #383838;
+      width: 100%;
+      height: 50px;
+      font-size: 16px;
+      padding: 10px 15px;
+      background-color: #efefef;
+      margin-top: 20px;
+      border: 1px solid #f01c1c;
+      border-radius: 6px;
+      resize: none;
+   }
+   .subscribe_bt {
+      margin-top: 10px;
+   }
+   .subscribe_bt a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #f01c1c;
+      color: #fff;
+      text-transform: uppercase;
+      border-radius: 5px;
+      transition: 0.3s;
+   }
+   .subscribe_bt a:hover {
+      background-color: #c11212;
+   }
 
-           text-align: center;
-          margin-left: 0px;
-          font-family: 'Poppins', sans-serif;
-      }
-      .copyright_text a {
-          color: #fefefd;
-      }
-      .fa {
-         display: inline-block;
-         font-family: FontAwesome;
-         font-style: normal;
-         font-weight: normal;
-         line-height: 1;
-         margin-top: 0px;
-      }
-      i.fa.fa-shopping-cart{
-        font-size: 24px;
-        margin-top: 0px;
-      }
-      .address-section {
-         display: flex;
-         justify-content: center;
+   /* === COPYRIGHT === */
+   .copyright_section {
+      background-color: #f01c1c;
+      padding: 15px 0;
+      text-align: center;
+   }
+   .copyright_text {
+      font-size: 15px;
+      color: #fff;
+      margin: 0;
+   }
+
+   /* === ADDRESS FORM === */
+   .address-section {
+      display: flex;
+      justify-content: center;
+      padding: 30px 15px;
+      width: 100%;
+   }
+   .address-card {
+      max-width: 500px;
+      width: 100%;
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   }
+   .address-card h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+   }
+   .form-group {
+      margin-bottom: 18px;
+      width: 100%;
+   }
+   .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      background: #fafafa;
+      transition: 0.3s;
+   }
+   .form-group input:focus {
+      border-color: #038ecf;
+      background: #fff;
+      outline: none;
+   }
+   .form-group button {
+      width: 100%;
+      padding: 14px;
+      background-color: #038ecf;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s;
+   }
+   .form-group button:hover {
+      background-color: #027ab1;
+   }
+
+   /* === RESPONSIVE BREAKPOINTS === */
+   @media screen and (max-width: 768px) {
+      .address-card {
          padding: 20px;
-         width: 100%;
       }
-      .address-card {
-         max-width: 500px;
-         width: 100%;
-         background-color: #fff;
-         padding: 25px;
-         border-radius: 12px;
-         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      .address-card h2 {
-         text-align: center;
-         margin-bottom: 20px;
-         font-size: 24px;
-      }
-      .form-group {
-         margin-bottom: 15px;
-      }
-      .form-group input {
-         width: 100%;
-         padding: 10px;
-         border-radius: 8px;
-         border: 1px solid #ccc;
-      }
-      .form-group button {
-         width: 100%;
-         padding: 10px;
-         background-color: #6c5ce7;
-         color: #fff;
-         border: none;
-         border-radius: 8px;
-         cursor: pointer;
-      }
-      @media screen and (max-width: 600px) {
-      .address-card {
-         padding: 15px;
-      }
-
       .address-card h2 {
          font-size: 20px;
       }
+      .update_mail {
+         font-size: 14px;
       }
-
-      .form-group {
-         margin-bottom: 20px;
-         width:100%;
-      }
-      .form-group input {
-         width: 100%;
-         padding: 15px 20px;
-         border: 1px solid #ccc;
-         border-radius: 10px;
-         font-size: 16px;
-         background: #fafafa;
-         transition: border 0.3s ease;
-      }
-      .form-group input:focus {
-         outline: none;
-         border-color: #038ecf;
-         background: #fff;
-      }
+      .form-group input,
       .form-group button {
-         width: 100%;
-         padding: 14px;
-         background-color: #038ecf;
-         border: none;
-         border-radius: 10px;
-         color: white;
+         font-size: 14px;
+         padding: 10px;
+      }
+   }
+   @media screen and (max-width: 480px) {
+      .address-card {
+         padding: 15px;
+      }
+      .address-card h2 {
          font-size: 18px;
-         font-weight: 500;
-         cursor: pointer;
-         transition: background-color 0.3s ease;
       }
-      .form-group button:hover {
-         background-color: #027ab1;
+      .footer_social_icon li a {
+         width: 35px;
+         height: 35px;
+         line-height: 35px;
+         font-size: 16px;
       }
-      .cart-count-badge {
-         position: absolute;
-         top: 22px;
-         right: 156px;
-         background-color: red !important;
-         color: white;
-         font-size: 12px;
-         font-weight: bold;
-         border-radius: 50%;
-         padding: 2px 5px;
-         min-width: 16px;
-         text-align: center;
+      .subscribe_bt a {
+         font-size: 14px;
+         padding: 10px 15px;
       }
-   </style>
+   }
+</style>
+
 <body>
+   <!-- Address Form -->
    <div class="coffee_section">
       <div class="address-section">
          <div class="address-card">
             <h2>Add New Address</h2>
-            <form action="{% url 'add_address' %}" method="post" enctype="multipart/form-data">
+            <form action="{% url 'add_address' %}" method="post">
                {% csrf_token %}
                <div class="form-group">
                   <input type="text" name="address" placeholder="Address" required>
@@ -214,52 +195,41 @@
          </div>
       </div>
    </div>
-   <div class="footer_section layout_padding">
+
+   <!-- Footer -->
+   <div class="footer_section">
       <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="footer_social_icon">
-                  <ul>
-                     <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                  </ul>
-               </div>
-               <div class="location_text">
-                  <ul>
-                     <li>
-                        <a href="#">
-                           <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="#">
-                           <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
-                        </a>
-                     </li>
-                  </ul>
-               </div>
-               <div class="form-group">
-                  <textarea class="update_mail" placeholder="Your Email" name="Your Email"></textarea>
-                  <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
-               </div>
-            </div>
+         <div class="footer_social_icon">
+            <ul>
+               <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+               <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+               <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+               <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+         </div>
+         <div class="location_text">
+            <ul style="list-style:none; padding:0; margin:15px 0;">
+               <li><a href="#"><i class="fa fa-phone"></i> +01 1234567890</a></li>
+               <li><a href="#"><i class="fa fa-envelope"></i> demo@gmail.com</a></li>
+            </ul>
+         </div>
+         <textarea class="update_mail" placeholder="Your Email"></textarea>
+         <div class="subscribe_bt">
+            <a href="#"><i class="fa fa-arrow-right"></i></a>
          </div>
       </div>
    </div>
+
+   <!-- Copyright -->
    <div class="copyright_section">
       <div class="container">
-         <div class="row">
-            <div class="col-sm-12">
-               <p class="copyright_text">2020 All Rights Reserved. Design by</p>
-            </div>
-         </div>
+         <p class="copyright_text">2025 All Rights Reserved. Design by</p>
       </div>
    </div>
+
+   <!-- Scripts -->
    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
    <script src="{% static 'js/script.js' %}"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 {% endblock %}

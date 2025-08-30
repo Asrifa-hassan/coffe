@@ -15,13 +15,17 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
     .sidenav {
-        background: #333;
-        color: white;
-        height: 100vh;
-        padding-top: 19px;
-        position: relative;
-        width: 25%;
-        overflow: auto;
+      background: #333;
+      color: white;
+      height: 100vh;
+      width: 240px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+    }
+    .col-sm-9 {
+      margin-left: 240px;
     }
     .ftco-section {
       padding: 0em 0;
@@ -125,6 +129,15 @@
     .table {
       min-width: 846px !important;
     }
+    .table img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .table tbody tr:hover {
+      background: #f9f9f9;
+    }
   </style>
 </head>
 <body>
@@ -163,50 +176,16 @@
         </div>
         <div class="col-sm-9" style="height: 500px; width: 1070px; overflow-x: hidden;overflow-y: scroll;scroll-snap-type: y mandatory;">
           <br>
-           {% if messages %}
-            <ul class="messages" style="display:none;">
-                {% for message in messages %}
-                    <li class="message-item">
-                        {% if 'warning' in message.tags %}
-                            <div class="alert alert-warning alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Warning!</strong> {{ message }}
-                            </div>
-                        {% elif 'success' in message.tags %}
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Success!</strong> {{ message }}
-                            </div>
-                        {% elif 'error' in message.tags %}
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Error!</strong> {{ message }}
-                            </div>
-                        {% elif 'info' in message.tags %}
-                            <div class="alert alert-info alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Info!</strong> {{ message }}
-                            </div>
-                        {% else %}
-                            <div class="alert alert-secondary alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Notice:</strong> {{ message }}
-                            </div>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              {% endfor %}
+            {% endif %}
         <section class="ftco-section">
           <div class="container">
             <div class="row">
@@ -220,8 +199,8 @@
                         <a href="{% url 'add_item' %}"><button class="btn btn-round btn-primary" type="button">Add</button></a>
                       </div>
                     </div>
-                    <div class="table-wrap">
-                      <table class="table">
+                    <div class="table-wrap table-responsive">
+                      <table class="table table-striped table-bordered">
                         <thead class="thead-primary">
                           <tr>
                             <th>#</th>
@@ -245,7 +224,7 @@
                                   <span>{{ i.item_name }}</span>
                                 </div>
                             </td>
-                            <td class="align-content-center">₹{{ i.price }}</td>
+                            <td class="align-content-center">₹{{ i.price|floatformat:2 }}</td>
                             <td class="quantity">
                               <a href="{% url 'admin_view_product' i.id %}">view</a>
                             </td>
@@ -266,6 +245,7 @@
                     </div>
                     <div class="container" style="width:50%;height:400px; margin:auto;">
                       <img src="{% static 'images/no-data.png'%}">
+                      <p class="text-center text-muted">No products found. Add new items to get started.</p>
                     </div>
                 {% endif %}
                 </div>

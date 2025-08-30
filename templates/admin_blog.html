@@ -142,12 +142,18 @@
       background-color: #038ecf;
       border-color: #038ecf;
     }
+    .description {
+      max-width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   </style>
 </head>
 <body>
     <div class="container-fluid">
       <div class="row content">
-        <div class="col-sm-3 sidenav hidden-xs" style="width:980px">
+        <div class="col-sm-3 sidenav hidden-xs">
           <h2>COFFO</h2>
           <ul class="nav nav-pills nav-stacked">
             <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
@@ -180,50 +186,17 @@
         </div>
         <div class="col-sm-9">
           <br>
-           {% if messages %}
-            <ul class="messages" style="display:block;">
-                {% for message in messages %}
-                    <li class="message-item">
-                        {% if 'warning' in message.tags %}
-                            <div class="alert alert-warning alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Warning!</strong> {{ message }}
-                            </div>
-                        {% elif 'success' in message.tags %}
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Success!</strong> {{ message }}
-                            </div>
-                        {% elif 'error' in message.tags %}
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Error!</strong> {{ message }}
-                            </div>
-                        {% elif 'info' in message.tags %}
-                            <div class="alert alert-info alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Info!</strong> {{ message }}
-                            </div>
-                        {% else %}
-                            <div class="alert alert-secondary alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <strong>Notice:</strong> {{ message }}
-                            </div>
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+          <div class="messages">
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              {% endfor %}
+          </div>
+        </div>
         <section class="ftco-section">
           <div class="container">
             <div class="row">
@@ -237,7 +210,7 @@
                         <a href="{% url 'add_blog' %}"><button class="btn btn-round btn-primary" type="button">Add</button></a>
                       </div>
                     </div>
-                    <div class="table-wrap" style="height:500px; overflow-x: hidden;overflow-y: scroll;scroll-snap-type: y mandatory;">
+                    <div class="table-wrap table-responsive">
                       <table class="table">
                         <thead class="thead-primary">
                           <tr>
@@ -259,7 +232,7 @@
                             {% endif %}
                             </td>
                             <td class="align-content-start">
-                                <div class="email">{{ i.date }}</div>
+                                <div class="email">{{ i.date|date:"M d, Y" }}</div>
                             </td>
                             <td class="title">{{ i.title }}</td>
                             <td class="description" style="line-break: anywhere;">{{ i.description }}</td>
