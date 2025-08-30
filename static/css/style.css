@@ -1410,7 +1410,12 @@ textarea#comment.update_mail::placeholder {
   display: flex;
   justify-content: center;
 }
-
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+    bottom: var(--swiper-pagination-bottom, 1px);
+    top: var(--swiper-pagination-top, auto);
+    left: 0;
+    width: 100%;
+}
 /* Footer */
 .footer_section {
   background: #222;
