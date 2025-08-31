@@ -21,7 +21,7 @@
                         <h5 class="card-title">{{ i.title }}</h5>
                         <p class="text-muted mb-2">{{ i.date|date:"F j, Y" }}</p>
                         <p class="card-text flex-grow-1">{{ i.description|truncatewords:25 }}</p>
-                        <a href="{% url 'blog_read' i.id %}" class="btn btn-primary mt-2 align-self-start">Read More</a>
+                        <a href="{% url 'blog_read' i.id %}" class="btn btn-primary mt-2 align-self-start" style="background-color:#8c4512;border: none;">Read More</a>
                     </div>
                 </div>
             </div>
