@@ -1351,20 +1351,25 @@ textarea#comment.update_mail::placeholder {
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* push button to bottom */
-  height: 400px; /* 🔥 fixed card height so all match */
+  justify-content: space-between;
+  height: 400px;   /* fixed card height */
   padding: 10px;
 }
 
-.coffee-card:hover {
-  transform: translateY(-8px);
+.card-image {
+  flex: 1;   /* image grows to take free space */
+  display: flex;
 }
 
 .coffee-card .card-img {
   width: 100%;
-  height: 160px; /* 🔥 fixed image height */
-  object-fit: cover;
-  border-bottom: 1px solid #eee;
+  height: 100%;       /* 🔥 fill available height */
+  object-fit: cover;  /* maintain proportions */
+}
+
+
+.coffee-card:hover {
+  transform: translateY(-8px);
 }
 
 .coffee-card .name {
