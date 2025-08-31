@@ -510,6 +510,7 @@ button {
 
 .coffee_section {
     width: 100%;
+    height: 500px;
     float: left;
 }
 
@@ -1433,7 +1434,10 @@ textarea#comment.update_mail::placeholder {
   margin-top: 15px;
   text-align: center;
 }
-
+.swiper-horizontal {
+    touch-action: pan-y;
+    height: 480px;
+}
 .swiper-pagination-bullet {
   background: #8B4513;
   opacity: 0.6;
