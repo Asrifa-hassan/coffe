@@ -1343,36 +1343,39 @@ textarea#comment.update_mail::placeholder {
       }
    }
 /* Coffee Cards */
+/* ✅ Coffee Card */
 .coffee-card {
-    border-radius: 15px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 600px;
-    padding: 10px;
-}
-
-.card-image {
-  flex-grow: 1;       /* take all remaining space */
-  min-height: 160px; 
-  height: 300px; /* don’t collapse too small */
-}
-
-.coffee-card .card-img {
-    width: 100%;
-    object-fit: cover;
-    border-bottom: 1px solid #eee;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease-in-out;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 420px; /* all cards equal */
+  padding: 10px;
 }
 
 .coffee-card:hover {
   transform: translateY(-8px);
 }
 
+/* ✅ Image always same size */
+.card-image {
+  width: 100%;
+  height: 220px; /* fixed height for product-style cards */
+  overflow: hidden;
+}
+
+.coffee-card .card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* keep aspect ratio while covering */
+}
+
+/* ✅ Text */
 .coffee-card .name {
   font-size: 18px;
   font-weight: bold;
@@ -1383,11 +1386,11 @@ textarea#comment.update_mail::placeholder {
   font-size: 14px;
   color: #555;
   margin-bottom: 10px;
-  min-height: 45px; /* 🔥 ensures equal text block height */
+  min-height: 40px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* limit to 2 lines */
+  -webkit-line-clamp: 2; 
   -webkit-box-orient: vertical;
 }
 
@@ -1423,7 +1426,7 @@ textarea#comment.update_mail::placeholder {
 
 .swiper-slide {
   flex-shrink: 0;
-  width: 220px; /* 🔥 all cards same width */
+  width: 240px; /* consistent card width */
   display: flex;
   justify-content: center;
 }
@@ -1434,10 +1437,7 @@ textarea#comment.update_mail::placeholder {
   margin-top: 15px;
   text-align: center;
 }
-.swiper-horizontal {
-    touch-action: pan-y;
-    height: 480px;
-}
+
 .swiper-pagination-bullet {
   background: #8B4513;
   opacity: 0.6;
