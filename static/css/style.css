@@ -1346,7 +1346,7 @@ textarea#comment.update_mail::placeholder {
 .coffee-card {
   display: flex;
   flex-direction: column;
-  height: 400px;
+  height: 600px;
 }
 
 .card-image {
