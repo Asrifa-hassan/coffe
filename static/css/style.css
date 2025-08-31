@@ -1359,7 +1359,8 @@ textarea#comment.update_mail::placeholder {
 
 .card-image {
   flex-grow: 1;       /* take all remaining space */
-  min-height: 160px;  /* don’t collapse too small */
+  min-height: 160px; 
+  height: 300px; /* don’t collapse too small */
 }
 
 .coffee-card .card-img {
