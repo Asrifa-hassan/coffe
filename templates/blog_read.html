@@ -16,24 +16,24 @@
 
       .blog {
          display: grid;
-         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-         gap: 1.8rem;
-         margin: 30px auto;
-         max-width: 1100px;
-         padding: 0 15px;
-         justify-items: center; /* Center cards inside grid */
+         grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* wider cards */
+         gap: 2rem;
+         margin: 40px auto;
+         max-width: 1300px;
+         padding: 0 20px;
+         justify-items: center;
       }
 
       .blog-box {
          background: #fff;
          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-         padding: 18px;
+         padding: 22px;
          border-radius: 0.6rem;
          display: flex;
          flex-direction: column;
          align-items: center;
-         text-align: center; /* Center text */
-         max-width: 350px;
+         text-align: left; /* better for reading description */
+         max-width: 100%; 
          transition: transform 0.2s ease-in-out;
       }
 
@@ -43,51 +43,46 @@
 
       .blog-img {
          width: 100%;
-         height: 220px;
+         height: 260px;
          object-fit: cover;
          object-position: center;
          border-radius: 0.5rem;
-         margin-bottom: 12px;
+         margin-bottom: 14px;
       }
 
       .blog-title {
-         font-weight: 600;
-         font-size: 1.2rem;
+         font-weight: 700;
+         font-size: 1.4rem;
          color: #222;
-         margin: 6px 0;
-         display: -webkit-box;
-         -webkit-line-clamp: 2;
-         -webkit-box-orient: vertical;
-         overflow: hidden;
+         margin: 8px 0;
       }
 
       .blog-date {
-         font-size: 0.85rem;
+         font-size: 0.9rem;
          text-transform: uppercase;
          color: #888;
-         margin-bottom: 8px;
+         margin-bottom: 10px;
       }
 
       .blog-description {
-         font-size: 0.95rem;
-         line-height: 1.5rem;
-         color: #555;
-         margin-bottom: 12px;
-         display: -webkit-box;
-         -webkit-line-clamp: 3; /* show 3 lines */
-         -webkit-box-orient: vertical;
-         overflow: hidden;
+         font-size: 1rem;
+         line-height: 1.6rem;
+         color: #444;
+         margin-bottom: 14px;
          text-align: justify;
+         white-space: pre-wrap; /* keeps line breaks if present */
       }
 
       /* Mobile tweaks */
       @media (max-width: 576px) {
-         .blog-title {
-            font-size: 1.05rem;
+         .blog {
+            grid-template-columns: 1fr; /* single column on mobile */
          }
-         .blog-description {
-            font-size: 0.9rem;
-            -webkit-line-clamp: 4; /* Show a bit more on small screens */
+         .blog-img {
+            height: 200px;
+         }
+         .blog-title {
+            font-size: 1.2rem;
          }
       }
     </style>
@@ -99,7 +94,7 @@
          <img src="{{ i.image.url }}" alt="{{ i.title }}" class="blog-img">
          <span class="blog-date">{{ i.date|date:"F j, Y" }}</span>
          <div class="blog-title">{{ i.title }}</div>
-         <p class="blog-description">{{ i.description|truncatewords:40 }}</p>
+         <p class="blog-description">{{ i.description }}</p> <!-- full description -->
       </div>
       {% endfor %}
    </div>
