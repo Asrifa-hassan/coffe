@@ -4,53 +4,56 @@
 
 <!-- BANNER SECTION -->
 <div class="Header_section banner-section text-center text-white d-flex flex-column justify-content-center align-items-center">
-  <h1 class="banner-taital">coffee<br>shop</h1>
-  <p class="banner_text">more-or-less normal distribution of letters, as opposed to using</p>
-  <div class="btn_main d-flex justify-content-center gap-3">
-    <a href="{% url 'about' %}" class="btn btn-light">About Us</a>
-    <a href="{% url 'contact' %}" class="btn btn-danger">Call Now</a>
+  <div class="container">
+    <h1 class="banner-taital display-3 fw-bold">Coffee Shop</h1>
+    <p class="banner_text lead">More-or-less normal distribution of letters, as opposed to using</p>
+    <div class="btn_main d-flex justify-content-center gap-3 flex-wrap mt-3">
+      <a href="{% url 'about' %}" class="btn btn-light btn-lg">About Us</a>
+      <a href="{% url 'contact' %}" class="btn btn-danger btn-lg">Call Now</a>
+    </div>
   </div>
 </div>
+
 <!-- COFFEE SECTION -->
-<div class="coffee_section py-5">
+<section class="coffee_section py-5">
   <div class="container">
-    <h1 class="coffee_taital">OUR Coffee OFFER</h1>
+    <h1 class="coffee_taital text-center mb-5">Our Coffee Offer</h1>
     <div class="swiper">
       <div class="swiper-wrapper">
         {% for i in data %}
         <div class="swiper-slide">
-          <div class="card p-3">
-            <img src="{{ i.image.url }}" class="card-img-top rounded-circle" alt="">
-            <div class="card-body text-center">
+          <div class="card p-3 h-100 text-center">
+            <img src="{{ i.image.url }}" class="card-img-top rounded-circle mx-auto mb-3" style="width:150px; height:150px; object-fit:cover;" alt="">
+            <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{ i.item_name }}</h5>
-              <p class="card-text">{{ i.description }}</p>
-              <h6>{{ i.price }}</h6>
-              <a href="{% url 'cofe_read' i.id %}" class="btn btn-danger btn-sm">Read More</a>
+              <p class="card-text flex-grow-1">{{ i.description }}</p>
+              <h6 class="fw-bold">{{ i.price }}</h6>
+              <a href="{% url 'cofe_read' i.id %}" class="btn btn-danger btn-sm mt-2">Read More</a>
             </div>
           </div>
         </div>
         {% endfor %}
       </div>
-      <div class="swiper-pagination"></div>
+      <div class="swiper-pagination mt-3"></div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- BLOG SECTION -->
-<div class="blog-section py-5 bg-light">
+<section class="blog-section py-5 bg-light">
   <div class="container">
-    <h1 class="coffee_taital">OUR BLOG</h1>
+    <h1 class="coffee_taital text-center mb-5">Our Blog</h1>
     <div class="row g-4">
       {% for i in blogs %}
       <div class="col-sm-12 col-md-6 col-lg-4">
-        <div class="blog-box p-3 shadow-sm rounded">
+        <div class="blog-box p-3 shadow-sm rounded h-100 d-flex flex-column">
           {% if i.image %}
-          <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img mb-3">
+          <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img mb-3 w-100" style="height:200px; object-fit:cover; border-radius:10px;">
           {% endif %}
           <h2 class="title h5">{{ i.title }}</h2>
-          <span class="blog-date d-block mb-2">{{ i.date }}</span>
-          <p class="description">{{ i.description }}</p>
-          <div class="text-center">
+          <span class="blog-date d-block mb-2 text-muted small">{{ i.date }}</span>
+          <p class="description flex-grow-1">{{ i.description }}</p>
+          <div class="text-center mt-3">
             <a href="{% url 'blog_read' i.id %}" class="btn btn-danger btn-sm">Read More</a>
           </div>
         </div>
@@ -58,31 +61,31 @@
       {% endfor %}
     </div>
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
-<div class="footer_section py-5 text-center text-white">
+<footer class="footer_section py-5 text-center text-white" style="background:#222;">
   <div class="container">
     <div class="footer_social_icon mb-3">
       <ul class="list-inline m-0">
-        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-        <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook fa-lg text-white"></i></a></li>
+        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter fa-lg text-white"></i></a></li>
+        <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin fa-lg text-white"></i></a></li>
+        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram fa-lg text-white"></i></a></li>
       </ul>
     </div>
     <div class="location_text mb-3">
       <ul class="list-unstyled">
-        <li><a href="#"><i class="fa fa-phone"></i> +01 1234567890</a></li>
-        <li><a href="#"><i class="fa fa-envelope"></i> demo@gmail.com</a></li>
+        <li><a href="#" class="text-white"><i class="fa fa-phone"></i> +01 1234567890</a></li>
+        <li><a href="#" class="text-white"><i class="fa fa-envelope"></i> demo@gmail.com</a></li>
       </ul>
     </div>
-    <div class="d-flex justify-content-center">
-      <input type="email" class="form-control w-50" placeholder="Your Email">
-      <button class="btn btn-danger ms-2"><i class="fa fa-arrow-right"></i></button>
+    <div class="d-flex justify-content-center flex-wrap">
+      <input type="email" class="form-control w-50 mb-2 mb-md-0" placeholder="Your Email">
+      <button class="btn btn-danger ms-md-2"><i class="fa fa-arrow-right"></i></button>
     </div>
   </div>
-</div>
+</footer>
 
 <div class="copyright_section text-center text-white py-3 bg-danger">
   <p class="mb-0">2025 All Rights Reserved. Design by <span>Your Brand</span></p>
