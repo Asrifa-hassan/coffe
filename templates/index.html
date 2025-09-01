@@ -8,23 +8,15 @@
     <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
     <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
     <link  href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         *{
             margin: 0;
             padding: 0;
         }
-        .Header_section{
-            width: 100%;
-            float: left;
-            background-size: 100% 100%;
-            height: 651px;
-            background-image: url("{% static 'images/banner-bg.png'%}");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        .Header_section {
+            min-height: 651px; /* instead of height */
         }
         .container{
             width: 100%;
@@ -306,9 +298,7 @@
             vertical-align: middle;
         }
         .coffee_section {
-            width: 100%;
-            float: left;
-            height:700px;
+            min-height: 700px;
         }
         .col-md-12{
             position: relative;
@@ -728,6 +718,10 @@
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'images/logo.png' %}" alt="Logo">
                 </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav " >
                         <!-- Main Links -->
@@ -845,17 +839,21 @@
             </div>
         </div>
         <div class="blog-container">
-            {% for i in blogs %}
-            <div class="blog-box">
-               {% if i.image %}
-                  <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
-               {% endif %}
-               <h2 class="title">{{ i.title }}</h2>
-               <span class="blog-date">{{ i.date }}</span>
-               <p class="description" style="line-break:anywhere">{{ i.description }}</p>
-               <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
+            <div class="row">
+                {% for i in blogs %}
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <div class="blog-box">
+                        {% if i.image %}
+                            <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
+                        {% endif %}
+                        <h2 class="title">{{ i.title }}</h2>
+                        <span class="blog-date">{{ i.date }}</span>
+                        <p class="description" style="line-break:anywhere">{{ i.description }}</p>
+                        <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </div>
     <div class="contact_section layout_padding">
@@ -937,13 +935,17 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         new Swiper(".swiper", {
-          slidesPerView: 3,
-          spaceBetween: 30,
-          loop: true,
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                576: { slidesPerView: 2 },
+                992: { slidesPerView: 3 }
+            }
         });
       });
    </script>
