@@ -48,7 +48,7 @@
         }
         .navbar-brand{
             color: white;
-            margin-top: 20px;
+            margin-top: 40px;
             display: inline-block;
             font-size: 1.25rem;
             line-height: inherit;
@@ -501,7 +501,10 @@
         }
         @media (max-width: 1024px) {
             .blog-box {
-                width: 48%; /* 2 blogs per row */
+                width: 100%; /* 2 blogs per row */
+            }
+            .navbar-brand img {
+                height: 32px;
             }
         }
         @media (max-width: 768px) {
@@ -721,62 +724,43 @@
     </style>
 </head>
 <body>
-    <div class="Header_section">
+    <div class="header_section header_bg">
         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark">
                 <!-- Logo -->
                 <a class="navbar-brand" href="{% url 'index' %}">
-                    <img src="{% static 'images/logo.png' %}" alt="Logo">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" style="height:40px;">
                 </a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav " >
-                        <!-- Main Links -->
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'index' %}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'coffees' %}">Coffees</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog' %}">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-                        </li>
 
-                        <!-- Cart -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login_page' %}">
-                                <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:20px"></i> Cart
-                            </a>
-                        </li>
+                <!-- ✅ Toggle Button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                        <!-- Login -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login_page' %}">Login</a>
-                        </li>
+                <!-- ✅ Collapsible Menu -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'coffees' %}">Coffees</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login_page' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login_page' %}">Login</a></li>
                     </ul>
                 </div>
             </nav>
         </div>
+
+        <!-- Banner Section -->
         <div class="banner-section">
             <div class="container">
-                <h1 class="banner-taital">
-                    coffee
-                    <br>
-                    shop
-                </h1>
-                <p class="banner_text">more-or-less normal distribution of letters, as opposed to using </p>
+                <h1 class="banner-taital">coffee<br>shop</h1>
+                <p class="banner_text">more-or-less normal distribution of letters, as opposed to using</p>
                 <div class="btn_main">
-                    <div class="about_bt active">
-                        <a href="{% url 'about' %}">About Us</a>
-                    </div>
-                    <div class="callnow_bt">
-                        <a href="{% url 'contact' %}">Call Now</a>
-                    </div>
+                    <div class="about_bt active"><a href="{% url 'about' %}">About Us</a></div>
+                    <div class="callnow_bt"><a href="{% url 'contact' %}">Call Now</a></div>
                 </div>
             </div>
         </div>
@@ -952,12 +936,7 @@
    <script src="{% static 'js/script.js' %}"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Popper.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
 </body>
 </html>
