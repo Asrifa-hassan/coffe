@@ -1020,7 +1020,7 @@ textarea#comment.update_mail::placeholder {
 .subscribe_bt {
     width: 70px;
     float: left;
-    padding-top: 14px;
+    padding-top: 20px;
 }
 
 .subscribe_bt a {
@@ -1397,14 +1397,14 @@ textarea#comment.update_mail::placeholder {
 .coffee-card .price {
   font-size: 18px;
   font-weight: 600;
-  color: #8c4512;
+  color: #c93434;
   margin-bottom: 10px;
 }
 
 /* ✅ Styled button */
 .read_btn a {
   display: inline-block;
-  background: #8B4513;
+  background: #c93434;
   color: #fff;
   padding: 8px 18px;
   border-radius: 20px;
@@ -1414,7 +1414,7 @@ textarea#comment.update_mail::placeholder {
 }
 
 .read_btn a:hover {
-  background: #5a2d0c;
+  background: #c93434;
   transform: scale(1.05);
 }
 
@@ -1439,7 +1439,7 @@ textarea#comment.update_mail::placeholder {
 }
 
 .swiper-pagination-bullet {
-  background: #8B4513;
+  background: #c93434;
   opacity: 0.6;
   width: 10px;
   height: 10px;
@@ -1448,7 +1448,7 @@ textarea#comment.update_mail::placeholder {
 }
 
 .swiper-pagination-bullet-active {
-  background: #5a2d0c;
+  background: #c93434;
   opacity: 1;
   transform: scale(1.3);
 }
@@ -1482,7 +1482,7 @@ textarea#comment.update_mail::placeholder {
 }
 
 .blog-section .btn-primary {
-    background-color: #8c4512;
+    background-color: #c93434;
     border: none;
 }
 
@@ -1589,11 +1589,18 @@ i.fa-shopping-cart {
 }
 
 .update_mail {
+    color: #383838;
     width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 15px;
-    border: 1px solid #ccc;
+    height: 50px !important;
+    font-size: 18px;
+    padding: 10px 20px 0px 20px;
+    background-color: #efefef;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    display: block;
+    margin-top: 20px;
+    border: 1px solid #f01c1c;
 }
 
 .subscribe_bt a {
