@@ -2,280 +2,112 @@
 {% load static %}
 {% block content %}
 
-<head>
-  <meta charset="UTF-8">
-  <title>COFFO</title>
-
-  <!-- Bootstrap 5 only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <!-- Swiper -->
-  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
-
-  <!-- Custom CSS -->
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
-  <link href="{% static 'images/favicon.png' %}" rel="shortcut icon">
-
-  <style>
-    /* keep only overrides & custom sections */
-    body {
-      background-color: #efefef;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Navbar tweaks */
-    .navbar {
-      padding-bottom: 20px;
-    }
-    .navbar-brand img {
-      height: 50px;
-    }
-    .navbar-light .navbar-nav .nav-link {
-      color: #fff;
-      font-size: 16px;
-      font-weight: 500;
-      text-transform: uppercase;
-    }
-    .navbar-light .navbar-nav .nav-link:hover,
-    .navbar-light .navbar-nav .nav-link.active {
-      color: #fff;
-      background-color: #f01c1c;
-      border-radius: 5px;
-    }
-
-    /* Banner */
-    .banner-section {
-      padding: 90px 0 140px;
-      text-align: center;
-      color: #fff;
-    }
-    .banner-taital {
-      font-size: 85px;
-      font-weight: 800;
-      line-height: 90px;
-    }
-    .banner_text {
-      font-size: 20px;
-    }
-
-    /* Coffee section */
-    .coffee_section {
-      padding: 60px 0;
-    }
-    .coffee_taital {
-      font-size: 40px;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    /* Blog cards */
-    .blog-section {
-      padding: 50px 0;
-      background: #f8f9fa;
-    }
-    .blog-box {
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      padding: 15px;
-      transition: transform 0.3s ease;
-    }
-    .blog-box:hover { transform: translateY(-5px); }
-    .blog-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    .blog-date {
-      font-size: 14px;
-      color: #888;
-    }
-    .description {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-    .read_btn a {
-      background: #d61818;
-      color: #fff;
-      padding: 8px 15px;
-      border-radius: 5px;
-      font-size: 13px;
-      text-decoration: none;
-    }
-    .read_btn a:hover {
-      background: #fff;
-      color: #000;
-    }
-
-    /* Footer */
-    .footer_section {
-      background: #1d1d1d;
-      color: #fff;
-      padding: 40px 0;
-      text-align: center;
-    }
-    .footer_social_icon ul {
-      padding: 0;
-      list-style: none;
-    }
-    .footer_social_icon li {
-      display: inline-block;
-      margin: 0 5px;
-    }
-    .footer_social_icon li a {
-      display: block;
-      background: #fff;
-      color: #1d1d1d;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-    }
-    .copyright_section {
-      background: #f01c1c;
-      color: #fff;
-      padding: 15px 0;
-    }
-  </style>
-</head>
-
-<body>
-  <!-- HEADER -->
-  <div class="Header_section">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="{% url 'index' %}">
-          <img src="{% static 'images/logo.png' %}" alt="Logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'coffees' %}">Coffees</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'login_page' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'login_page' %}">Login</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-    <div class="banner-section">
-      <h1 class="banner-taital">coffee<br>shop</h1>
-      <p class="banner_text">more-or-less normal distribution of letters, as opposed to using</p>
-      <div class="btn_main d-flex justify-content-center gap-3">
-        <a href="{% url 'about' %}" class="btn btn-light">About Us</a>
-        <a href="{% url 'contact' %}" class="btn btn-danger">Call Now</a>
-      </div>
-    </div>
+<!-- BANNER SECTION -->
+<div class="banner-section text-center text-white py-5">
+  <h1 class="banner-taital">coffee<br>shop</h1>
+  <p class="banner_text">more-or-less normal distribution of letters, as opposed to using</p>
+  <div class="btn_main d-flex justify-content-center gap-3">
+    <a href="{% url 'about' %}" class="btn btn-light">About Us</a>
+    <a href="{% url 'contact' %}" class="btn btn-danger">Call Now</a>
   </div>
+</div>
 
-  <!-- COFFEE SECTION -->
-  <div class="coffee_section">
-    <div class="container">
-      <h1 class="coffee_taital">OUR Coffee OFFER</h1>
-      <div class="swiper">
-        <div class="swiper-wrapper">
-          {% for i in data %}
-          <div class="swiper-slide">
-            <div class="card p-3">
-              <img src="{{ i.image.url }}" class="card-img-top rounded-circle" alt="">
-              <div class="card-body text-center">
-                <h5 class="card-title">{{ i.item_name }}</h5>
-                <p class="card-text">{{ i.description }}</p>
-                <h6>{{ i.price }}</h6>
-                <a href="{% url 'cofe_read' i.id %}" class="btn btn-danger btn-sm">Read More</a>
-              </div>
+<!-- COFFEE SECTION -->
+<div class="coffee_section py-5">
+  <div class="container">
+    <h1 class="coffee_taital">OUR Coffee OFFER</h1>
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {% for i in data %}
+        <div class="swiper-slide">
+          <div class="card p-3">
+            <img src="{{ i.image.url }}" class="card-img-top rounded-circle" alt="">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ i.item_name }}</h5>
+              <p class="card-text">{{ i.description }}</p>
+              <h6>{{ i.price }}</h6>
+              <a href="{% url 'cofe_read' i.id %}" class="btn btn-danger btn-sm">Read More</a>
             </div>
-          </div>
-          {% endfor %}
-        </div>
-        <div class="swiper-pagination"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BLOG SECTION -->
-  <div class="blog-section">
-    <div class="container">
-      <h1 class="coffee_taital">OUR BLOG</h1>
-      <div class="row g-4">
-        {% for i in blogs %}
-        <div class="col-sm-12 col-md-6 col-lg-4">
-          <div class="blog-box">
-            {% if i.image %}
-            <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
-            {% endif %}
-            <h2 class="title">{{ i.title }}</h2>
-            <span class="blog-date">{{ i.date }}</span>
-            <p class="description">{{ i.description }}</p>
-            <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
           </div>
         </div>
         {% endfor %}
       </div>
+      <div class="swiper-pagination"></div>
     </div>
   </div>
+</div>
 
-  <!-- FOOTER -->
-  <div class="footer_section">
-    <div class="container">
-      <div class="footer_social_icon">
-        <ul>
-          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-          <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-        </ul>
+<!-- BLOG SECTION -->
+<div class="blog-section py-5 bg-light">
+  <div class="container">
+    <h1 class="coffee_taital">OUR BLOG</h1>
+    <div class="row g-4">
+      {% for i in blogs %}
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="blog-box p-3 shadow-sm rounded">
+          {% if i.image %}
+          <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img mb-3">
+          {% endif %}
+          <h2 class="title h5">{{ i.title }}</h2>
+          <span class="blog-date d-block mb-2">{{ i.date }}</span>
+          <p class="description">{{ i.description }}</p>
+          <div class="text-center">
+            <a href="{% url 'blog_read' i.id %}" class="btn btn-danger btn-sm">Read More</a>
+          </div>
+        </div>
       </div>
-      <div class="location_text">
-        <ul>
-          <li><a href="#"><i class="fa fa-phone"></i> +01 1234567890</a></li>
-          <li><a href="#"><i class="fa fa-envelope"></i> demo@gmail.com</a></li>
-        </ul>
-      </div>
-      <div class="d-flex justify-content-center mt-3">
-        <input type="email" class="form-control w-50" placeholder="Your Email">
-        <button class="btn btn-danger ms-2"><i class="fa fa-arrow-right"></i></button>
-      </div>
+      {% endfor %}
     </div>
   </div>
-  <div class="copyright_section">
-    <p class="mb-0">2025 All Rights Reserved. Design by <span>Your Brand</span></p>
-  </div>
+</div>
 
-  <!-- JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-  <script>
-    new Swiper(".swiper", {
-      slidesPerView: 1,
-      spaceBetween: 20,
+<!-- FOOTER -->
+<div class="footer_section py-5 text-center text-white">
+  <div class="container">
+    <div class="footer_social_icon mb-3">
+      <ul class="list-inline m-0">
+        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+        <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+      </ul>
+    </div>
+    <div class="location_text mb-3">
+      <ul class="list-unstyled">
+        <li><a href="#"><i class="fa fa-phone"></i> +01 1234567890</a></li>
+        <li><a href="#"><i class="fa fa-envelope"></i> demo@gmail.com</a></li>
+      </ul>
+    </div>
+    <div class="d-flex justify-content-center">
+      <input type="email" class="form-control w-50" placeholder="Your Email">
+      <button class="btn btn-danger ms-2"><i class="fa fa-arrow-right"></i></button>
+    </div>
+  </div>
+</div>
+
+<div class="copyright_section text-center text-white py-3 bg-danger">
+  <p class="mb-0">2025 All Rights Reserved. Design by <span>Your Brand</span></p>
+</div>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    new Swiper(".slide-container", {
       loop: true,
+      spaceBetween: 20,
       pagination: {
         el: ".swiper-pagination",
-        clickable: true,
+        clickable: true
       },
       breakpoints: {
-        576: { slidesPerView: 2 },
-        992: { slidesPerView: 3 }
+        320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
+        768: { slidesPerView: 2, spaceBetween: 20 },   // tablet
+        1024: { slidesPerView: 3, spaceBetween: 30 }   // desktop
       }
     });
-  </script>
-</body>
-</html>
+  });
+</script>
+
 {% endblock %}
