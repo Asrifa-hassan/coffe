@@ -1020,7 +1020,7 @@ textarea#comment.update_mail::placeholder {
 .subscribe_bt {
     width: 70px;
     float: left;
-    padding-top: 20px;
+    padding-top: 14px;
 }
 
 .subscribe_bt a {
