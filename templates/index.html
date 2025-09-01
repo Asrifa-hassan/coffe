@@ -10,6 +10,7 @@
     <link  href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         *{
             margin: 0;
@@ -47,7 +48,7 @@
         }
         .navbar-brand{
             color: white;
-            margin-top: 40px;
+            margin-top: 20px;
             display: inline-block;
             font-size: 1.25rem;
             line-height: inherit;
@@ -149,7 +150,6 @@
         .banner-section {
             width: 100%;
             padding: 90px 0px 140px 0px;
-            background-image: url("{% static 'images/banner-bg.png'%}");
         }
         .banner-taital {
             width: 100%;
@@ -501,10 +501,7 @@
         }
         @media (max-width: 1024px) {
             .blog-box {
-                width: 100%; /* 2 blogs per row */
-            }
-            .navbar-brand img {
-                height: 32px;
+                width: 48%; /* 2 blogs per row */
             }
         }
         @media (max-width: 768px) {
@@ -721,49 +718,65 @@
           width: auto;
           flex-shrink: 0;
         }
-        .navbar-dark .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-        }
     </style>
 </head>
 <body>
-    <div class="header_section header_bg">
+    <div class="Header_section">
         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-dark">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <!-- Logo -->
                 <a class="navbar-brand" href="{% url 'index' %}">
-                    <img src="{% static 'images/logo.png' %}" alt="Logo" style="height:40px;">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo">
                 </a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav " >
+                        <!-- Main Links -->
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'index' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'coffees' %}">Coffees</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'blog' %}">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                        </li>
 
-                <!-- ✅ Toggle Button -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                        <!-- Cart -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login_page' %}">
+                                <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:20px"></i> Cart
+                            </a>
+                        </li>
 
-                <!-- ✅ Collapsible Menu -->
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'coffees' %}">Coffees</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'login_page' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'login_page' %}">Login</a></li>
+                        <!-- Login -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login_page' %}">Login</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
         </div>
-
-        <!-- Banner Section -->
         <div class="banner-section">
             <div class="container">
-                <h1 class="banner-taital">coffee<br>shop</h1>
-                <p class="banner_text">more-or-less normal distribution of letters, as opposed to using</p>
+                <h1 class="banner-taital">
+                    coffee
+                    <br>
+                    shop
+                </h1>
+                <p class="banner_text">more-or-less normal distribution of letters, as opposed to using </p>
                 <div class="btn_main">
-                    <div class="about_bt active"><a href="{% url 'about' %}">About Us</a></div>
-                    <div class="callnow_bt"><a href="{% url 'contact' %}">Call Now</a></div>
+                    <div class="about_bt active">
+                        <a href="{% url 'about' %}">About Us</a>
+                    </div>
+                    <div class="callnow_bt">
+                        <a href="{% url 'contact' %}">Call Now</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -938,8 +951,13 @@
    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
    <script src="{% static 'js/script.js' %}"></script>
 <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
