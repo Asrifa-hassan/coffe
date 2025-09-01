@@ -724,20 +724,21 @@
     </style>
 </head>
 <body>
-    <div class="Header_section">
+    <div class="header_section header_bg">
         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <!-- Logo -->
+            <nav class="navbar navbar-expand-lg navbar-dark">
+            <!-- Logo -->
                 <a class="navbar-brand" href="{% url 'index' %}">
-                    <img src="{% static 'images/logo.png' %}" alt="Logo">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" style="height:40px;">
                 </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- Toggler for mobile -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav " >
+                    <ul class="navbar-nav ml-auto">
                         <!-- Main Links -->
                         <li class="nav-item active">
                             <a class="nav-link" href="{% url 'index' %}">Home</a>
