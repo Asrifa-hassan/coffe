@@ -13,13 +13,12 @@
          background: #f9f9f9;
          font-family: Arial, sans-serif;
       }
-
       .blog {
          display: grid;
-         grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* wider cards */
+         grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); /* increase width */
          gap: 2rem;
          margin: 40px auto;
-         max-width: 1300px;
+         max-width: 1400px;
          padding: 0 20px;
          justify-items: center;
       }
@@ -31,9 +30,9 @@
          border-radius: 0.6rem;
          display: flex;
          flex-direction: column;
-         align-items: center;
-         text-align: left; /* better for reading description */
-         max-width: 100%; 
+         text-align: left;
+         width: 100%;
+         max-width: 800px; /* wider blog card */
          transition: transform 0.2s ease-in-out;
       }
 
@@ -43,16 +42,16 @@
 
       .blog-img {
          width: 100%;
-         height: 260px;
+         height: auto;         /* let the image adapt */
+         max-height: 350px;    /* keep balance */
          object-fit: cover;
-         object-position: center;
          border-radius: 0.5rem;
          margin-bottom: 14px;
       }
 
       .blog-title {
          font-weight: 700;
-         font-size: 1.4rem;
+         font-size: 1.6rem;
          color: #222;
          margin: 8px 0;
       }
@@ -66,25 +65,30 @@
 
       .blog-description {
          font-size: 1rem;
-         line-height: 1.6rem;
+         line-height: 1.7rem;
          color: #444;
          margin-bottom: 14px;
          text-align: justify;
-         white-space: pre-wrap; /* keeps line breaks if present */
+         white-space: normal;   /* fix text cutting issue */
+         word-break: break-word;/* ensures long text wraps */
       }
 
       /* Mobile tweaks */
       @media (max-width: 576px) {
          .blog {
-            grid-template-columns: 1fr; /* single column on mobile */
+            grid-template-columns: 1fr;
+         }
+         .blog-box {
+            max-width: 100%;
          }
          .blog-img {
-            height: 200px;
+            max-height: 250px;
          }
          .blog-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
          }
       }
+
     </style>
 </head>
 <body>
