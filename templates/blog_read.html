@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% load static %}
+{% load static %}
 <head>
     <meta charset="UTF-8">
-    <title>blog_read</title>
-    <link  href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
-    <link  href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <title>Blog Read</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'images/favicon.png' %}" rel="shortcut icon">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <style>
+      body {
+         background: #f9f9f9;
+         font-family: Arial, sans-serif;
+      }
+
       .blog {
          display: grid;
-         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-         gap: 1.5rem;
-         margin: 20px auto;
-         max-width: 1200px;
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+         gap: 1.8rem;
+         margin: 30px auto;
+         max-width: 1100px;
          padding: 0 15px;
+         justify-items: center; /* Center cards inside grid */
       }
 
       .blog-box {
          background: #fff;
          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-         padding: 15px;
-         border-radius: 0.5rem;
+         padding: 18px;
+         border-radius: 0.6rem;
          display: flex;
          flex-direction: column;
+         align-items: center;
+         text-align: center; /* Center text */
+         max-width: 350px;
          transition: transform 0.2s ease-in-out;
       }
 
       .blog-box:hover {
-         transform: translateY(-5px);
+         transform: translateY(-6px);
       }
 
       .blog-img {
@@ -38,14 +47,14 @@
          object-fit: cover;
          object-position: center;
          border-radius: 0.5rem;
-         margin-bottom: 10px;
+         margin-bottom: 12px;
       }
 
       .blog-title {
          font-weight: 600;
          font-size: 1.2rem;
          color: #222;
-         margin: 5px 0;
+         margin: 6px 0;
          display: -webkit-box;
          -webkit-line-clamp: 2;
          -webkit-box-orient: vertical;
@@ -56,44 +65,31 @@
          font-size: 0.85rem;
          text-transform: uppercase;
          color: #888;
-         margin-bottom: 6px;
+         margin-bottom: 8px;
       }
 
       .blog-description {
          font-size: 0.95rem;
          line-height: 1.5rem;
-         color: #606060;
-         flex-grow: 1;
-         margin-bottom: 10px;
+         color: #555;
+         margin-bottom: 12px;
+         display: -webkit-box;
+         -webkit-line-clamp: 3; /* show 3 lines */
+         -webkit-box-orient: vertical;
          overflow: hidden;
-      }
-
-      .read-more-btn {
-         display: inline-block;
-         padding: 8px 15px;
-         background: #8c4512;
-         color: #fff;
-         border-radius: 5px;
-         font-size: 0.9rem;
-         text-decoration: none;
-         transition: background 0.3s ease-in-out;
-         align-self: flex-start;
-      }
-
-      .read-more-btn:hover {
-         background: #6d320d;
+         text-align: justify;
       }
 
       /* Mobile tweaks */
       @media (max-width: 576px) {
          .blog-title {
-            font-size: 1rem;
+            font-size: 1.05rem;
          }
          .blog-description {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            -webkit-line-clamp: 4; /* Show a bit more on small screens */
          }
       }
-
     </style>
 </head>
 <body>
@@ -103,9 +99,9 @@
          <img src="{{ i.image.url }}" alt="{{ i.title }}" class="blog-img">
          <span class="blog-date">{{ i.date|date:"F j, Y" }}</span>
          <div class="blog-title">{{ i.title }}</div>
-         <p class="blog-description">{{ i.description|truncatewords:25 }}</p>
-         <a href="{% url 'blog_read' i.id %}" class="read-more-btn">Read More</a>
+         <p class="blog-description">{{ i.description|truncatewords:40 }}</p>
       </div>
       {% endfor %}
    </div>
 </body>
+</html>
