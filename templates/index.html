@@ -605,17 +605,21 @@ img {
     </div>
 </div>
 <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        new Swiper(".swiper", {
-          slidesPerView: 3,
-          spaceBetween: 30,
-          loop: true,
-          pagination: {
+    document.addEventListener("DOMContentLoaded", function () {
+        new Swiper(".slide-container", {
+        loop: true,
+        spaceBetween: 20,
+        pagination: {
             el: ".swiper-pagination",
-            clickable: true,
-          },
+            clickable: true
+        },
+        breakpoints: {
+            320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
+            768: { slidesPerView: 2, spaceBetween: 20 },   // tablet
+            1024: { slidesPerView: 3, spaceBetween: 30 }   // desktop
+        }
         });
-      });
+    });
 </script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
