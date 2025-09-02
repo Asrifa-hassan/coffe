@@ -477,32 +477,33 @@ img {
         </div>
     </div>
 </div>
-<div class="coffee_section layout_padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h1 class="coffee_taital">OUR Coffee OFFER</h1>
-            </div>
-        </div>
-        <div class="row">
+<!-- Coffee Section -->
+<div class="coffee_section">
+    <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
+    <div class="swiper slide-container" style="height: 690px;">
+        <div class="swiper-wrapper">
             {% for i in data %}
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="image-content">
-                        <div class="card-image text-center">
-                            <img src="{{ i.image.url }}" alt="" class="card-img-top" style="height:220px; object-fit:cover; border-radius:10px;">
+            <div class="swiper-slide">
+                <div class="coffee-card" style="height: 600px;">
+                    <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img" style="height: 300px;">
+                    <div class="card-content">
+                        <h2 class="name">{{ i.item_name }}</h2>
+                        <p class="description">{{ i.description }}</p>
+                        <h4 class="price">₹{{ i.price }}</h4>
+                        <div class="read_btn">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'add_to_cart' i.id %}">Add to Cart</a>
+                            {% else %}
+                                <a href="{% url 'login_page' %}">Login to Add</a>
+                            {% endif %}
                         </div>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ i.item_name }}</h5>
-                        <p class="card-text text-muted" style="line-break:anywhere">{{ i.description|truncatewords:20 }}</p>
-                        <h4 class="price text-danger">{{ i.price }}</h4>
-                        <a href="{% url 'cofe_read' i.id %}" class="btn btn-primary mt-2">Read More</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+        <!-- Swiper pagination dots -->
+        <div class="swiper-pagination"></div>
     </div>
 </div>
 <div class="blog_section layout_padding">
