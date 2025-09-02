@@ -1,359 +1,658 @@
 {% include 'header.html' %}
 {% load static %}
 {% block content %}
-<!-- Bootstrap 4 CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Swiper CSS -->
-<link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
-<!-- Custom CSS -->
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <style>
-/* Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: "Poppins", sans-serif; background: #fff; color: #333; }
 
-/* ---------------- NAVBAR ---------------- */
-.navbar { background: rgba(0,0,0,0.8); padding: 12px 30px; }
-.navbar .navbar-brand { color: #fff; font-weight: 700; font-size: 1.6rem; letter-spacing: 2px; }
-.navbar .nav-link { color: #fff; font-size: 1rem; position: relative; }
-.navbar .nav-link:hover { color: #c62828; }
-.navbar .navbar-toggler { border: none; }
-.navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #fff;
+}
 
-/* ---------------- BANNER ---------------- */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+/* ------------------------------
+   NAVBAR
+--------------------------------- */
+.navbar {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px 50px;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.navbar ul {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
+
+.navbar ul li a {
+  color: #fff;
+  font-size: 1rem;
+  position: relative;
+  transition: 0.3s;
+}
+
+.navbar ul li a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background: #c62828;
+  transition: 0.3s;
+}
+
+.navbar ul li a:hover::after {
+  width: 100%;
+}
+
+/* ------------------------------
+   BANNER
+--------------------------------- */
 .banner-content {
   height: 100vh;
   background: url("{% static 'images/banner-bg.png' %}") center/cover no-repeat;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   text-align: center;
-  color: #fff;
   position: relative;
-  padding: 0 15px;
+  color: #fff;
+  padding: 0px;
 }
+
 .banner-content::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
 }
-.banner-title,
-.banner-text,
-.banner-buttons {
+
+.banner-title, .banner-text, .banner-buttons {
   position: relative;
   z-index: 2;
 }
+
 .banner-title {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 800;
-  letter-spacing: 3px;
+  font-size: 4rem;
+  font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 20px;
-  line-height: 1.2;
+  margin-bottom: 15px;
 }
+
 .banner-text {
   font-size: 1.2rem;
-  color: #eee;
-  max-width: 650px;
-  margin: 0 auto 35px;
+  color: #ddd;
+  margin-bottom: 30px;
 }
+
 .banner-buttons {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
   justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
+
 .banner-buttons .btn {
-  padding: 14px 32px;
-  border-radius: 40px;
+  padding: 12px 28px;
+  border-radius: 30px;
   font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  font-weight: 500;
+  transition: 0.3s;
 }
+
 .btn-danger {
-  background: #d32f2f;
+  background: #c62828;
   border: none;
+  color: #fff;
 }
+
 .btn-danger:hover {
   background: #b71c1c;
-  transform: translateY(-2px);
+  transform: scale(1.05);
 }
+
 .btn-light {
   background: #fff;
   color: #333;
 }
+
 .btn-light:hover {
-  background: #f4f4f4;
-  transform: translateY(-2px);
+  background: #f1f1f1;
+  transform: scale(1.05);
 }
 
-/* ---------------- ABOUT ---------------- */
-.about-section { padding: 80px 10%; display: flex; align-items: center; }
-.about_taital { font-size: 2.8rem; font-weight: 700; color: #222; margin-bottom: 15px; }
-.about_taital_1 { font-size: 1.5rem; margin-bottom: 20px; color: #c62828; }
-.about_text { font-size: 1.05rem; color: #555; line-height: 1.7; }
-.about_img { width: 100%; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-
-/* ---------------- COFFEE ---------------- */
-.coffee_section { padding: 80px 6%; text-align: center; }
-.coffee_taital { font-size: 2.5rem; font-weight: bold; margin-bottom: 40px; }
-.coffee-card {
-  background: #fff; border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  overflow: hidden; transition: 0.3s; padding: 20px;
-}
-.coffee-card:hover { transform: translateY(-8px); }
-.coffee-card .card-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
-.card-content h2 { font-size: 1.3rem; margin-bottom: 10px; color: #222; }
-.card-content p { font-size: 0.95rem; color: #666; margin-bottom: 10px; }
-.price { color: #c62828; font-weight: bold; margin-bottom: 10px; }
-.read_btn a {
-  display: inline-block; padding: 8px 18px; border-radius: 20px;
-  background: #c62828; color: #fff; font-size: 0.9rem;
-}
-.read_btn a:hover { background: #b71c1c; }
-/* Swiper styles */
-.swiper { padding-bottom: 50px; }
-.swiper-pagination-bullet { background: #c62828; opacity: 0.6; }
-.swiper-pagination-bullet-active { background: #b71c1c; opacity: 1; }
-
-/* ---------------- BLOG ---------------- */
-.blog_section {
-  padding: 100px 6%;
-  background: #fafafa;
-}
-.blog_section h1 {
-  font-size: 2.7rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 50px;
-  color: #222;
-}
-.blog-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-  gap: 30px;
-}
-.blog-box {
-  background: #fff;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+/* ------------------------------
+   ABOUT
+--------------------------------- */
+.about-section {
+  padding: 80px 10%;
   display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  align-items: center;
 }
-.blog-box:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-}
-.blog-img {
-  height: 220px;
-  width: 100%;
-  object-fit: cover;
-}
-.blog-content {
-  padding: 20px 22px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.blog-content .title {
-  font-size: 1.4rem;
+
+.about_taital {
+  font-size: 2.8rem;
   font-weight: 700;
-  margin-bottom: 8px;
   color: #222;
-}
-.blog-date {
-  font-size: 0.9rem;
-  color: #c62828;
-  margin-bottom: 12px;
-}
-.blog-content .description {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.6;
-  flex: 1;
   margin-bottom: 15px;
 }
-.blog-content .read_btn a {
+
+.about_taital_1 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #c62828;
+}
+
+.about_text {
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+.about_img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* ------------------------------
+   COFFEE CARDS (Swiper)
+--------------------------------- */
+/* Coffee Swiper Section */
+.coffee_section {
+  padding: 80px 10%;
+  text-align: center;
+}
+
+.coffee-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: 0.3s;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.coffee-card:hover {
+  transform: translateY(-8px);
+}
+
+.coffee-card .card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.swiper {
+  padding-bottom: 50px; /* space for dots */
+}
+
+.swiper-pagination {
+  bottom: 10px !important;
+}
+
+.swiper-pagination-bullet {
+  background: #c62828;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.swiper-pagination-bullet-active {
+  background: #b71c1c;
+  opacity: 1;
+}
+.card-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.card-content h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.card-content p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.price {
+  color: #c62828;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.read_btn a {
   display: inline-block;
-  padding: 10px 20px;
-  border-radius: 30px;
+  padding: 8px 18px;
+  border-radius: 20px;
   background: #c62828;
   color: #fff;
   font-size: 0.9rem;
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
-.blog-content .read_btn a:hover {
+
+.read_btn a:hover {
   background: #b71c1c;
-  transform: translateY(-2px);
 }
 
-/* ---------------- CONTACT ---------------- */
-.contact_section { padding: 80px 10%; background: #f9f9f9; text-align: center; }
-.contact_taital { font-size: 2.5rem; margin-bottom: 30px; }
-.mail_section_1 { max-width: 600px; margin: auto; }
-.mail_text, .massage-bt { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
-.send_bt { background: #c62828; color: #fff; padding: 12px 25px; border: none; border-radius: 30px; }
-.send_bt:hover { background: #b71c1c; }
+/* ------------------------------
+   BLOG
+--------------------------------- */
+.blog_section {
+    padding: 80px 6%;
+    margin-top: 195px;
+}
 
-/* ---------------- FOOTER ---------------- */
-.footer_section { background: #111; color: #aaa; padding: 40px 20px; text-align: center; }
-.footer_social_icon ul { display: flex; justify-content: center; gap: 20px; list-style: none; margin-bottom: 20px; }
-.footer_social_icon a { color: #c62828; font-size: 1.2rem; }
-.footer_social_icon a:hover { color: #fff; }
-.copyright_section { background: #000; color: #888; padding: 15px; font-size: 0.9rem; }
+.blog-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 40px;
+}
 
-/* ---------------- RESPONSIVE ---------------- */
-@media (max-width: 992px) { .about-section { flex-direction: column; text-align: center; } }
-@media (max-width: 768px) { .banner-title { font-size: 2.5rem; } .banner-text { font-size: 1rem; } }
+.blog-box {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  width: 100%;
+  padding: 20px;
+}
+
+.blog-box:hover {
+  transform: translateY(-8px);
+}
+
+.blog-img {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.blog-box .title {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+  color: #222;
+}
+
+.blog-date {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.blog-box .description {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+/* ------------------------------
+   CONTACT
+--------------------------------- */
+.contact_section {
+  padding: 80px 10%;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.contact_taital {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.mail_section_1 {
+  max-width: 600px;
+  margin: auto;
+}
+
+.mail_text, .massage-bt {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.send_bt {
+  background: #c62828;
+  color: #fff;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.send_bt:hover {
+  background: #b71c1c;
+}
+
+/* ------------------------------
+   FOOTER
+--------------------------------- */
+.footer_section {
+  background: #111;
+  color: #aaa;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.footer_social_icon ul {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.footer_social_icon a {
+  color: #c62828;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+
+.footer_social_icon a:hover {
+  color: #fff;
+}
+
+.location_text ul {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.location_text li {
+  margin: 5px 0;
+}
+
+.update_mail {
+  padding: 10px;
+  width: 250px;
+  border: none;
+  border-radius: 8px;
+  margin-right: 5px;
+}
+
+.subscribe_bt a {
+  background: #c62828;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.subscribe_bt a:hover {
+  background: #b71c1c;
+}
+
+.copyright_section {
+  background: #000;
+  color: #888;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9rem;
+}
+
+/* ------------------------------
+   RESPONSIVE
+--------------------------------- */
+@media (max-width: 992px) {
+  .about-section {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+  .navbar ul {
+    display: none; /* later add hamburger menu */
+  }
+  .banner-title {
+    font-size: 2.5rem;
+  }
+  .banner-text {
+    font-size: 1rem;
+  }
+}
 </style>
 
-<!-- Banner -->
 <div class="banner-content text-center">
-  <h1 class="banner-title">Coffee <br> Shop</h1>
-  <p class="banner-text">more-or-less normal distribution of letters, as opposed to using</p>
-  <div class="banner-buttons mt-4">
-    <a href="{% url 'about' %}" class="btn btn-danger btn-lg mr-3">ABOUT US</a>
-    <a href="tel:+911234567890" class="btn btn-light btn-lg">CALL NOW</a>
-  </div>
-</div>
-
-<!-- About -->
-<div class="about-section layout-padding">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h1 class="about_taital">About Our Shop</h1>
-        <h2 class="about_taital_1">Coffee Distribution</h2>
-        <p class="about_text">
-          Has a more-or-less normal distribution of letters, as opposed to using 'Content here'.
-          Lorem ipsum dolor sit amet consectetur elit. Repellat accusamus dolor eius minima odio!
-        </p>
-      </div>
-      <div class="col-md-6">
-        <img src="{% static 'images/about-img.png' %}" class="about_img">
-      </div>
+    <h1 class="banner-title" style="color: white;">coffee <br> shop</h1>
+    <p class="banner-text">more-or-less normal distribution of letters, as opposed to using</p>
+    <div class="banner-buttons mt-4">
+        <a href="{% url 'about' %}" class="btn btn-danger btn-lg mr-3">ABOUT US</a>
+        <a href="tel:+911234567890" class="btn btn-light btn-lg">CALL NOW</a>
     </div>
-  </div>
 </div>
-
-<!-- Coffee Swiper -->
+<div class="about-section layout-padding">
+    <div class="container">
+        <div class="about-section_2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="about_taital_box">
+                        <h1 class= "about_taital" >About Our shop</h1>
+                        <h1 class= "about_taital_1" >Coffee distribution '</h1>
+                        <p class=" about_text">
+                            has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editorhas a more-or-less normal distribution of letters, as oppos
+                            Lorem ipsum, dolor sit consectetur radicalising elit. Deletion ear um inventor suscipit, nobis atque qui aspernatur nam quod incidunt a voluptate, repellat accusamus dolor eius minima odio! Sit, suscipit aspernatur.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="image-iman">
+                        <img src="{% static 'images/about-img.png' %}" class="about_img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Coffee Section -->
 <div class="coffee_section">
-  <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
-  <div class="swiper slide-container">
-    <div class="swiper-wrapper">
-      {% for i in data %}
-      <div class="swiper-slide">
-        <div class="coffee-card">
-          <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
-          <div class="card-content">
-            <h2>{{ i.item_name }}</h2>
-            <p>{{ i.description }}</p>
-            <h4 class="price">₹{{ i.price }}</h4>
-            <div class="read_btn">
-              {% if user.is_authenticated %}
-                <a href="{% url 'add_to_cart' i.id %}">Add to Cart</a>
-              {% else %}
-                <a href="{% url 'login_page' %}">Login to Add</a>
-              {% endif %}
+    <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
+    <div class="swiper slide-container">
+        <div class="swiper-wrapper">
+            {% for i in data %}
+            <div class="swiper-slide">
+                <div class="coffee-card">
+                    <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
+                    <div class="card-content">
+                        <h2 class="name">{{ i.item_name }}</h2>
+                        <p class="description">{{ i.description }}</p>
+                        <h4 class="price">₹{{ i.price }}</h4>
+                        <div class="read_btn">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'add_to_cart' i.id %}">Add to Cart</a>
+                            {% else %}
+                                <a href="{% url 'login_page' %}">Login to Add</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Swiper pagination dots -->
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+<div class="blog_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="coffee_taital">OUR BLOG</h1>
+            </div>
+        </div>
+    </div>
+    <div class="blog-container">
+        {% for i in blogs %}
+        <div class="blog-box">
+            {% if i.image %}
+                <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
+            {% endif %}
+            <h2 class="title">{{ i.title }}</h2>
+            <span class="blog-date">{{ i.date }}</span>
+            <p class="description" style="line-break:anywhere">{{ i.description }}</p>
+            <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="contact_section layout_padding">
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1 class="contact_taital">Get In Touch</h1>
+          </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="contact_section_2">
+          <div class="row">
+            <div class="col-md-12">
+                <div class="mail_section_1">
+                    <form action="{% url 'contact' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <input type="text" class="mail_text" placeholder="Your Name" name="name" required>
+                        <input type="email" class="mail_text" placeholder="Your Email" name="email" required>
+                        <input type="text" class="mail_text" placeholder="Your Phone" name="phone" required>
+                        <input type="text" class="mail_text" placeholder="Subject" name="subject" required>
+                        <textarea class="massage-bt" placeholder="Message" rows="5" id="comment" name="message"></textarea>
+                        <button type="submit" class="send_bt">send</button>
+                    </form>
+                </div>
+            </div>
+            <div class="map_main">
+              <div class="map-responsive">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.1313710519335!2d74.9928642750686!3d12.507450387766891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba483d25c8a7d37%3A0x37a30287fb9e45!2sStack%20Technology%20Centre!5e0!3m2!1sen!2sin!4v1720517032591!5m2!1sen!2sin" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {% endfor %}
     </div>
-    <!-- Swiper pagination -->
-    <div class="swiper-pagination"></div>
-  </div>
 </div>
-
-<!-- Blog -->
-<div class="blog_section layout_padding">
-  <div class="container">
-    <h1 class="coffee_taital">OUR BLOG</h1>
-    <div class="blog-container">
-      {% for i in blogs %}
-      <div class="blog-box">
-        {% if i.image %}
-          <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
-        {% endif %}
-        <h2 class="title">{{ i.title }}</h2>
-        <span class="blog-date">{{ i.date }}</span>
-        <p class="description">{{ i.description }}</p>
-        <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</div>
-
-<!-- Contact -->
-<div class="contact_section layout_padding">
-  <div class="container">
-    <h1 class="contact_taital">Get In Touch</h1>
-    <div class="mail_section_1">
-      <form action="{% url 'contact' %}" method="post">
-        {% csrf_token %}
-        <input type="text" class="mail_text" placeholder="Your Name" name="name" required>
-        <input type="email" class="mail_text" placeholder="Your Email" name="email" required>
-        <input type="text" class="mail_text" placeholder="Your Phone" name="phone" required>
-        <input type="text" class="mail_text" placeholder="Subject" name="subject" required>
-        <textarea class="massage-bt" placeholder="Message" name="message"></textarea>
-        <button type="submit" class="send_bt">Send</button>
-      </form>
-    </div>
-    <div class="map-responsive mt-4">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.1313710519335!2d74.9928642750686!3d12.507450387766891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba483d25c8a7d37%3A0x37a30287fb9e45!2sStack%20Technology%20Centre!5e0!3m2!1sen!2sin!4v1720517032591!5m2!1sen!2sin"
-        width="100%" height="400" style="border:0;" allowfullscreen loading="lazy"></iframe>
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
 <div class="footer_section layout_padding">
-  <div class="container">
-    <div class="footer_social_icon">
-      <ul>
-        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-      </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer_social_icon">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+                <div class="location_text">
+                    <ul>
+                        <li>
+                            <a href="#">
+                              <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                              <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <textarea class="update_mail" placeholder="Your Email" name="Your Email"></textarea>
+                    <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <p class="copyright_text">2025 All Rights Reserved. Coffee Shop</p>
-  </div>
 </div>
-
-<!-- Scripts -->
+<div class="copyright_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="copyright_text">2020 All Rights Reserved. Design by</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery (needed for Bootstrap 4) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap 4 Bundle (includes Popper.js, no need to add separately) -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Swiper JS -->
 <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+
+<!-- Custom Script -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  new Swiper(".slide-container", {
-    loop: true,
-    spaceBetween: 20,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true
-    },
-    breakpoints: {
-      320: { slidesPerView: 1, spaceBetween: 10 },
-      768: { slidesPerView: 2, spaceBetween: 20 },
-      1024: { slidesPerView: 3, spaceBetween: 30 }
-    }
-  });
-});
+    document.addEventListener("DOMContentLoaded", function () {
+        new Swiper(".slide-container", {
+            loop: true,
+            spaceBetween: 20,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true
+            },
+            breakpoints: {
+                320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
+                768: { slidesPerView: 2, spaceBetween: 20 },   // tablet
+                1024: { slidesPerView: 3, spaceBetween: 30 }   // desktop
+            }
+        });
+    });
 </script>
 {% endblock %}
