@@ -237,13 +237,12 @@ img {
 .swiper-pagination-bullet {
   background: #c62828;
   opacity: 0.6;
-  transition: 0.3s;
 }
-
 .swiper-pagination-bullet-active {
   background: #b71c1c;
   opacity: 1;
 }
+
 .card-content {
   padding: 20px;
   text-align: center;
@@ -526,7 +525,7 @@ img {
             {% endfor %}
         </div>
 
-        <!-- Swiper pagination dots -->
+        <!-- Pagination dots -->
         <div class="swiper-pagination"></div>
     </div>
 </div>
@@ -644,7 +643,7 @@ img {
             loop: true,
             spaceBetween: 20,
             pagination: {
-                el: ".swiper-pagination",
+                el: ".coffee_section .swiper-pagination", // bind to coffee section
                 clickable: true
             },
             breakpoints: {
