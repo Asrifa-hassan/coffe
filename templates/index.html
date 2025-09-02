@@ -194,35 +194,55 @@ img {
 /* ------------------------------
    COFFEE CARDS (Swiper)
 --------------------------------- */
+/* Coffee Swiper Section */
 .coffee_section {
   padding: 80px 10%;
   text-align: center;
 }
 
-.coffee_taital {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  color: #222;
-}
-
-.card {
+.coffee-card {
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   overflow: hidden;
   transition: 0.3s;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.card:hover {
+.coffee-card:hover {
   transform: translateY(-8px);
 }
 
-.card-img {
+.coffee-card .card-img {
   width: 100%;
   height: 220px;
   object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
 
+.swiper {
+  padding-bottom: 50px; /* space for dots */
+}
+
+.swiper-pagination {
+  bottom: 10px !important;
+}
+
+.swiper-pagination-bullet {
+  background: #c62828;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.swiper-pagination-bullet-active {
+  background: #b71c1c;
+  opacity: 1;
+}
 .card-content {
   padding: 20px;
   text-align: center;
@@ -480,12 +500,12 @@ img {
 <!-- Coffee Section -->
 <div class="coffee_section">
     <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
-    <div class="swiper slide-container" style="height: 690px;">
+    <div class="swiper slide-container">
         <div class="swiper-wrapper">
             {% for i in data %}
             <div class="swiper-slide">
-                <div class="coffee-card" style="height: 600px;">
-                    <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img" style="height: 300px;">
+                <div class="coffee-card">
+                    <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
                     <div class="card-content">
                         <h2 class="name">{{ i.item_name }}</h2>
                         <p class="description">{{ i.description }}</p>
@@ -502,6 +522,7 @@ img {
             </div>
             {% endfor %}
         </div>
+
         <!-- Swiper pagination dots -->
         <div class="swiper-pagination"></div>
     </div>
@@ -607,19 +628,20 @@ img {
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         new Swiper(".slide-container", {
-        loop: true,
-        spaceBetween: 20,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true
-        },
-        breakpoints: {
-            320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
-            768: { slidesPerView: 2, spaceBetween: 20 },   // tablet
-            1024: { slidesPerView: 3, spaceBetween: 30 }   // desktop
-        }
+            loop: true,
+            spaceBetween: 20,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true
+            },
+            breakpoints: {
+                320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
+                768: { slidesPerView: 2, spaceBetween: 20 },   // tablet
+                1024: { slidesPerView: 3, spaceBetween: 30 }   // desktop
+            }
         });
     });
+
 </script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
