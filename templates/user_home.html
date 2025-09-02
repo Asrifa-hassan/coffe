@@ -1,790 +1,555 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-    {% load static %}
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>user_home</title>
-    <link  href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.js"></script>
-    <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
-    <link  href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/solid.min.css" integrity="sha512-/r+0SvLvMMSIf41xiuy19aNkXxI+3zb/BN8K9lnDDWI09VM0dwgTMzK7Qi5vv5macJ3VH4XZXr60ip7v13QnmQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        .Header_section{
-            width: 100%;
-            float: left;
-            background-size: 100% 100%;
-            height: 651px;
-            background-image: url("{% static 'images/banner-bg.png' %}");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        .container{
-            width: 100%;
-            padding-right: 15px;
-            padding-left: 15px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-        .navbar {
-            padding: 0px 0px 20px 0px;
-            position: relative;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .bg-light {
-            background-color: transparent !important;
-        }
-        .navbar-light .navbar-brand {
-            color: rgba(0, 0, 0, .9);
-        }
-        .navbar-brand{
-            color: white;
-            margin-top: 20px;
-            display: inline-block;
-            font-size: 1.25rem;
-            line-height: inherit;
-            white-space: nowrap;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-style: none;
-            vertical-align: middle;
-        }
-        .navbar-collapse {
-            flex-grow: 1;
-            align-items: center;
-        }
-        ul{
-            margin: 0px;
-            padding: 0px;
-        }
-        li {
-            margin: 0px;
-            padding: 0px;
-            list-style: none;
-        }
-        .navbar-light .navbar-nav .active>.nav-link{
-            color: #fefefd;
-            background-color: #f01c1c;
-        }
-        .nav-item :hover{
-            color: #fefefd;
-            background-color: #f01c1c;
-        }
-        .navbar-light .navbar-nav .nav-link {
-            color: rgb(255 255 255);
-        }
-        .navbar-light .navbar-nav .nav-link:hover {
-            color: rgb(255 255 255);
-        }
-        .navbar-expand-lg .navbar-nav .nav-link {
-            padding: 30px 20px 10px 20px;
-            font-size: 17px;
-            text-transform: uppercase;
-            margin: 0px 5px;
-        }
-        .nav-link{
-            display: block;
-            text-decoration: none;
-            color: white;
-            font-size: 20px;
-            margin-left: 30px;
-        }
-        .form-inline {
-            display: flex;
-            flex-flow: row wrap;
-            align-items: center;
-        }
+    <!-- Optional CDN fallback if your static file path is wrong -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        a {
-            color: rgb(255 255 255);
-            text-decoration: none;
-            font-size: 18px;
-            float: left;
-            text-transform: uppercase;
-            padding: 0px 0px 0px 43px;
-        }
-        .user-icon {
-            padding-right: 15px;
-        }
-        .fa {
-            display: inline-block;
-            font-family: FontAwesome;
-            font-style: normal;
-            font-weight: normal;
-            line-height: 1;
-        }
-        .login_bt {
-            width: 210px;
-            margin-top: 0px !important;
-        }
-        .login_bt ul {
-            margin: 0px;
-            padding: 0px;
-        }
+    body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #fff;
+    }
 
-        .login_bt li a {
-            float: left;
-            font-size: 18px;
-            color: #fefefd;
-            text-transform: uppercase;
-        }  
-        .login-bt li a:hover {
-            color: #f01c1c;
-        }
-        .dropdown .user-icon {
-          font-size: 16px;
-          border: none;
-          outline: none;
-          color: white;
-          padding: 14px 16px;
-          background-color: inherit;
-          font-family: inherit;
-          margin: 0;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-        .dropdown-content a {
-            float: none;
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-        .dropdown-content a:hover {
-            background-color: #f90404;
-            color: white;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .banner-section {
-            width: 100%;
-            padding: 90px 0px 140px 0px;
-        }
-        .banner-taital {
-            width: 100%;
-            font-size: 85px;
-            color: #fefefd;
-            font-weight: 800;
-            line-height: 90px;
-        }
-        .banner_text {
-            width: 100%;
-            float: left;
-            font-size: 20px;
-            color: #fefefd;
-            margin: 20px 0px 0px 0px;
-        }
-        p {
-            margin: 20px;
-            font-weight: 400;
-            line-height: 24px;
-        }
-        .btn_main {
-            width: 100%;
-            float: left;
-            padding-top: 40px;
-        }
-        .about_bt {
-            width: 175px;
-            float: left;
-        }
-        .about_bt.active a {
-            color: #fefefd;
-            background-color: #f01c1c;
-        }
-        .about_bt a {
-            width: 100%;
-            float: left;
-            font-size: 18px;
-            background-color: #fefefd;
-            color: #1c130f;
-            text-align: center;
-            padding: 10px;
-            border-radius: 5px;
-            text-transform: uppercase;
-        }
-        .callnow_bt {
-            width: 175px;
-            float: left;
-        }
-        .callnow_bt a {
-            width: 100%;
-            float: left;
-            font-size: 18px;
-            background-color: #fefefd;
-            color: #1c130f;
-            text-align: center;
-            padding: 10px;
-            margin-left: 10px;
-            border-radius: 5px;
-            text-transform: uppercase;
-        }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    img {
+        max-width: 100%;
+        display: block;
+        border-radius: 8px;
+    }
+
+    /* ------------------------------
+    NAVBAR
+    --------------------------------- */
+    .navbar {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 15px 50px;
+        position: fixed;
+        top: 0; left: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 2px;
+    }
+
+    .navbar ul {
+        display: flex;
+        gap: 25px;
+        list-style: none;
+    }
+
+    .navbar ul li a {
+        color: #fff;
+        font-size: 1rem;
+        position: relative;
+        transition: 0.3s;
+    }
+
+    .navbar ul li a::after {
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background: #c62828;
+        transition: 0.3s;
+    }
+
+    .navbar ul li a:hover::after {
+        width: 100%;
+    }
+
+    /* ------------------------------
+    BANNER
+    --------------------------------- */
+    .banner-content {
+        height: 100vh;
+        background: url("{% static 'images/banner-bg.png' %}") center/cover no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        position: relative;
+        color: #fff;
+        padding: 0px;
+    }
+
+    .banner-content::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    .banner-title, .banner-text, .banner-buttons {
+        position: relative;
+        z-index: 2;
+    }
+
+    .banner-title {
+        font-size: 4rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+
+    .banner-text {
+        font-size: 1.2rem;
+        color: #ddd;
+        margin-bottom: 30px;
+    }
+
+    .banner-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .banner-buttons .btn {
+        padding: 12px 28px;
+        border-radius: 30px;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+    .btn-danger {
+        background: #c62828;
+        border: none;
+        color: #fff;
+    }
+
+    .btn-danger:hover {
+        background: #b71c1c;
+        transform: scale(1.05);
+    }
+
+    .btn-light {
+        background: #fff;
+        color: #333;
+    }
+
+    .btn-light:hover {
+        background: #f1f1f1;
+        transform: scale(1.05);
+    }
+
+    /* ------------------------------
+    ABOUT
+    --------------------------------- */
+    .about-section {
+        padding: 80px 10%;
+        display: flex;
+        align-items: center;
+    }
+
+    .about_taital {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 15px;
+    }
+
+    .about_taital_1 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #c62828;
+    }
+
+    .about_text {
+        font-size: 1.05rem;
+        color: #555;
+        line-height: 1.7;
+    }
+
+    .about_img {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    /* ------------------------------
+    COFFEE CARDS (Swiper)
+    --------------------------------- */
+    /* Coffee Swiper Section */
+    .coffee_section {
+        padding: 80px 10%;
+        text-align: center;
+    }
+
+    .coffee-card {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: 0.3s;
+        padding: 20px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .coffee-card:hover {
+        transform: translateY(-8px);
+    }
+
+    .coffee-card .card-img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    .swiper {
+        padding-bottom: 50px; /* space for dots */
+    }
+
+    .swiper-pagination {
+        bottom: 1px !important;
+    }
+
+    .swiper-pagination-bullet {
+        background: #c62828;
+        opacity: 0.6;
+    }
+    .swiper-pagination-bullet-active {
+        background: #b71c1c;
+        opacity: 1;
+    }
+
+    .card-content {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .card-content h2 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        color: #222;
+    }
+
+    .card-content p {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .price {
+        color: #c62828;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .read_btn a {
+        display: inline-block;
+        padding: 8px 18px;
+        border-radius: 20px;
+        background: #c62828;
+        color: #fff;
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+
+    .read_btn a:hover {
+        background: #b71c1c;
+    }
+    .coffee_section .swiper { position: relative; padding-bottom: 56px; }
+    .coffee_section .swiper-pagination {
+        bottom: 0px !important; left: 0; right: 0;
+        display: flex; justify-content: center; gap: 8px;
+    }
+    .coffee_section .swiper-pagination-bullet { background: #c62828; opacity: .6; }
+    .coffee_section .swiper-pagination-bullet-active { background: #b71c1c; opacity: 1; }
+
+    /* ------------------------------
+    BLOG
+    --------------------------------- */
+    .blog_section {
+        padding: 80px 6%;
+        margin-top:282px;
+    }
+
+    .blog-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 40px;
+    }
+
+    .blog-box {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: 0.3s;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .blog-box:hover {
+        transform: translateY(-8px);
+    }
+
+    .blog-img {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    .blog-box .title {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+        color: #222;
+    }
+
+    .blog-date {
+        font-size: 0.9rem;
+        color: #888;
+        margin-bottom: 10px;
+    }
+
+    .blog-box .description {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+
+    /* ------------------------------
+    CONTACT
+    --------------------------------- */
+    .contact_section {
+        padding: 80px 10%;
+        background: #f9f9f9;
+        text-align: center;
+    }
+
+    .contact_taital {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+    .mail_section_1 {
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .mail_text, .massage-bt {
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+    }
+
+    .send_bt {
+        background: #c62828;
+        color: #fff;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .send_bt:hover {
+        background: #b71c1c;
+    }
+
+    /* ------------------------------
+    FOOTER
+    --------------------------------- */
+    .footer_section {
+        background: #111;
+        color: #aaa;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .footer_social_icon ul {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        list-style: none;
+        margin-bottom: 20px;
+    }
+
+    .footer_social_icon a {
+        color: #c62828;
+        font-size: 1.2rem;
+        transition: 0.3s;
+    }
+
+    .footer_social_icon a:hover {
+        color: #fff;
+    }
+
+    .location_text ul {
+        list-style: none;
+        margin-bottom: 20px;
+    }
+
+    .location_text li {
+        margin: 5px 0;
+    }
+
+    .update_mail {
+        padding: 10px;
+        width: 300px;
+        border: none;
+        border-radius: 8px;
+        margin-right: 18px;
+    }
+
+    .subscribe_bt a {
+        background: #c62828;
+        padding: 10px 12px;
+        border-radius: 8px;
+        color: #fff;
+        transition: 0.3s;
+    }
+
+    .subscribe_bt a:hover {
+        background: #b71c1c;
+    }
+
+    .copyright_section {
+        background: #000;
+        color: #888;
+        text-align: center;
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+
+    /* ------------------------------
+    RESPONSIVE
+    --------------------------------- */
+    @media (max-width: 992px) {
         .about-section {
-            width: 100%;
-            float: left;
-        }
-        .layout-padding {
-            padding-top: 100px;
-            padding-bottom: 0px;
-        }
-        .about-section_2 {
-            width: 100%;
-            float: left;
-        }
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
-        }
-        .col-md-6{
-            position: relative;
-            width: 100%;
-            min-height: 1px;
-            padding-right: 15px;
-            padding-left: 15px;
-        }
-        .about_taital_box {
-            width: 100%;
-            float: left;
-            padding-top: 15px;
-        }
-        .about_taital {
-            width: 100%;
-            float: left;
-            font-size: 40px;
-            color: #3b3b3b;
-            text-transform: uppercase;
-            font-weight: bold;
-            padding-bottom: 0px;
-        }
-        h1 {
-            letter-spacing: 0;
-            position: relative;
-            padding: 0 0 10px 0;
-            line-height: normal;
-            margin: 0;
-        }
-        .about_taital_1 {
-            width: 100%;
-            float: left;
-            font-size: 30px;
-            color: #3b3b3b;
-            margin: 10px 0px;
-        }
-        .about_text {
-            width: 100%;
-            float: left;
-            font-size: 16px;
-            color: #232222;
-            margin: 0px;
-        }
-        .readmore-btn {
-            width: 170px;
-            float: left;
-            margin-top: 40px;
-        }
-        .readmore-btn a {
-            width: 100%;
-            float: left;
-            font-size: 18px;
-            color: #f01c1c;
-            text-transform: uppercase;
-            border-radius: 5px;
-            border: 1px solid #f01c1c;
-            padding: 10px;
-            border-radius: 5px;
+            flex-direction: column;
             text-align: center;
         }
-        .about_img {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-style: none;
-          vertical-align: middle;
+    }
+
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 15px 20px;
         }
-        .coffee_section {
-            width: 100%;
-            float: left;
-            height:700px;
-        }
-        .col-md-12{
-            position: relative;
-            width: 100%;
-            min-height: 1px;
-            padding-right: 15px;
-            padding-left: 15px;
-        }
-        .coffee_taital {
-            width: 100%;
-            float: left;
-            font-size: 40px;
-            color: #3b3b3b;
-            text-transform: uppercase;
-            text-align: center;
-            font-weight: bold;
-            padding-bottom: 0px;
-        }
-        .slide-container{
-           max-width: 1120px;
-           width: 100%;
-           padding: 40px 0;
-        }
-        body{
-           min-height: 100vh;
-           align-items: center;
-           justify-content: center;
-           background-color: #efefef;
-        }
-        .slide-content{
-           margin: 0 40px;
-           overflow: hidden;
-           border-radius: 25px;
-        }
-        .card{
-           border-radius: 25px;
-           background-color: #fff;
-        }
-        .image-content,
-        .card-content{
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           padding: 10px 14px;
-        }
-        .card-content{
-           height: 300px;
-        }
-        .image-content{
-           position: relative;
-           row-gap: 5px;
-           padding: 25px 0;
-        }
-        .overlay{
-           position: absolute;
-           height: 100%;
-           left: 0;
-           top: 0;
-           width: 100%;
-           background-color: #242c2f;
-           border-radius: 25px 25px 0 25px;
-        }
-        .overlay::before,
-        .overlay::after{
-           content: '';
-           right: 0;
-           bottom: -40px;
-           position: absolute;
-           height: 40px;
-           width: 40px;
-           background-color: #242c2f;
-        }
-        .overlay::after{
-           border-radius: 0 25px 0 0;
-           background-color: #fff;
-        }
-        .card-image{
-           position: relative;
-           height: 150px;
-           width: 150px;
-           border-radius: 50%;
-           background: #fff;
-           padding: 3px;
-        }
-        .card-image .card-img{
-           height: 100%;
-           width: 100%;
-           object-fit: cover;
-           border-radius: 50%;
-           border: 4px solid #242c2f;
-        }
-        .name{
-           font-size: 18px;
-           font-weight: 500;
-           color: #333;
-        }
-        .description{
-           font-size: 14px;
-           color: #707070;
-           text-align: center;
-           height: 250px;
-        }
-        .blog_section {
-            width: 100%;
-            float: left;
-        }
-        .blog_section_2 {
-            width: 100%;
-            float: left;
-            padding-top: 60px;
-        }
-        .blog_box {
-            width: 100%;
-            background-color: #ffffff;
-            box-shadow: 0px 0px 20px 0px;
-            padding: 0px 0px 30px 0px;
-        }
-        .blog_img {
+        .navbar ul {
+            display: flex !important;
+            flex-direction: column; /* stacks menu vertically */
             width: 100%;
         }
-        .date_text {
-            width: 100px;
-            font-size: 18px;
-            color: #ffffff;
-            text-align: center;
-            text-transform: uppercase;
-            padding: 20px 0px;
-            background-color: #f01c1c;
-            position: absolute;
-            top: 0px;
+        .banner-title {
+            font-size: 2.5rem;
         }
-        h4{
-            letter-spacing: 0;
-            position: relative;
-            padding: 0 0 10px 0;
-            line-height: normal;
-            margin: 0;
+        .banner-text {
+            font-size: 1rem;
         }
-        .lorem_text {
-            width: 100%;
-            font-size: 14px;
-            color: #3b3b3b;
-            margin: 0px;
-            padding: 0px 20px;
-        }
-        .read_btn {
-            width: 150px;
-            margin: 0 auto;
-            text-align: center;
-            padding-top: 20px;
-            display: flex;
-        }
-        .read_btn a {
-            width: 100%;
-            float: left;
-            font-size: 16px;
-            color: #f01c1c;
-            text-align: center;
-            border-radius: 5px;
-            border: 1px solid #f01c1c;
-            text-transform: uppercase;
-            padding: 8px;
-        }
-        .contact_taital {
-            width: 100%;
-            float: left;
-            font-size: 40px;
-            color: #252525;
-            font-weight: bold;
-            text-align: center;
-            text-transform: uppercase;
-        }
-        .contact_section_2 {
-            width: 100%;
-            float: left;
-            padding-top: 55px;
-        }
-        .mail_section_1 {
-            width: 50%;
-            margin: 0 auto;
-        }
-        .mail_text {
-            width: 100%;
-            float: left;
-            font-size: 16px;
-            color: #2e2e2d;
-            border: 0px;
-            background-color: #d5d3d3;
-            padding: 11px 20px;
-            margin-top: 20px;
-            border-radius: 40px;
-            font-family: 'Poppins', sans-serif;
-        }
-        input {
-            overflow: visible;
-        }
-        .massage-bt {
-            color: #2e2e2d;
-            width: 100%;
-            height: 110px;
-            font-size: 18px;
-            background-color: #d5d3d3;
-            padding: 40px 20px 0px 20px;
-            border: 0px;
-            height: 110px;
-            margin-top: 20px;
-            border-radius: 40px;
-            font-family: 'Poppins', sans-serif;
-        }
-        textarea {
-            overflow: auto;
-            margin: 0;
-            resize: vertical;
-        }
-        .send_bt {
-            width: 172px;
-            height: 39px;
-            background: red;
-            margin: 0 auto;
-            text-align: center;
-            display: block;
-            color: white;
-        }
-        .send_bt a {
-            width: 100%;
-            text-align: center;
-            font-size: 16px;
-            color: #fefefd;
-            background-color: #f01c1c;
-            padding: 10px;
-            margin-top: 20px;
-            display: block;
-            border-radius: 40px;
-        }
-        .map_main {
-            width: 100%;
-            float: left;
-            margin-top: 90px;
-        }
-        .footer_section {
-            width: 100%;
-            float: left;
-            height: auto;
-            background-color: #1d1d1d;
-            background-size: 100%;
-            padding: 50px 0px;
-        }
-        .footer_social_icon {
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .footer_social_icon ul {
-            margin: 0px;
-            padding: 0px;
-            display: inline-block;
-        }
-        .footer_social_icon li {
-            float: left;
-        }
-        .footer_social_icon li a {
-            float: left;
-            padding: 5px 10px;
-            background-color: #fff;
-            color: #1d1d1d;
-            border-radius: 100%;
-            font-size: 19px;
-            margin-right: 5px;
-            width: 44px;
-            text-align: center;
-            margin-top: 10px;
-        }
-        .location_text {
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-            padding-top: 50px;
-        }
-        .location_text ul {
-            margin: 0px;
-            padding: 0px;
-            display: inline-block;
-        }
-        .location_text li {
-            float: left;
-            font-size: 16px;
-            color: #ffffff;
-            padding: 0px 10px 5px 10px;
-        }
-        .location_text li a {
-            color: #ffffff;
-        }
-        .form-group{
-            display: flex;
-            width: 50%;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .update_mail {
-            color: #383838;
-            width: 100%;
-            height:50px !important;
-            font-size: 18px;
-            padding: 10px 20px 0px 20px;
-            background-color: #efefef;
-            margin: 0 auto;
-            justify-content: center;
-            align-items: center;
-            display: block;
-            margin-top: 20px;
-            border: 1px solid #f01c1c;
-        }
-        .subscribe_bt {
-            width: 70px;
-            float: left;
-            padding-top: 20px;
-        }
-        .subscribe_bt a {
-            width: 100%;
-            float: left;
-            color: #fefefd;
-            font-size: 16px;
-            padding: 13px 0px 14px 0px;
-            background-color: #f01c1c;
-            text-transform: uppercase;
-            text-align: center;
-        }
-        .copyright_section {
-            width: 100%;
-            float: left;
-            background-color: #f01c1c;
-            height: auto;
-        }
-        .copyright_text {
-            width: 100%;
-            float: left;
-            font-size: 16px;
-            color: #fefefd;
-            text-align: center;
-            margin-left: 0px;
-            font-family: 'Poppins', sans-serif;
-        }
-        .copyright_text a {
-            color: #fefefd;
-        }
-        .cart-count-badge {
-            position: absolute;
-            top: 22px;
-            right: 152px;
-            background-color: red;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 50%;
-            padding: 5px 5px;
-            min-width: 16px;
-            text-align: center;
-        }
-        .notification-badge{
-            background-color: red;
-            position: absolute;
-            top: 22px;
-            font-size: 12px;
-            font-weight: bold;
-            padding: 5px 5px;
-            border-radius: 50%;
-            min-width: 16px;
-            text-align: center;
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
-    <div class="Header_section">
+    <div class="header_section header_bg">
         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <!-- Logo -->
                 <a class="navbar-brand" href="{% url 'index' %}">
-                    <img src="{% static 'images/logo.png' %}" >
+                    <img src="{% static 'images/logo.png' %}" style="height:40px;" alt="Logo">
                 </a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class=" navbar-nav">
-                        {% if user.is_active == 1 %}
+
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Nav Items -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'user_home' %}">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'coffees' %}">Coffees</a></li>
                             <li class="nav-item">
-                              <a class="nav-link " href="{% url 'user_home' %}">Home</a>
+                            <a class="nav-link" href="{% url 'cart_item' %}">
+                                <i class="fa fa-shopping-cart" style="font-size:20px;">
+                                <span class="cart-count-badge">{{ count }}</span>
+                                </i>
+                            </a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="{% url 'coffees' %}">Coffees</a>
+                            <a class="nav-link" href="{% url 'user_notification' %}">
+                                <i class="fa fa-bell" style="font-size:20px;">
+                                <span class="notification-badge">{{ notification_count }}</span>
+                                </i>
+                            </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'cart_item' %}">
-                                  <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:24px;margin-top:0px">
-                                    <span class="cart-count-badge">{{ count }}</span>
-                                  </i>
-                                </a>
+                            <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                {% if profile_id %}
+                                <a class="dropdown-item" href="{% url 'profile' profile_id %}">Profile</a>
+                                {% else %}
+                                <a class="dropdown-item" href="#">Profile</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                            </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'user_notification' %}">
-                                    <i class='fa fa-bell' style='font-size:20px'>
-                                        <span class="notification-badge">{{ notification_count }}</span>
-                                    </i>
-                                </a>
-                            </li>
-                             <li class="nav-item">
-                                 <div class="dropdown">
-                                    <a class="nav-link" href=""><span class="user_icon">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                    </span></a>
-                                    <div class="dropdown-content" style="color:black;margin-top: 63px;margin-left: -27px;">
-                                      {% if profile_id %}
-                                        <a href="{% url 'profile' profile_id %}">Profile</a>
-                                      {% else %}
-                                        <a href="#">Profile</a>
-                                      {% endif %}
-                                        <a href="{% url 'logout' %}">LOGOUT</a>
-                                    </div>
-                                </div>
-                             </li>
                         {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'coffees' %}">Coffees</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login_page' %}">Login</a></li>
                             <li class="nav-item">
-                                  <a class="nav-link " href="{% url 'index' %}">Home</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="{% url 'coffees' %}">Coffees</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'login_page' %}">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"  href="{% url 'login_page' %}">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:24px"></i>
-                                </a>
+                            <a class="nav-link" href="{% url 'login_page' %}">
+                                <i class="fa fa-shopping-cart" style="font-size:20px;"></i>
+                            </a>
                             </li>
                         {% endif %}
                     </ul>
                 </div>
             </nav>
         </div>
-        <div class="banner-section">
-            <div class="container">
-                <h1 class="banner-taital">
-                    coffee
-                    <br>
-                    shop
-                </h1>
-                <p class="banner_text">more-or-less normal distribution of letters, as opposed to using </p>
-                <div class="btn_main">
-                    <div class="about_bt active">
-                        <a href="{% url 'about' %}">About Us</a>
-                    </div>
-                    <div class="callnow_bt">
-                        <a href="{% url 'contact' %}">Call Now</a>
-                    </div>
-                </div>
-            </div>
+    </div> 
+    <div class="banner-content text-center">
+        <h1 class="banner-title" style="color: white;">coffee <br> shop</h1>
+        <p class="banner-text">more-or-less normal distribution of letters, as opposed to using</p>
+        <div class="banner-buttons mt-4">
+            <a href="{% url 'about' %}" class="btn btn-danger btn-lg mr-3">ABOUT US</a>
+            <a href="tel:+911234567890" class="btn btn-light btn-lg">CALL NOW</a>
         </div>
     </div>
     <div class="about-section layout-padding">
@@ -797,6 +562,7 @@
                             <h1 class= "about_taital_1" >Coffee distribution '</h1>
                             <p class=" about_text">
                                 has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editorhas a more-or-less normal distribution of letters, as oppos
+                                Lorem ipsum, dolor sit consectetur radicalising elit. Deletion ear um inventor suscipit, nobis atque qui aspernatur nam quod incidunt a voluptate, repellat accusamus dolor eius minima odio! Sit, suscipit aspernatur.
                             </p>
                         </div>
                     </div>
@@ -809,147 +575,159 @@
             </div>
         </div>
     </div>
-    <div class="coffee_section layout_padding">
-        <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <h1 class="coffee_taital">OUR Coffee OFFER</h1>
-               </div>
-            </div>
-        </div>
-        <div class="carousel-item active">
-          <div class="slide-container swiper">
-            <div id="main_slider" class="slide-content">
-              <div class="card-wrapper swiper-wrapper">
+    <div class="coffee_section">
+        <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
+        <div class="swiper slide-container">
+            <div class="swiper-wrapper">
                 {% for i in data %}
-                <div class="card swiper-slide">
-                  <div class="image-content">
-                    <span class="overlay"></span>
-                    <div class="card-image">
-                      <img src="{{ i.image.url }}" alt="" class="card-img">
+                <div class="swiper-slide">
+                    <div class="coffee-card">
+                    <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
+                    <div class="card-content">
+                        <h2 class="name">{{ i.item_name }}</h2>
+                        <p class="description">{{ i.description }}</p>
+                        <h4 class="price">₹{{ i.price }}</h4>
+                        <div class="read_btn">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'add_to_cart' i.id %}">Add to Cart</a>
+                        {% else %}
+                            <a href="{% url 'login_page' %}">Login to Add</a>
+                        {% endif %}
+                        </div>
                     </div>
-                  </div>
-                  <div class="card-content">
-                    <h2 class="name">{{ i.item_name }}</h2>
-                    <p class="description">{{ i.description }}</p>
-                    <h4 class="price">{{ i.price }}</h4>
-                    <div class="read_btn"><a href="{% url 'cofe_read' i.id %}">Read More</a></div>
-                  </div>
+                    </div>
                 </div>
                 {% endfor %}
-              </div>
             </div>
+
+            <!-- Pagination row -->
             <div class="swiper-pagination"></div>
-          </div>
+        </div>
+    </div>
+    <div class="blog_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="coffee_taital">OUR BLOG</h1>
+                </div>
+            </div>
+        </div>
+        <div class="blog-container">
+            {% for i in blogs %}
+            <div class="blog-box">
+                {% if i.image %}
+                    <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
+                {% endif %}
+                <h2 class="title">{{ i.title }}</h2>
+                <span class="blog-date">{{ i.date }}</span>
+                <p class="description" style="line-break:anywhere">{{ i.description }}</p>
+                <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
+            </div>
+            {% endfor %}
         </div>
     </div>
     <div class="contact_section layout_padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <h1 class="contact_taital">Get In Touch</h1>
-          </div>
-        </div>
-      </div>
-      <div class="container-fluid">
-        <div class="contact_section_2">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="mail_section_1">
-                <form action="{% url 'contact' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                  <input type="text" class="mail_text" placeholder="Your Name" name="name" value="{{i.name}}" required>
-                  <input type="text" class="mail_text" placeholder="Your Email" name="email" value="{{i.email}}" required>
-                  <input type="text" class="mail_text" placeholder="Your Phone" name="phone" value="{{i.phone}}" required>
-                  <input type="text" class="mail_text" placeholder="Subject" name="subject" value="{{i.subject}}" required>
-                  <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="message"></textarea>
-                  <button type="submit" class="send_bt">send</button>
-                </form>
-              </div>
+        <div class="container">
+            <div class="row">
+            <div class="col-sm-12">
+                <h1 class="contact_taital">Get In Touch</h1>
             </div>
-            <div class="map_main">
-              <div class="map-responsive">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.1313710519335!2d74.9928642750686!3d12.507450387766891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba483d25c8a7d37%3A0x37a30287fb9e45!2sStack%20Technology%20Centre!5e0!3m2!1sen!2sin!4v1720517032591!5m2!1sen!2sin" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+        <div class="container-fluid">
+            <div class="contact_section_2">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mail_section_1">
+                        <form action="{% url 'contact' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            <input type="text" class="mail_text" placeholder="Your Name" name="name" required>
+                            <input type="email" class="mail_text" placeholder="Your Email" name="email" required>
+                            <input type="text" class="mail_text" placeholder="Your Phone" name="phone" required>
+                            <input type="text" class="mail_text" placeholder="Subject" name="subject" required>
+                            <textarea class="massage-bt" placeholder="Message" rows="5" id="comment" name="message"></textarea>
+                            <button type="submit" class="send_bt">send</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="map_main">
+                <div class="map-responsive">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3895.1313710519335!2d74.9928642750686!3d12.507450387766891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba483d25c8a7d37%3A0x37a30287fb9e45!2sStack%20Technology%20Centre!5e0!3m2!1sen!2sin!4v1720517032591!5m2!1sen!2sin" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
     <div class="footer_section layout_padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="footer_social_icon">
-              <ul>
-                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-              </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="footer_social_icon">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="location_text">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="update_mail" placeholder="Your Email" name="Your Email"></textarea>
+                        <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+                    </div>
+                </div>
             </div>
-            <div class="location_text">
-              <ul>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="form-group">
-              <textarea class="update_mail" placeholder="Your Email" rows="5"  name="Your Email"></textarea>
-              <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
     <div class="copyright_section">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="copyright_text">2020 All Rights Reserved. Design by</p>
-          </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="copyright_text">2020 All Rights Reserved. Design by</p>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <!-- jQuery (needed for Bootstrap 4) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap 4 Bundle (includes Popper.js, no need to add separately) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Swiper JS -->
     <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <!-- Optional CDN fallback -->
+    <script>if(!window.Swiper){document.write('<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script>')}</script>
     <script>
-      function getCartCount() {
-        return localStorage.getItem('cartCount') || 0;
-      }
-      function updateCartCount() {
-        const cartCountElement = document.getElementById('cart-count');
-        cartCountElement.textContent = getCartCount();
-      }
-
-      function addToCart() {
-        let currentCount = parseInt(getCartCount(), 10);
-        currentCount++;
-        localStorage.setItem('cartCount', currentCount);
-        updateCartCount();
-      }
-
-      document.addEventListener('DOMContentLoaded', updateCartCount);
-      document.querySelector('.add-to-cart-button').addEventListener('click', addToCart);
-
+        document.addEventListener("DOMContentLoaded", function () {
+            new Swiper(".coffee_section .swiper", {
+                loop: true,
+                spaceBetween: 20,
+                pagination: {
+                el: ".coffee_section .swiper-pagination",
+                clickable: true
+                },
+                breakpoints: {
+                320:  { slidesPerView: 1, spaceBetween: 10 },
+                768:  { slidesPerView: 2, spaceBetween: 20 },
+                1024: { slidesPerView: 3, spaceBetween: 30 }
+                }
+            });
+        });
     </script>
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
-
-
-
-
-
-
-
