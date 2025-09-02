@@ -63,7 +63,7 @@
 
     .navbar ul li a {
         color: #fff;
-        font-size: 1rem;
+        font-size: 40px;
         position: relative;
         transition: 0.3s;
     }
@@ -478,6 +478,17 @@
             font-size: 1rem;
         }
     }
+    @media (max-width: 992px){
+        .navbar ul li a {
+            color: #fff;
+            font-size: 40px;
+            position: relative;
+            transition: 0.3s;
+        }
+        .cart-count-badge, .notification-badge {
+            font-size: 35px;
+        }
+    }
 </style>
 </head>
 <body>
@@ -524,7 +535,7 @@
                                 {% if profile_id %}
                                 <a class="dropdown-item" href="{% url 'profile' profile_id %}">Profile</a>
                                 {% else %}
-                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                                 {% endif %}
                                 <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                             </div>
