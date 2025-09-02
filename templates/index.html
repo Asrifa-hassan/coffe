@@ -1,956 +1,101 @@
-<!DOCTYPE html>
+{% include 'header.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>COFFO</title>
-    <link  href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
-    <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        .container{
-            width: 100%;
-            padding-right: 15px;
-            padding-left: 15px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-        .navbar {
-            padding: 0px 0px 20px 0px;
-            position: relative;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .bg-light {
-            background-color: transparent !important;
-        }
-        .navbar-light .navbar-brand {
-            color: rgba(0, 0, 0, .9);
-        }
-        .navbar-brand{
-            color: white;
-            margin-top: 20px;
-            display: inline-block;
-            font-size: 1.25rem;
-            line-height: inherit;
-            white-space: nowrap;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-style: none;
-            vertical-align: middle;
-        }
-        .navbar-collapse {
-            flex-grow: 1;
-            align-items: center;
-        }
-        ul{
-            margin: 0px;
-            padding: 0px;
-        }
-        li {
-            margin: 0px;
-            padding: 0px;
-            list-style: none;
-        }
-        .navbar-light .navbar-nav .active>.nav-link{
-            color: #fefefd;
-            background-color: #f01c1c;
-        }
-        .nav-item :hover{
-            color: #fefefd;
-            background-color: #f01c1c;
-        }
-        .navbar-light .navbar-nav .nav-link {
-            color: rgb(255 255 255);
-        }
-        .navbar-light .navbar-nav .nav-link:hover {
-            color: rgb(255 255 255);
-        }
-        .navbar-expand-lg .navbar-nav .nav-link {
-            padding: 30px 20px 10px 20px;
-            font-size: 17px;
-            text-transform: uppercase;
-            margin: 0px 5px;
-        }
-        .nav-link{
-            display: block;
-            text-decoration: none;
-            color: white;
-            font-size: 20px;
-            margin-left: 30px;
+{% block content %}
 
-        }
-         .navbar-brand img {
-            height: 50px;
-        }
-
-        /* Font styling */
-        .navbar-nav .nav-link {
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        /* On mobile: float left instead of center */
-        @media (max-width: 991px) {
-            .navbar-nav {
-                text-align: left;
-            }
-            .navbar-nav .nav-item {
-                margin-bottom: 10px;
-            }
-        }
-        .form-inline {
-            display: flex;
-            flex-flow: row wrap;
-            align-items: center;
-        }
-        a {
-            color: rgb(255 255 255);
-            text-decoration: none;
-            font-size: 18px;
-            float: left;
-            text-transform: uppercase;
-            padding: 0px 0px 0px 0px;
-        }
-        .fa {
-            display: inline-block;
-            font-family: FontAwesome;
-            font-style: normal;
-            font-weight: normal;
-            line-height: 1;
-        }
-        .login-bt {
-            width: 292px;
-            margin-top: 18px;
-        }
-        .login-bt li a:hover {
-            color: #f01c1c;
-        }
-        .banner-section {
-            width: 100%;
-            padding: 90px 0px 140px 0px;
-        }
-        .banner-taital {
-            width: 100%;
-            font-size: 85px;
-            color: #fefefd;
-            font-weight: 800;
-            line-height: 90px;
-        }
-        .banner_text {
-            width: 100%;
-            float: left;
-            font-size: 20px;
-            color: #fefefd;
-            margin: 20px 0px 0px 0px;
-        }
-        p {
-            margin: 20px;
-            font-weight: 400;
-            line-height: 24px;
-        }
-        .btn_main {
-            width: 100%;
-            float: left;
-            padding-top: 40px;
-        }
-        .about_bt {
-            width: 175px;
-            float: left;
-        }
-        .about_bt.active a {
-            color: #fefefd;
-            background-color: #f01c1c;
-        }
-        .about_bt a {
-            width: 100%;
-            float: left;
-            font-size: 18px;
-            background-color: #fefefd;
-            color: #1c130f;
-            text-align: center;
-            padding: 10px;
-            border-radius: 5px;
-            text-transform: uppercase;
-        }
-        .callnow_bt {
-            width: 175px;
-            float: left;
-        }
-        .callnow_bt a {
-            width: 100%;
-            float: left;
-            font-size: 18px;
-            background-color: #fefefd;
-            color: #1c130f;
-            text-align: center;
-            padding: 10px;
-            margin-left: 10px;
-            border-radius: 5px;
-            text-transform: uppercase;
-        }
-        .about-section {
-            width: 100%;
-            float: left;
-        }
-        .layout-padding {
-            padding-top: 100px;
-            padding-bottom: 0px;
-        }
-        .about-section_2 {
-            width: 100%;
-            float: left;
-        }
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
-        }
-        .col-md-6{
-            position: relative;
-            width: 100%;
-            height:fit-content;
-            padding-right: 15px;
-            padding-left: 15px;
-        }
-        .about_taital_box {
-            width: 100%;
-            float: left;
-            padding-top: 15px;
-        }
-        .about_taital {
-            width: 100%;
-            float: left;
-            font-size: 40px;
-            color: #3b3b3b;
-            text-transform: uppercase;
-            font-weight: bold;
-            padding-bottom: 0px;
-        }
-        h1 {
-            letter-spacing: 0;
-            position: relative;
-            padding: 0 0 10px 0;
-            line-height: normal;
-            margin: 0;
-        }
-        .about_taital_1 {
-            width: 100%;
-            float: left;
-            font-size: 30px;
-            color: #3b3b3b;
-            margin: 10px 0px;
-        }
-        .about_text {
-            width: 100%;
-            float: left;
-            font-size: 16px;
-            color: #232222;
-            margin: 0px;
-        }
-        .readmore-btn {
-            width: 170px;
-            float: left;
-            margin-top: 40px;
-        }
-        .readmore-btn a {
-            width: 100%;
-            float: left;
-            font-size: 18px;
-            color: #f01c1c;
-            text-transform: uppercase;
-            border-radius: 5px;
-            border: 1px solid #f01c1c;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .readmore-btn a {
-            width: 100%;
-            float: left;
-            font-size: 18px;
-            color: #f01c1c;
-            text-transform: uppercase;
-            border-radius: 5px;
-            border: 1px solid #f01c1c;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .about_img {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-style: none;
-            vertical-align: middle;
-        }
-        .coffee_section {
-            width: 100%;
-            float: left;
-            height:700px;
-        }
-        .col-md-12{
-            position: relative;
-            width: 100%;
-            min-height: 1px;
-            padding-right: 15px;
-            padding-left: 15px;
-        }
-        .coffee_taital {
-            width: 100%;
-            float: left;
-            font-size: 40px;
-            color: #3b3b3b;
-            text-transform: uppercase;
-            text-align: center;
-            font-weight: bold;
-            padding-bottom: 0px;
-        }
-        .coffee_section {
-           width: 100%;
-           float: left;
-           height:700px;
-        }
-        .slide-container{
-           max-width: 1120px;
-           width: 100%;
-           padding: 40px 0;
-        }
-        body{
-           min-height: 100vh;
-           align-items: center;
-           justify-content: center;
-           background-color: #efefef;
-        }
-        .slide-content{
-           margin: 0 40px;
-           overflow: hidden;
-           border-radius: 25px;
-        }
-        .card{
-           border-radius: 25px;
-           background-color: #fff;
-        }
-        .image-content,
-        .card-content{
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           padding: 10px 14px;
-        }
-        .card-content{
-           height: 300px;
-        }
-        .image-content{
-           position: relative;
-           row-gap: 5px;
-           padding: 25px 0;
-        }
-        .overlay{
-           position: absolute;
-           height: 100%;
-           left: 0;
-           top: 0;
-           width: 100%;
-           background-color: #242c2f;
-           border-radius: 25px 25px 0 25px;
-        }
-        .overlay::before,
-        .overlay::after{
-           content: '';
-           right: 0;
-           bottom: -40px;
-           position: absolute;
-           height: 40px;
-           width: 40px;
-           background-color: #242c2f;
-        }
-        .overlay::after{
-           border-radius: 0 25px 0 0;
-           background-color: #fff;
-        }
-        .card-image{
-           position: relative;
-           height: 150px;
-           width: 150px;
-           border-radius: 50%;
-           background: #fff;
-           padding: 3px;
-        }
-        .card-image .card-img{
-           height: 100%;
-           width: 100%;
-           object-fit: cover;
-           border-radius: 50%;
-           border: 4px solid #242c2f;
-        }
-        .name{
-           font-size: 18px;
-           font-weight: 500;
-           color: #333;
-        }
-        .description{
-           font-size: 14px;
-           color: #707070;
-           text-align: center;
-           height: 250px;
-        }
-        .fa {
-              display: inline-block;
-              font-family: FontAwesome;
-              font-style: normal;
-              font-weight: normal;
-              line-height: 1;
-              font-size:20px;
-        }
-        .blog-section {
-           padding: 50px 0;
-           background-color: #f8f9fa;
-           text-align: center;
-        }
-       .coffee_taital {
-           font-size: 40px;
-           font-weight: bold;
-           margin-bottom: 30px;
-           color: #242c2f;
-        }
-       .blog-container {
-            display: grid;
-            margin:5px;
-            grid-template-columns:repeat(3, 1fr);
-            justify-content: space-between;
-            gap:10px;
-        }
-        .blog-box {
-           width: 88%; /* Ensures 3 blogs per row */
-           background: white;
-           border-radius: 10px;
-           overflow: hidden;
-           box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-           transition: transform 0.3s ease-in-out;
-           padding: 15px;
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           margin:20px;
-        }
-        .blog-box:hover {
-            transform: translateY(-5px);
-        }
-        .blog-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        .title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        .blog-date {
-            font-size: 14px;
-            color: #888;
-        }
-        .description {
-            font-size: 14px;
-            color: #666;
-            text-align: center;
-            height: 60px; /* Adjust the height to fit the box */
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 3; /* Show only 3 lines */
-            -webkit-box-orient: vertical;
-            margin-bottom: 15px;
-        }
-        .read_btn a {
-            display: inline-block;
-            text-decoration: none;
-            background: #d61818;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-size: 13px;
-        }
-        .read_btn a:hover {
-            background: white;
-            color:black;
-        }
-        @media (max-width: 1024px) {
-            .blog-box {
-                width: 100%; /* 2 blogs per row */
-            }
-            .navbar-brand img {
-                height: 33px;
-            }
-        }
-        @media (max-width: 768px) {
-            .blog-box {
-                width: 100%; /* 1 blog per row */
-            }
-        }
-        .contact_taital {
-                width: 100%;
-                float: left;
-                font-size: 40px;
-                color: #252525;
-                font-weight: bold;
-                text-align: center;
-                text-transform: uppercase;
-        }
-        .contact_section_2 {
-                width: 100%;
-                float: left;
-                padding-top: 55px;
-        }
-        .mail_section_1 {
-            width: 50%;
-            margin: 0 auto;
-        }
-        .mail_text {
-            width: 100%;
-            float: left;
-            font-size: 16px;
-            color: #2e2e2d;
-            border: 0px;
-            background-color:#d5d3d3 ;
-            padding: 11px 20px;
-            margin-top: 20px;
-            border-radius: 40px;
-            font-family: 'Poppins', sans-serif;
-        }
-        input {
-            overflow: visible;
-        }
-        .massage-bt {
-            color: #2e2e2d;
-            width: 100%;
-            height: 110px;
-            font-size: 18px;
-            background-color: #d5d3d3;
-            padding: 40px 20px 0px 20px;
-            border: 0px;
-            height: 110px;
-            margin-top: 20px;
-            border-radius: 40px;
-            font-family: 'Poppins', sans-serif;
-        }
-        textarea {
-            overflow: auto;
-            margin: 0;
-            resize: vertical;
-        }
-        .send_bt {
-            width: 170px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .send_bt a {
-            width: 100%;
-            text-align: center;
-            font-size: 16px;
-            color: #fefefd;
-            background-color: #f01c1c;
-            padding: 10px;
-            margin-top: 20px;
-            display: block;
-            border-radius: 40px;
-        }
-        .map_main {
-            width: 100%;
-            float: left;
-            margin-top: 90px;
-        }
-        .footer_section {
-            width: 100%;
-            float: left;
-            height: auto;
-            background-color: #1d1d1d;
-            background-size: 100%;
-            padding: 50px 0px;
-        }
-        .footer_social_icon {
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .footer_social_icon ul {
-            margin: 0px;
-            padding: 0px;
-            display: inline-block;
-        }
-        .footer_social_icon li {
-            float: left;
-        }
-        .footer_social_icon li a {
-            float: left;
-            padding: 5px 10px;
-            background-color: #fff;
-            color: #1d1d1d;
-            border-radius: 100%;
-            font-size: 19px;
-            margin-right: 5px;
-            width: 44px;
-            text-align: center;
-            margin-top: 10px;
-        }
-        .location_text {
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-            padding-top: 50px;
-        }
-        .location_text ul {
-            margin: 0px;
-            padding: 0px;
-            display: inline-block;
-        }
-        .location_text li {
-            float: left;
-            font-size: 16px;
-            color: #ffffff;
-            padding: 0px 10px 5px 10px;
-        }
-        .location_text li a {
-            color: #ffffff;
-        }
-        .form-group{
-            display: flex;
-            width: 50%;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .update_mail {
-            color: #383838;
-            width: 100%;
-            height:50px !important;
-            font-size: 18px;
-            padding: 10px 20px 0px 20px;
-            background-color: #efefef;
-            margin: 0 auto;
-            justify-content: center;
-            align-items: center;
-            display: block;
-            margin-top: 20px;
-            border: 1px solid #f01c1c;
-        }
-        .subscribe_bt {
-            width: 70px;
-            float: left;
-            padding-top: 20px;
-        }
-        .subscribe_bt a {
-            width: 100%;
-            float: left;
-            color: #fefefd;
-            font-size: 16px;
-            padding: 13px 0px 14px 0px;
-            background-color: #f01c1c;
-            text-transform: uppercase;
-            text-align: center;
-        }
-        .copyright_section {
-            width: 100%;
-            float: left;
-            background-color: #f01c1c;
-            height: auto;
-        }
-        .copyright_text {
-            width: 100%;
-            float: left;
-            font-size: 16px;
-            color: #fefefd;
-            text-align: center;
-            margin-left: 0px;
-            font-family: 'Poppins', sans-serif;
-        }
-        .copyright_text a {
-            color: #fefefd;
-        }
-        .collapse:not(.show) {
-            display: none;
-        }
-       .send_bt {
-          width: 172px;
-          height: 39px;
-          background: red;
-          margin: 0 auto;
-          text-align: center;
-          display: block;
-          color: white;
-       }
-        @media (min-width: 768px) and (max-width: 991px) {
-            .navbar-light .navbar-toggler {
-                color: #fff;
-                border-color: #fff;
-                background: #fff;
-            }
-        }
-        .swiper {
-          width: 100%;
-          padding: 40px 80px;
-          box-sizing: border-box;
-        }
-        .swiper-wrapper {
-          display: flex;
-        }
-        .swiper-slide {
-          width: auto;
-          flex-shrink: 0;
-        }
-        .navbar-light .navbar-toggler-icon {
-          background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-        }
-        .navbar-light .navbar-toggler {
-            border: 1px solid #fff;   /* White border */
-        }
-        /* Custom creative toggle button */
-        .custom-toggler {
-            border: none;
-            outline: none;
-            padding: 5px 10px;
-            background: transparent;
-        }
-
-        .custom-toggler .navbar-toggler-icon {
-            background-image: none; /* remove default Bootstrap bars */
-            width: 25px;
-            height: 2px;
-            background-color: #333; /* black bar */
-            display: block;
-            position: relative;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .custom-toggler .navbar-toggler-icon::before,
-        .custom-toggler .navbar-toggler-icon::after {
-            content: '';
-            position: absolute;
-            width: 25px;
-            height: 2px;
-            background-color: #333;
-            left: 0;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .custom-toggler .navbar-toggler-icon::before {
-            top: -8px;
-        }
-
-        .custom-toggler .navbar-toggler-icon::after {
-            top: 8px;
-        }
-
-        /* Animate into X when open */
-        .custom-toggler[aria-expanded="true"] .navbar-toggler-icon {
-            background-color: transparent;
-        }
-        .custom-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
-            transform: rotate(45deg);
-            top: 0;
-        }
-        .custom-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
-            transform: rotate(-45deg);
-            top: 0;
-        }
-        /* Header background */
-        .Header_section {
-            width: 100%;
-            height: 100vh;
-            background: url("{% static 'images/banner-bg.png' %}") no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* Navbar */
-        .navbar-nav .nav-link {
-            color: white !important;
-            font-weight: 500;
-            margin: 0 10px;
-            transition: color 0.3s ease-in-out;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #ff4d4d !important;
-        }
-
-        /* Custom toggle button */
-        .custom-toggler .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-        }
-
-        /* Hero section */
-        .banner-content {
-            text-align: center;
-            margin: auto;
-            color: white;
-        }
-
-        .banner-title {
-            font-size: 4rem;
-            font-weight: 800;
-            text-transform: lowercase;
-        }
-
-        .banner-text {
-            font-size: 1rem;
-            margin-top: 15px;
-        }
-
-        /* Hero buttons */
-        .banner-buttons .btn {
-            border-radius: 30px;
-            padding: 12px 30px;
-            font-weight: 600;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .banner-buttons .btn-danger:hover {
-            background: #ff3333;
-        }
-
-        .banner-buttons .btn-light:hover {
-            background: #ddd;
-        }
-
-    </style>
-</head>
-<body>
-    <header class="Header_section">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
-            <!-- Logo -->
-            <a class="navbar-brand font-weight-bold text-white" href="{% url 'index' %}">
-            COFFO
-            </a>
-
-            <!-- Toggle -->
-            <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Navbar Items -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto text-center">
-                <li class="nav-item active"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'coffees' %}">Coffees</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'login_page' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'login_page' %}">Login</a></li>
-            </ul>
-            </div>
-        </nav>
-
-        <!-- Hero Content -->
-        <div class="banner-content text-center">
-            <h1 class="banner-title">coffee <br> shop</h1>
-            <p class="banner-text">more-or-less normal distribution of letters, as opposed to using</p>
-            <div class="banner-buttons mt-4">
-            <a href="{% url 'about' %}" class="btn btn-danger btn-lg mr-3">ABOUT US</a>
-            <a href="tel:+911234567890" class="btn btn-light btn-lg">CALL NOW</a>
-            </div>
-        </div>
-    </header>
-    <div class="about-section layout-padding">
-        <div class="container">
-            <div class="about-section_2">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="about_taital_box">
-                            <h1 class= "about_taital" >About Our shop</h1>
-                            <h1 class= "about_taital_1" >Coffee distribution '</h1>
-                            <p class=" about_text">
-                              has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editorhas a more-or-less normal distribution of letters, as oppos
-                              Lorem ipsum, dolor sit consectetur radicalising elit. Deletion ear um inventor suscipit, nobis atque qui aspernatur nam quod incidunt a voluptate, repellat accusamus dolor eius minima odio! Sit, suscipit aspernatur.
-                            </p>
-                        </div>
+<div class="banner-content text-center">
+    <h1 class="banner-title">coffee <br> shop</h1>
+    <p class="banner-text">more-or-less normal distribution of letters, as opposed to using</p>
+    <div class="banner-buttons mt-4">
+        <a href="{% url 'about' %}" class="btn btn-danger btn-lg mr-3">ABOUT US</a>
+        <a href="tel:+911234567890" class="btn btn-light btn-lg">CALL NOW</a>
+    </div>
+</div>
+<div class="about-section layout-padding">
+    <div class="container">
+        <div class="about-section_2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="about_taital_box">
+                        <h1 class= "about_taital" >About Our shop</h1>
+                        <h1 class= "about_taital_1" >Coffee distribution '</h1>
+                        <p class=" about_text">
+                            has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editorhas a more-or-less normal distribution of letters, as oppos
+                            Lorem ipsum, dolor sit consectetur radicalising elit. Deletion ear um inventor suscipit, nobis atque qui aspernatur nam quod incidunt a voluptate, repellat accusamus dolor eius minima odio! Sit, suscipit aspernatur.
+                        </p>
                     </div>
-                    <div class="col-md-6">
-                        <div class="image-iman">
-                            <img src="{% static 'images/about-img.png' %}" class="about_img">
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="image-iman">
+                        <img src="{% static 'images/about-img.png' %}" class="about_img">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="coffee_section layout_padding">
-        <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <h1 class="coffee_taital">OUR Coffee OFFER</h1>
-               </div>
+</div>
+<div class="coffee_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="coffee_taital">OUR Coffee OFFER</h1>
             </div>
         </div>
-        <div class="swiper">
-           <div class="swiper-wrapper">
-             {% for i in data %}
-             <div class="swiper-slide">
-                <div class="card">
-                  <div class="image-content">
+    </div>
+    <div class="swiper">
+        <div class="swiper-wrapper">
+        {% for i in data %}
+        <div class="swiper-slide">
+            <div class="card">
+                <div class="image-content">
                     <span class="overlay"></span>
                     <div class="card-image">
                       <img src="{{ i.image.url }}" alt="" class="card-img">
                     </div>
-                  </div>
-                  <div class="card-content">
+                </div>
+                <div class="card-content">
                     <h2 class="name">{{ i.item_name }}</h2>
                     <p class="description" style="line-break:anywhere">{{ i.description }}</p>
                     <h4 class="price">{{ i.price }}</h4>
                     <div class="read_btn"><a href="{% url 'cofe_read' i.id %}">Read More</a></div>
-                  </div>
                 </div>
-             </div>
-             {% endfor %}
-           </div>
-          <div class="swiper-pagination"></div>
-        </div>
-    </div>
-    <div class="blog_section layout_padding">
-        <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <h1 class="coffee_taital">OUR BLOG</h1>
-               </div>
             </div>
         </div>
-        <div class="blog-container">
-            {% for i in blogs %}
-            <div class="blog-box">
-               {% if i.image %}
-                  <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
-               {% endif %}
-               <h2 class="title">{{ i.title }}</h2>
-               <span class="blog-date">{{ i.date }}</span>
-               <p class="description" style="line-break:anywhere">{{ i.description }}</p>
-               <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
+        {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+<div class="blog_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="coffee_taital">OUR BLOG</h1>
             </div>
-            {% endfor %}
         </div>
     </div>
-    <div class="contact_section layout_padding">
-      <div class="container">
+    <div class="blog-container">
+        {% for i in blogs %}
+        <div class="blog-box">
+            {% if i.image %}
+                <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
+            {% endif %}
+            <h2 class="title">{{ i.title }}</h2>
+            <span class="blog-date">{{ i.date }}</span>
+            <p class="description" style="line-break:anywhere">{{ i.description }}</p>
+            <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="contact_section layout_padding">
+    <div class="container">
         <div class="row">
           <div class="col-sm-12">
             <h1 class="contact_taital">Get In Touch</h1>
           </div>
         </div>
-      </div>
-      <div class="container-fluid">
+    </div>
+    <div class="container-fluid">
         <div class="contact_section_2">
           <div class="row">
             <div class="col-md-12">
@@ -973,52 +118,52 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
-    <div class="footer_section layout_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="footer_social_icon">
-                        <ul>
-                           <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                           <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                           <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                           <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="location_text">
-                        <ul>
-                           <li>
-                              <a href="#">
+</div>
+<div class="footer_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer_social_icon">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+                <div class="location_text">
+                    <ul>
+                        <li>
+                            <a href="#">
                               <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
-                              </a>
-                           </li>
-                           <li>
-                              <a href="#">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
                               <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
-                              </a>
-                           </li>
-                        </ul>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="update_mail" placeholder="Your Email" name="Your Email"></textarea>
-                        <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
-                    </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <textarea class="update_mail" placeholder="Your Email" name="Your Email"></textarea>
+                    <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="copyright_section">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                     <p class="copyright_text">2020 All Rights Reserved. Design by</p>
-                </div>
+</div>
+<div class="copyright_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="copyright_text">2020 All Rights Reserved. Design by</p>
             </div>
         </div>
     </div>
-    <script>
+</div>
+<script>
       document.addEventListener("DOMContentLoaded", function () {
         new Swiper(".swiper", {
           slidesPerView: 3,
@@ -1030,10 +175,10 @@
           },
         });
       });
-   </script>
-   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-   <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-   <script src="{% static 'js/script.js' %}"></script>
+</script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -1043,5 +188,4 @@
 <!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-</body>
-</html>
+{% endblock %}
