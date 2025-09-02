@@ -1676,5 +1676,11 @@ i.fa-shopping-cart {
 .footer_section a:hover {
   color: #fff;
 }
-
+@media (max-width: 768px) {
+  .navbar ul {
+    display: flex !important;
+    flex-direction: column; /* stacks menu vertically */
+    width: 100%;
+  }
+}
 
