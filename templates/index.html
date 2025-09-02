@@ -1,6 +1,9 @@
 {% include 'header.html' %}
 {% load static %}
 {% block content %}
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+    <!-- Optional CDN fallback if your static file path is wrong -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -279,6 +282,13 @@ img {
 .read_btn a:hover {
   background: #b71c1c;
 }
+.coffee_section .swiper { position: relative; padding-bottom: 56px; }
+.coffee_section .swiper-pagination {
+  bottom: 12px !important; left: 0; right: 0;
+  display: flex; justify-content: center; gap: 8px;
+}
+.coffee_section .swiper-pagination-bullet { background: #c62828; opacity: .6; }
+.coffee_section .swiper-pagination-bullet-active { background: #b71c1c; opacity: 1; }
 
 /* ------------------------------
    BLOG
@@ -499,7 +509,6 @@ img {
         </div>
     </div>
 </div>
-<!-- Coffee Section -->
 <div class="coffee_section">
     <h1 class="coffee_taital">OUR COFFEE OFFER</h1>
     <div class="swiper slide-container">
@@ -507,25 +516,25 @@ img {
             {% for i in data %}
             <div class="swiper-slide">
                 <div class="coffee-card">
-                    <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
-                    <div class="card-content">
-                        <h2 class="name">{{ i.item_name }}</h2>
-                        <p class="description">{{ i.description }}</p>
-                        <h4 class="price">₹{{ i.price }}</h4>
-                        <div class="read_btn">
-                            {% if user.is_authenticated %}
-                                <a href="{% url 'add_to_cart' i.id %}">Add to Cart</a>
-                            {% else %}
-                                <a href="{% url 'login_page' %}">Login to Add</a>
-                            {% endif %}
-                        </div>
+                <img src="{{ i.image.url }}" alt="{{ i.item_name }}" class="card-img">
+                <div class="card-content">
+                    <h2 class="name">{{ i.item_name }}</h2>
+                    <p class="description">{{ i.description }}</p>
+                    <h4 class="price">₹{{ i.price }}</h4>
+                    <div class="read_btn">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'add_to_cart' i.id %}">Add to Cart</a>
+                    {% else %}
+                        <a href="{% url 'login_page' %}">Login to Add</a>
+                    {% endif %}
                     </div>
+                </div>
                 </div>
             </div>
             {% endfor %}
         </div>
 
-        <!-- Pagination dots -->
+        <!-- Pagination row -->
         <div class="swiper-pagination"></div>
     </div>
 </div>
@@ -635,21 +644,21 @@ img {
 
 <!-- Swiper JS -->
 <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-
-<!-- Custom Script -->
+<!-- Optional CDN fallback -->
+<script>if(!window.Swiper){document.write('<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script>')}</script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        new Swiper(".slide-container", {
+        new Swiper(".coffee_section .swiper", {
             loop: true,
             spaceBetween: 20,
             pagination: {
-                el: ".coffee_section .swiper-pagination", // bind to coffee section
-                clickable: true
+            el: ".coffee_section .swiper-pagination",
+            clickable: true
             },
             breakpoints: {
-                320: { slidesPerView: 1, spaceBetween: 10 },   // mobile
-                768: { slidesPerView: 2, spaceBetween: 20 },   // tablet
-                1024: { slidesPerView: 3, spaceBetween: 30 }   // desktop
+            320:  { slidesPerView: 1, spaceBetween: 10 },
+            768:  { slidesPerView: 2, spaceBetween: 20 },
+            1024: { slidesPerView: 3, spaceBetween: 30 }
             }
         });
     });
