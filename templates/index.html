@@ -1,6 +1,7 @@
 {% include 'header.html' %}
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
 <style>
     /* ------------------------------
    RESET & BASE
@@ -561,17 +562,17 @@ img {
         <div class="contact_section_2">
           <div class="row">
             <div class="col-md-12">
-              <div class="mail_section_1">
-                <form action="{% url 'contact' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                  <input type="text" class="mail_text" placeholder="Your Name" name="name" value="{{i.name}}" required>
-                  <input type="text" class="mail_text" placeholder="Your Email" name="email" value="{{i.email}}" required>
-                  <input type="text" class="mail_text" placeholder="Your Phone" name="phone" value="{{i.phone}}" required>
-                  <input type="text" class="mail_text" placeholder="Subject" name="subject" value="{{i.subject}}" required>
-                  <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="message"></textarea>
-                  <button type="submit" class="send_bt">send</button>
-                </form>
-              </div>
+                <div class="mail_section_1">
+                    <form action="{% url 'contact' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <input type="text" class="mail_text" placeholder="Your Name" name="name" required>
+                        <input type="email" class="mail_text" placeholder="Your Email" name="email" required>
+                        <input type="text" class="mail_text" placeholder="Your Phone" name="phone" required>
+                        <input type="text" class="mail_text" placeholder="Subject" name="subject" required>
+                        <textarea class="massage-bt" placeholder="Message" rows="5" id="comment" name="message"></textarea>
+                        <button type="submit" class="send_bt">send</button>
+                    </form>
+                </div>
             </div>
             <div class="map_main">
               <div class="map-responsive">
@@ -625,6 +626,16 @@ img {
         </div>
     </div>
 </div>
+<!-- jQuery (needed for Bootstrap 4) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap 4 Bundle (includes Popper.js, no need to add separately) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Swiper JS -->
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+
+<!-- Custom Script -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         new Swiper(".slide-container", {
@@ -641,18 +652,5 @@ img {
             }
         });
     });
-
 </script>
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-<script src="{% static 'js/script.js' %}"></script>
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Popper.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 {% endblock %}
