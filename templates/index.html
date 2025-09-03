@@ -477,11 +477,23 @@
             font-size: 1rem;
         }
     }
-    @media (max-width: 320px) {
+        @media (max-width: 320px) {
         .banner-content {
-            height: 45vh;
+            height: 100vh;   /* full screen */
+            padding: 40px 15px; /* extra padding so content breathes */
+        }
+        .banner-title {
+            font-size: 1.8rem;  /* smaller font */
+        }
+        .banner-text {
+            font-size: 0.9rem;
+        }
+        .banner-buttons .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
         }
     }
+
 </style>
 </head>
 <body>
