@@ -87,7 +87,7 @@
     BANNER
     --------------------------------- */
     .banner-content {
-        height: 100vh;
+        height: 115vh;
         background: url("{% static 'images/banner-bg.png' %}") center/cover no-repeat;
         display: flex;
         justify-content: center;
@@ -491,8 +491,9 @@
     }
     @media only screen and (max-width: 320px) {
         .banner-content {
-            height: 100vh;   /* take 80% of viewport height */
+            height: 80vh;   /* take 80% of viewport height */
             padding: 40px 15px; /* breathing space */
+            background: url("{% static 'images/banner-bg.png' %}") center/cover no-repeat;
         }
         .banner-title {
             font-size: 1.8rem;
