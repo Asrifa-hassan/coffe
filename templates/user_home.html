@@ -533,11 +533,11 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                                 {% if profile_id %}
-                                <a class="dropdown-item" href="{% url 'profile' profile_id %}">Profile</a>
+                                    <a class="dropdown-item" href="{% url 'profile' profile_id %}">Profile</a>
                                 {% else %}
-                                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                                    <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                                 {% endif %}
-                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                             </div>
                             </li>
                         {% else %}
@@ -625,15 +625,15 @@
         </div>
         <div class="blog-container">
             {% for i in blogs %}
-            <div class="blog-box">
-                {% if i.image %}
-                    <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
-                {% endif %}
-                <h2 class="title">{{ i.title }}</h2>
-                <span class="blog-date">{{ i.date }}</span>
-                <p class="description" style="line-break:anywhere">{{ i.description }}</p>
-                <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
-            </div>
+                <div class="blog-box">
+                    {% if i.image %}
+                        <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
+                    {% endif %}
+                    <h2 class="title">{{ i.title }}</h2>
+                    <span class="blog-date">{{ i.date }}</span>
+                    <p class="description" style="line-break:anywhere">{{ i.description }}</p>
+                    <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
+                </div>
             {% endfor %}
         </div>
     </div>
