@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
     <!-- Optional CDN fallback if your static file path is wrong -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -477,13 +478,14 @@
             font-size: 1rem;
         }
     }
-    @media (max-width: 320px) {
+    @media only screen and (max-width: 320px) {
         .banner-content {
-            height: 80vh;   /* full screen */
-            padding: 40px 15px; /* extra padding so content breathes */
+            height: 80vh;   /* take 80% of viewport height */
+            padding: 40px 15px; /* breathing space */
         }
         .banner-title {
-            font-size: 1.8rem;  /* smaller font */
+            font-size: 1.8rem;
+            line-height: 2rem;
         }
         .banner-text {
             font-size: 0.9rem;
@@ -493,7 +495,6 @@
             font-size: 0.9rem;
         }
     }
-
 </style>
 </head>
 <body>
