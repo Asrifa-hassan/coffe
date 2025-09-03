@@ -1012,7 +1012,7 @@ textarea#comment.update_mail::placeholder {
 .form-group {
     margin-bottom: 1rem;
     display: flex;
-    width: 50%;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
 }
