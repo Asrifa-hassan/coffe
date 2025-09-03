@@ -20,7 +20,6 @@
     max-width: 900px;
     margin: 135px auto;
     padding: 30px;
-    height:auto;
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
@@ -68,57 +67,40 @@
     font-size: 15px;
   }
 
-  .address-card a {
+  .action-buttons {
     position: absolute;
     top: 20px;
     right: 20px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .action-buttons .edit-btn,
+  .action-buttons .delete-btn {
     font-size: 13px;
-    background-color: #ff3c3c;
-    color: white;
     padding: 6px 14px;
     border-radius: 8px;
     text-decoration: none;
+    color: #fff;
     transition: background-color 0.3s;
   }
 
-  .address-card a:hover {
+  .action-buttons .edit-btn {
+    background-color: #ff3c3c;
+  }
+
+  .action-buttons .edit-btn:hover {
     background-color: #cc2e2e;
   }
 
-  .action-buttons {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  gap: 10px;
-}
+  .action-buttons .delete-btn {
+    background-color: #6c757d;
+  }
 
-.action-buttons .edit-btn,
-.action-buttons .delete-btn {
-  font-size: 13px;
-  padding: 6px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #fff;
-  transition: background-color 0.3s;
-}
+  .action-buttons .delete-btn:hover {
+    background-color: #5a6268;
+  }
 
-.action-buttons .edit-btn {
-  background-color: #ff3c3c;
-  margin-right: 87px;
-}
-
-.action-buttons .edit-btn:hover {
-  background-color: #cc2e2e;
-}
-
-.action-buttons .delete-btn {
-  background-color: #6c757d;
-}
-
-.action-buttons .delete-btn:hover {
-  background-color: #5a6268;
-}
   .add-btn {
     display: inline-block;
     padding: 12px 25px;
@@ -142,40 +124,107 @@
     margin-bottom: 40px;
   }
 
+  /* ============ RESPONSIVE DESIGN ============ */
+  @media (max-width: 992px) {
+    .profile-wrapper {
+      margin: 100px 20px;
+      padding: 20px;
+    }
+
+    .profile-header {
+      gap: 20px;
+    }
+
+    .profile-header h2 {
+      font-size: 24px;
+    }
+  }
+
   @media (max-width: 768px) {
     .profile-header {
       flex-direction: column;
       text-align: center;
     }
 
-    .address-card a {
+    .profile-header img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .address-card {
+      padding: 15px;
+    }
+
+    .action-buttons {
       position: static;
       margin-top: 10px;
-      display: inline-block;
+      justify-content: center;
+    }
+
+    .action-buttons .edit-btn,
+    .action-buttons .delete-btn {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+
+    h1.section-title {
+      font-size: 28px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .profile-wrapper {
+      margin: 80px 10px;
+      padding: 15px;
+      border-radius: 12px;
+    }
+
+    .profile-header h2 {
+      font-size: 20px;
+    }
+
+    .profile-header p {
+      font-size: 14px;
+    }
+
+    .address-card p {
+      font-size: 14px;
+    }
+
+    .add-btn {
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    h1.section-title {
+      font-size: 24px;
     }
   }
 </style>
 
-<div class="profile-wrapper" >
+<div class="profile-wrapper">
   <h1 class="section-title">👤 Profile</h1>
   <div class="profile-header">
     <img src="{% static 'images/dummy-user.png' %}" alt="User Profile Picture">
     <div>
-      <h2>{{ user.name }}</h2>
+      <h2>{{ user.username }}</h2>
       <p>Email: {{ user.email }}</p>
       <p>Joined on: {{ user.date_joined }}</p>
     </div>
   </div>
 
-  <div class="profile-body" style="height: 500px;">
+  <div class="profile-body">
     {% if address %}
       {% for i in address %}
         <div class="address-card">
-          <p><strong>Address:</strong> {{ i.address }},{{ i.Zipcode }},<br>{{ i.city }},  {{ i.Land_Mark }}</p>
+          <p><strong>Address:</strong> {{ i.address }}, {{ i.Zipcode }},<br>{{ i.city }}, {{ i.Land_Mark }}</p>
           <p><strong>Contact:</strong> {{ i.phone_number }}</p>
           <div class="action-buttons">
             <a href="{% url 'get_address' i.id %}" class="edit-btn">Edit</a>
-            <a href="{% url 'delete_address' i.id %}" class="delete-btn" onclick="return confirm('Are you sure you want to delete this address?');">Delete</a>
+            <a href="{% url 'delete_address' i.id %}" class="delete-btn"
+               onclick="return confirm('Are you sure you want to delete this address?');">Delete</a>
           </div>
         </div>
       {% endfor %}
