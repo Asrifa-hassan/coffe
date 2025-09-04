@@ -158,7 +158,7 @@
         </ul><br>
       </div>
       <div class="col-sm-9" style="height: 500px; overflow-x: hidden;overflow-y: scroll;scroll-snap-type: y mandatory;">
-        <!-- new orders  -->
+        <!-- New Orders -->
         <section class="ftco-section">
           <div class="container">
             <h1 class="h1 mb-4 text-center">NEW ORDERS</h1>
@@ -191,158 +191,125 @@
                   </tbody>
                 </table>
               {% else %}
-                <p>No New Orders</p>
+                <p class="text-center">No New Orders</p>
               {% endif %}
             </div>
           </div>
         </section>
-        <!--accepted_orders-->
+
+        <!-- Accepted Orders -->
         <section class="ftco-section">
           <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-9">
-                    <h1 class="h1 mb-4 text-center">ACCEPTED ORDERS</h1>
-                  </div>
-                </div>
-                <div class="table-wrap table-responsive">
-                {% if accepted_orders %}
-                  <table class="table table-striped table-bordered">
-                    <thead class="thead-primary">
-                      <tr>
-                        <th>#</th>
-                        <th colspan="2">Item</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th>Time</th>
-                        <th colspan="2">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for i in accepted_orders %}
-                        {% for j in coffee_details %}
-                          {% if i.item_id == j.id %}
-                            {% if i.status == 2 %}
-                              <tr class="alert" role="alert">
-                                <td class="align-content-start">{{ forloop.parentloop.counter }}</td> {# Use the stored counter here #}
-                                <td class="align-content-start"><img src="{{ j.image.url }}" width="50px"></td>
-                                <td class="align-content-center"><span>{{ j.item_name }}</span></td>
-                                <td class="align-content-center">{{ i.quantity }}</td>
-                                <td class="align-content-center">₹{{ i.total_price }}</td>
-                                <td class="align-content-center">{{ i.order_time|date:"M d, Y H:i" }}</td>
-                                <td class="align-content-center"><a href="{% url 'Pending_item' i.id %}" class="btn btn-accept">delivered</a></td>
-                                <td class="align-content-center"><a href="{% url 'Cancel_item' i.id %}" class="btn btn-cancel">Cancel</a></td>
-                              </tr>
-                            {% endif %}
-                          {% endif %}
-                        {% endfor %}
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                {% else %}
-                  <p> No Pending Orders</p>
-                {% endif %}
-                </div>
-              </div>
+            <h1 class="h1 mb-4 text-center">ACCEPTED ORDERS</h1>
+            <div class="table-wrap table-responsive">
+              {% if accepted_orders %}
+                <table class="table table-striped table-bordered">
+                  <thead class="thead-primary">
+                    <tr>
+                      <th>#</th>
+                      <th colspan="2">Item</th>
+                      <th>Quantity</th>
+                      <th>Total</th>
+                      <th>Time</th>
+                      <th colspan="2">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for i in accepted_orders %}
+                      {% if i.status == 2 %}
+                        <tr>
+                          <td>{{ forloop.counter }}</td>
+                          <td><img src="{{ i.coffee.image.url }}" width="50px"></td>
+                          <td>{{ i.coffee.item_name }}</td>
+                          <td>{{ i.quantity }}</td>
+                          <td>₹{{ i.total_price }}</td>
+                          <td>{{ i.order_time|date:"M d, Y H:i" }}</td>
+                          <td><a href="{% url 'Pending_item' i.id %}" class="btn btn-accept">Delivered</a></td>
+                          <td><a href="{% url 'Cancel_item' i.id %}" class="btn btn-cancel">Cancel</a></td>
+                        </tr>
+                      {% endif %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+                <p class="text-center">No Accepted Orders</p>
+              {% endif %}
             </div>
           </div>
         </section>
-        <!--delivered_orders-->
+
+        <!-- Delivered Orders -->
         <section class="ftco-section">
           <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-9">
-                    <h1 class="h1 mb-4 text-center">DELIVERED ORDERS</h1>
-                  </div>
-                </div>
-                <div class="table-wrap table-responsive">
-                {% if delivered_orders %}
-                  <table class="table table-striped table-bordered">
-                    <thead class="thead-primary">
-                      <tr>
-                        <th>#</th>
-                        <th colspan="2">Item</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th>Time</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for i in delivered_orders %}
-                        {% for j in coffee_details %}
-                          {% if i.item_id == j.id %}
-                            {% if i.status == 3 %}
-                              <tr class="alert" role="alert">
-                                <td class="align-content-start">{{ forloop.parentloop.counter }}</td> {# Use the stored counter here #}
-                                <td class="align-content-start"><img src="{{ j.image.url }}" width="50px"></td>
-                                <td class="align-content-center"><span>{{ j.item_name }}</span></td>
-                                <td class="align-content-center">{{ i.quantity }}</td>
-                                <td class="align-content-center">₹{{ i.total_price }}</td>
-                                <td class="align-content-center">{{ i.order_time|date:"M d, Y H:i" }}</td>
-                              </tr>
-                            {% endif %}
-                          {% endif %}
-                        {% endfor %}
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                {% else %}
-                  <p>No Delivered Orders</p>
-                {% endif %}
-                </div>
-              </div>
+            <h1 class="h1 mb-4 text-center">DELIVERED ORDERS</h1>
+            <div class="table-wrap table-responsive">
+              {% if delivered_orders %}
+                <table class="table table-striped table-bordered">
+                  <thead class="thead-primary">
+                    <tr>
+                      <th>#</th>
+                      <th colspan="2">Item</th>
+                      <th>Quantity</th>
+                      <th>Total</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for i in delivered_orders %}
+                      {% if i.status == 3 %}
+                        <tr>
+                          <td>{{ forloop.counter }}</td>
+                          <td><img src="{{ i.coffee.image.url }}" width="50px"></td>
+                          <td>{{ i.coffee.item_name }}</td>
+                          <td>{{ i.quantity }}</td>
+                          <td>₹{{ i.total_price }}</td>
+                          <td>{{ i.order_time|date:"M d, Y H:i" }}</td>
+                        </tr>
+                      {% endif %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+                <p class="text-center">No Delivered Orders</p>
+              {% endif %}
             </div>
           </div>
         </section>
-<!--        cancelled_orders-->
+
+        <!-- Cancelled Orders -->
         <section class="ftco-section">
           <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-9">
-                    <h1 class="h1 mb-4 text-center">CANCELLED ORDERS</h1>
-                  </div>
-                </div>
-                <div class="table-wrap table-responsive">
-                {% if cancelled_orders %}
-                  <table class="table table-striped table-bordered">
-                    <thead class="thead-primary">
-                      <tr>
-                        <th>#</th>
-                        <th colspan="2">Item</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th>Time</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for i in cancelled_orders %}
-                        {% for j in coffee_details %}
-                          {% if i.item_id == j.id %}
-                            {% if i.status == 4 %}
-                              <tr class="alert" role="alert">
-                                <td class="align-content-start">{{ forloop.parentloop.counter }}</td> {# Use the stored counter here #}
-                                <td class="align-content-start"><img src="{{ j.image.url }}" width="50px"></td>
-                                <td class="align-content-center"><span>{{ j.item_name }}</span></td>
-                                <td class="align-content-center">{{ i.quantity }}</td>
-                                <td class="align-content-center">₹{{ i.total_price }}</td>
-                                <td class="align-content-center">{{ i.order_time|date:"M d, Y H:i" }}</td>
-                              </tr>
-                            {% endif %}
-                          {% endif %}
-                        {% endfor %}
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                {% else %}
-                  <p>No Cancelled Orders</p>
-                {% endif %}
-                </div>
-              </div>
+            <h1 class="h1 mb-4 text-center">CANCELLED ORDERS</h1>
+            <div class="table-wrap table-responsive">
+              {% if cancelled_orders %}
+                <table class="table table-striped table-bordered">
+                  <thead class="thead-primary">
+                    <tr>
+                      <th>#</th>
+                      <th colspan="2">Item</th>
+                      <th>Quantity</th>
+                      <th>Total</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for i in cancelled_orders %}
+                      {% if i.status == 4 %}
+                        <tr>
+                          <td>{{ forloop.counter }}</td>
+                          <td><img src="{{ i.coffee.image.url }}" width="50px"></td>
+                          <td>{{ i.coffee.item_name }}</td>
+                          <td>{{ i.quantity }}</td>
+                          <td>₹{{ i.total_price }}</td>
+                          <td>{{ i.order_time|date:"M d, Y H:i" }}</td>
+                        </tr>
+                      {% endif %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+                <p class="text-center">No Cancelled Orders</p>
+              {% endif %}
             </div>
           </div>
         </section>
