@@ -145,32 +145,30 @@
       }
    </style>
 <body>
-   <div class="coffee_section">
-      <div class="address-section">
-         <div class="address-card">
-            <h2>Change Address</h2>
-            <form action="{% url 'change_address' address.id %}" method="post" enctype="multipart/form-data">
-               {% csrf_token %}
-               <div class="form-group">
-                  <input type="text" name="address" placeholder="Address" value="{{ address.address }}" required>
-               </div>
-               <div class="form-group">
-                  <input type="text" name="city" placeholder="City" value="{{ address.city }}" required>
-               </div>
-               <div class="form-group">
-                  <input type="text" name="Zipcode" placeholder="Zipcode" value="{{ address.Zipcode  }}">
-               </div>
-               <div class="form-group">
-                  <input type="text" name="Land_Mark" placeholder="Landmark" value="{{ address.Land_Mark }}" required>
-               </div>
-               <div class="form-group">
-                  <input type="text" name="phone_number" placeholder="Phone Number" value="{{ address.phone_number }}" required>
-               </div>
-               <div class="form-group center-button">
-                  <button type="submit">Change</button>
-               </div>
-            </form>
-         </div>
+   <div class="address-section">
+      <div class="address-card">
+         <h2>Change Address</h2>
+         <form action="{% url 'change_address' address.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+               <input type="text" name="address" placeholder="Address" value="{{ address.address }}" required>
+            </div>
+            <div class="form-group">
+               <input type="text" name="city" placeholder="City" value="{{ address.city }}" required>
+            </div>
+            <div class="form-group">
+               <input type="text" name="Zipcode" placeholder="Zipcode" value="{{ address.Zipcode  }}">
+            </div>
+            <div class="form-group">
+               <input type="text" name="Land_Mark" placeholder="Landmark" value="{{ address.Land_Mark }}" required>
+            </div>
+            <div class="form-group">
+               <input type="text" name="phone_number" placeholder="Phone Number" value="{{ address.phone_number }}" required>
+            </div>
+            <div class="form-group center-button">
+               <button type="submit">Change</button>
+            </div>
+         </form>
       </div>
    </div>
    <div class="footer_section layout_padding">
