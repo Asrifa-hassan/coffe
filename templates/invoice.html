@@ -4,133 +4,123 @@
 <head>
     <meta charset="UTF-8">
     <title>INVOICE</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <script src="{% static 'js/script.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
-    <script src="https://kit.font-awesome.com/a076d05399.js 'crossorigin = anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-<style>
-    body {
-        background-color: #f7f7f7;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .invoice-box {
-        max-width: 850px;
-        margin: 40px auto;
-        padding: 40px;
-        border-radius: 15px;
-        background: #ffffff;
-        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-    }
-    .invoice-box .title h1 {
-        font-family: 'Georgia', serif;
-        font-size: 48px;
-        color: red;
-        letter-spacing: 2px;
-    }
-    .invoice-box table {
-        width: 100%;
-        line-height: inherit;
-        text-align: left;
-    }
-    .invoice-box table td {
-        padding: 10px;
-        vertical-align: top;
-        font-size: 15px;
-    }
-    .invoice-box table tr.top table td {
-        padding-bottom: 20px;
-    }
-    .invoice-box table tr.information table td {
-        padding-bottom: 30px;
-    }
-    .invoice-box table tr.heading td {
-        background: red;
-        color: #ffffff;
-        border-bottom: 2px solid #ddd;
-        font-weight: 600;
-        font-size: 16px;
-        text-transform: uppercase;
-    }
-    .invoice-box table tr.details td {
-        padding-bottom: 10px;
-    }
-    .invoice-box table tr.item td {
-        border-bottom: 1px solid #eee;
-        padding: 12px 10px;
-    }
-    .invoice-box table tr.item.last td {
-        border-bottom: none;
-    }
-    .invoice-box table tr.total td:nth-child(2) {
-        border-top: 2px solid red;
-        font-weight: bold;
-        font-size: 18px;
-        color: red;
-    }
-    .btn-success, .btn-primary {
-        padding: 10px 20px;
-        font-size: 14px;
-        border-radius: 25px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-        transition: all 0.3s ease;
-    }
-    .btn-success:hover, .btn-primary:hover {
-        transform: translateY(-2px);
-        opacity: 0.9;
-    }
-    .float-end {
-        display: flex;
-        gap: 10px;
-        justify-content: flex-end;
-        margin-top: 20px;
-    }
-    a.btn {
-        text-decoration: none;
-    }
-    .fa-xmark {
-        font-size: 18px;
-        color: red;
-        transition: color 0.3s;
-    }
-    .fa-xmark:hover {
-        color: #a71d2a;
-    }
-    @media only screen and (max-width: 600px) {
-        .invoice-box table tr.top table td,
-        .invoice-box table tr.information table td {
-            display: block;
-            text-align: center;
-            padding: 10px 0;
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .invoice-box {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 15px;
+            background: #ffffff;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .invoice-box .title h1 {
+            font-family: 'Georgia', serif;
+            font-size: 40px;
+            color: red;
+            letter-spacing: 2px;
+            margin-bottom: 0;
+        }
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+        .invoice-box table td {
+            padding: 8px;
+            vertical-align: top;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+        .invoice-box table tr.heading td {
+            background: red;
+            color: #ffffff;
+            border-bottom: 2px solid #ddd;
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+        }
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+            padding: 10px 8px;
+        }
+        .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid red;
+            font-weight: bold;
+            font-size: 16px;
+            color: red;
+        }
+        .btn-success, .btn-primary {
+            padding: 8px 18px;
+            font-size: 14px;
+            border-radius: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .btn-success:hover, .btn-primary:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+        .float-end {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        a.btn {
+            text-decoration: none;
+        }
+        .fa-xmark {
+            font-size: 18px;
+            color: red;
+            transition: color 0.3s;
+        }
+        .fa-xmark:hover {
+            color: #a71d2a;
         }
 
-        .float-end {
-            flex-direction: column;
-            align-items: center;
+        /* 📱 Mobile responsiveness */
+        @media only screen and (max-width: 768px) {
+            .invoice-box {
+                padding: 15px;
+                margin: 10px;
+            }
+            .invoice-box .title h1 {
+                font-size: 28px;
+            }
+            .invoice-box table td {
+                font-size: 13px;
+                display: block;
+                text-align: center;
+            }
+            .invoice-box table tr.heading td {
+                font-size: 13px;
+            }
+            .invoice-box table tr.total td:nth-child(2) {
+                font-size: 15px;
+            }
+            .float-end {
+                justify-content: center;
+                margin-top: 20px;
+            }
         }
-    }
-</style>
+    </style>
+</head>
 <body>
     <div class="invoice-box" id="invoice">
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
-                <td colspan="2">
-                    <a href="{% url 'empty_cart' %}" class="float-end font-size-15" style="color:black; align-items:end; margin-left:98%;"><i class="fa-solid fa-xmark" style="font-size:14px;"></i></a>
-                    <table>
-                        <tr>
-                            <td class="title">
-                                <h1 style="font-size:50px">COFFO</h1>
-                            </td>
-                            <td>
-                                Invoice No: COFFO # {{ unique_order_id }} <br />
-                                Created:{{ x }} <br />
-                            </td>
-                        </tr>
-                    </table>
+                <td colspan="2" class="d-flex justify-content-between align-items-center">
+                    <h1 style="font-size:32px;">COFFO</h1>
+                    <a href="{% url 'empty_cart' %}" style="color:black;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </a>
                 </td>
             </tr>
             <tr class="information">
@@ -138,18 +128,15 @@
                     <table>
                         <tr>
                             <td>
-                                {{ address.address }}
-                                <br>
-                                {{address.Land_Mark}}
-                                <br>
-                                {{address.Zipcode}}
+                                {{ address.address }}<br>
+                                {{ address.Land_Mark }}<br>
+                                {{ address.Zipcode }}
                             </td>
-                            <td>
-                                 {{ user.name }}<br>
-                                  {{ user.email }}
-                                 <br>
-                                 {{address.city}}<br>
-                                {{address.phone_number}}
+                            <td class="text-end">
+                                {{ user.name }}<br>
+                                {{ user.email }}<br>
+                                {{ address.city }}<br>
+                                {{ address.phone_number }}
                             </td>
                         </tr>
                     </table>
@@ -157,39 +144,43 @@
             </tr>
             <tr class="heading">
                 <td>Item</td>
-                <td>Price</td>
+                <td class="text-end">Price</td>
             </tr>
             {% for i in cart_data %}
             {% for j in coffee_details %}
                 {% if j.id == i.item_id %}
                     <tr class="item">
                         <td>{{ j.item_name }}</td>
-                        <td>{{ i.item_total }}</td>
+                        <td class="text-end">₹ {{ i.item_total }}</td>
                     </tr>
-            {% endif %}
+                {% endif %}
             {% endfor %}
             {% endfor %}
-                    <tr class="total">
-                        <td></td>
-                        <td>Total: ₹ {{ grand_total }}</td>
-                    </tr>
+            <tr class="total">
+                <td></td>
+                <td class="text-end">Total: ₹ {{ grand_total }}</td>
+            </tr>
         </table>
+
         <div class="d-print-none mt-4">
-        <div class="float-end">
-            <a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
-            <a href="#" class="btn btn-primary w-md" id="downloadpdf">Send</a>
+            <div class="float-end">
+                <a href="javascript:window.print()" class="btn btn-success"><i class="fa fa-print"></i> Print</a>
+                <a href="#" class="btn btn-primary" id="downloadpdf">Send</a>
+            </div>
         </div>
     </div>
-    </div>
+
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         document.getElementById('downloadpdf').addEventListener('click',function(){
             const invoiceElement = document.getElementById('invoice');
             const options = {
-                margin:1,
-                Filename:'invoice.pdf',
-                image:{ type: 'jpeg',quality:0.98},
-                html2canvas:{ scale: 2},
-                jsPDF:{ unit: 'in', format: 'letter', orientation: 'portrait'}
+                margin: 0.5,
+                filename: 'invoice.pdf',
+                image:{ type: 'jpeg', quality: 0.98 },
+                html2canvas:{ scale: 2 },
+                jsPDF:{ unit: 'in', format: 'letter', orientation: 'portrait' }
             };
             html2pdf().from(invoiceElement).set(options).save();
         });
