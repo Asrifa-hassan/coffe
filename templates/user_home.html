@@ -639,28 +639,6 @@
             <div class="swiper-pagination"></div>
         </div>
     </div>
-    <div class="blog_section layout_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 class="coffee_taital">OUR BLOG</h1>
-                </div>
-            </div>
-        </div>
-        <div class="blog-container">
-            {% for i in blogs %}
-                <div class="blog-box">
-                    {% if i.image %}
-                        <img src="{{ i.image.url }}" alt="Blog Image" class="blog-img">
-                    {% endif %}
-                    <h2 class="title">{{ i.title }}</h2>
-                    <span class="blog-date">{{ i.date }}</span>
-                    <p class="description" style="line-break:anywhere">{{ i.description }}</p>
-                    <div class="read_btn"><a href="{% url 'blog_read' i.id %}">Read More</a></div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
     <div class="contact_section layout_padding">
         <div class="container">
             <div class="row">
