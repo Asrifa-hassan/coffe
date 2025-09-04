@@ -442,20 +442,28 @@ def add_to_cart(request, id):
 
     return redirect('coffees')
 
+@login_required
 def increment_quantity(request, item_id):
     if request.method == "POST":
-        cart_item = get_object_or_404(CartItem, id=item_id)
+        cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
         cart_item.quantity += 1
-        cart_item.save()
-        return JsonResponse({'quantity': cart_item.quantity})
+        cart_item.save()  # save() auto-updates item_total
+        return JsonResponse({
+            'quantity': cart_item.quantity,
+            'item_total': float(cart_item.item_total)  # for JS
+        })
 
+@login_required
 def decrement_quantity(request, item_id):
     if request.method == "POST":
-        cart_item = get_object_or_404(CartItem, id=item_id)
+        cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
         if cart_item.quantity > 1:
             cart_item.quantity -= 1
-            cart_item.save()
-        return JsonResponse({'quantity': cart_item.quantity})
+            cart_item.save()  # auto-updates item_total
+        return JsonResponse({
+            'quantity': cart_item.quantity,
+            'item_total': float(cart_item.item_total)
+        })
 
 
 

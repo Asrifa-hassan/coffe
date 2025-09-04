@@ -3,336 +3,460 @@
     {% block content %}
     <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
 <style>
-    /* 🔹 General reset */
-    body {
+    body{
         background: #ddd;
         min-height: 100vh;
+        vertical-align: middle;
         font-family: sans-serif;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         font-weight: bold;
-        margin: 0;
+    }
+    i.fa.fa-shopping-cart{
+        font-size: 24px;
+        margin-top: 0px;
+    }
+    .title{
+        margin-bottom: 5vh;
+    }
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding: 30px 20px 10px 20px;
+        font-size: 17px;
+        font-weight:100;
+        text-transform: uppercase;
+        margin: 0px 5px;
+    }
+    .card{
+        margin:88px auto;
+        max-width: 950px;
+        width: 90%;
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 1rem;
+        border: transparent;
+    }
+    h1{
+        font-size: 25px;
+        font-family: system-ui;
+        font-weight: 600;
+    }
+    @media(max-width:767px){
+        .card{
+            margin: 3vh auto;
+        }
+    }
+    .cart{
+        background-color: #fff;
+        padding: 4vh 5vh;
+        border-bottom-left-radius: 1rem;
+        border-top-left-radius: 1rem;
+    }
+    @media(max-width:767px){
+        .cart{
+            padding: 4vh;
+            border-bottom-left-radius: unset;
+            border-top-right-radius: 1rem;
+        }
+    }
+    .summary{
+        background-color: #ddd;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        padding: 4vh;
+        color: rgb(65, 65, 65);
+    }
+    @media(max-width:767px){
+        .summary{
+        border-top-right-radius: unset;
+        border-bottom-left-radius: 1rem;
+        }
+    }
+    .summary .col-2{
         padding: 0;
     }
-
-    /* 🔹 Card container */
-    .card {
-        margin: 40px auto;
-        max-width: 950px;
-        width: 95%;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.19);
-        border-radius: 1rem;
-        background: #fff;
-        overflow: hidden;
-    }
-
-    /* 🔹 Cart / Summary split */
-    .cart {
-        background: #fff;
-        padding: 20px;
-    }
-    .summary {
-        background: #f7f7f7;
-        padding: 20px;
-        color: #333;
-    }
-
-    /* 🔹 Cart items */
-    .main {
+    .summary .col-10
+    {
+        padding: 0;
+    }.row{
         margin: 0;
-        padding: 15px 0;
-        border-bottom: 1px solid #eee;
     }
-    img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 5px;
+    .title b{
+        font-size: 1.5rem;
     }
-
-    /* 🔹 Quantity controls */
-    .quantity-control {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .quantity-control button {
-        width: 28px;
-        height: 28px;
-        border: 1px solid #ccc;
-        background: #fff;
-        font-size: 18px;
-        cursor: pointer;
-    }
-    .quantity {
-        font-size: 14px;
-        min-width: 20px;
-        text-align: center;
-    }
-
-    /* 🔹 Buttons */
-    .btn {
-        background: #000;
-        border: none;
-        color: #fff;
+    .main{
+        margin: 0;
+        padding: 2vh 0;
         width: 100%;
-        font-size: 0.9rem;
-        margin-top: 15px;
-        padding: 10px;
-        border-radius: 4px;
-        text-align: center;
     }
-    .btn:hover {
-        background: #333;
+    .col-2, .col{
+        padding: 0 1vh;
+    }
+    a{
+        padding: 0 1vh;
+    }
+    .close{
+        margin-left: auto;
+        font-size: 0.7rem;
+    }
+    img{
+        width: 7.5rem;
+    }
+    .back-to-shop{
+        margin-top: 4.5rem;
+    }
+    .text-muted {
+        color:black !important;
+    }
+    h5{
+        margin-top: 4vh;
+    }
+    hr{
+        margin-top: 1.25rem;
+    }
+    .quantity-control {
+      display: flex;
+      align-items: center;
     }
 
-    /* 🔹 Footer */
+    .quantity-control a {
+      text-decoration: none;
+      color: black;
+      font-size: 20px;
+      margin: 0 10px;
+    }
+
+    .quantity-control .quantity {
+      font-size: 16px;
+      width: 30px;
+      text-align: center;
+    }
+    form{
+        padding: 2vh 0;
+    }
+    select{
+        border: 1px solid rgba(0, 0, 0, 0.137);
+        padding: 1.5vh 1vh;
+        margin-bottom: 4vh;
+        outline: none;
+        width: 100%;
+        background-color: rgb(247, 247, 247);
+    }
+    input{
+        border: 1px solid rgba(0, 0, 0, 0.137);
+        padding: 1vh;
+        margin-bottom: 4vh;
+        outline: none;
+        width: 100%;
+        background-color: rgb(247, 247, 247);
+    }
+    input:focus::-webkit-input-placeholder
+    {
+        color:transparent;
+    }
+    .btn{
+        background-color: #000;
+        border-color: #000;
+        color: white;
+        width: 100%;
+        font-size: 0.7rem;
+        margin-top: 4vh;
+        padding: 1vh;
+        border-radius: 0;
+    }
+    .btn:focus{
+        box-shadow: none;
+        outline: none;
+        box-shadow: none;
+        color: white;
+        -webkit-box-shadow: none;
+        transition: none;
+    }
+    .btn:hover{
+        color: white;
+    }
+    a{
+        color: black;
+        margin-top: -5px;
+    }
+    a:hover{
+        color: black;
+        text-decoration: none;
+    }
+    #code{
+        background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253) , rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+        background-repeat: no-repeat;
+        background-position-x: 95%;
+        background-position-y: center;
+    }
+    .link{
+        padding: 10px 10px;
+        font-size: 12px;
+        color: brown !important;
+    }
+    .fa {
+        display: inline-block;
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        margin-top:0px;
+    }
     .footer_section {
-        background: #1d1d1d;
-        padding: 40px 15px;
-        text-align: center;
-        color: #fff;
+        width: 100%;
+        float: left;
+        height: auto;
+        background-color: #1d1d1d;
+        background-size: 100%;
+        padding: 50px 0px;
+    }
+    .footer_social_icon {
+       width: 100%;
+       margin: 0 auto;
+       text-align: center;
     }
     .footer_social_icon ul {
-        list-style: none;
-        padding: 0;
-        margin: 15px 0;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+        margin: 0px;
+        padding: 0px;
+        display: inline-block;
     }
     .footer_social_icon li {
-        margin: 5px;
+        float: left;
     }
     .footer_social_icon li a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background: #fff;
+        float: left;
+        padding: 5px 10px;
+        background-color: #fff;
         color: #1d1d1d;
-        font-size: 18px;
+        border-radius: 100%;
+        font-size: 19px;
+        margin-right: 5px;
+        width: 44px;
+        text-align: center;
+        margin-top: 10px;
     }
-    .form-group {
+    .form-group{
         display: flex;
-        justify-content: center;
-        max-width: 500px;
-        margin: 20px auto;
-        gap: 10px;
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
     }
     .update_mail {
-        flex: 1;
-        height: 45px;
-        font-size: 16px;
-        padding: 8px 15px;
+        color: #383838;
+        width: 100%;
+        height: 51px;
+        font-size: 18px;
+        padding: 10px 20px 0px 20px;
+        background-color: #efefef;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        display: block;
+        margin-top: 20px;
         border: 1px solid #f01c1c;
-        border-radius: 5px;
-        background: #efefef;
+    }
+    .subscribe_bt {
+        width: 70px;
+        float: left;
+        padding-top: 25px;
     }
     .subscribe_bt a {
-        display: inline-block;
-        padding: 12px 18px;
-        background: #f01c1c;
-        color: #fff;
-        border-radius: 5px;
+        width: 100%;
+        float: left;
+        color: #fefefd;
+        font-size: 16px;
+        padding: 13px 0px 14px 0px;
+        background-color: #f01c1c;
         text-transform: uppercase;
-        font-size: 14px;
+        text-align: center;
     }
     .copyright_section {
-        background: #f01c1c;
-        padding: 12px;
+        width: 100%;
+        float: left;
+        background-color: #f01c1c;
+        height: auto;
+    }
+    .copyright_text {
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #fefefd;
         text-align: center;
-        color: #fff;
-        font-size: 14px;
+        margin-left: 0px;
+        font-family: 'Poppins', sans-serif;
+    }
+    .copyright_text a {
+        color: #fefefd;
     }
 
-    /* 🔹 Responsive fixes */
-    @media (max-width: 992px) {
-        .card {
-            margin: 20px auto;
-        }
-        .cart, .summary {
-            border-radius: 0;
-            padding: 15px;
-        }
-        .summary {
-            margin-top: 20px;
-        }
+    fa fa-times{
+         font-size:12px;
     }
-    @media (max-width: 768px) {
-        .title h4 {
-            font-size: 1.2rem;
-        }
-        .quantity-control button {
-            font-size: 16px;
-            width: 24px;
-            height: 24px;
-        }
-        .quantity {
-            font-size: 13px;
-        }
-        .form-group {
-            flex-direction: column;
-            gap: 10px;
-        }
-        .subscribe_bt a {
-            width: 100%;
-            text-align: center;
-        }
+    .decrement, .increment{
+         width: 28px;
+         vertical-align: middle;
+         text-align: center;
     }
-    @media (max-width: 480px) {
-        .title h4 {
-            font-size: 1rem;
-        }
-        .btn {
-            font-size: 0.8rem;
-            padding: 8px;
-        }
-        .footer_social_icon li a {
-            width: 38px;
-            height: 38px;
-            font-size: 16px;
-        }
+    .read_bt {
+         width: 160px;
+         margin: 0 auto;
+         text-align: center;
+         padding-top: 20px;
+         display: flex;
+    }
+    .read_bt a:hover {
+         color: #fefefd;
+         background-color: #242c2f;
+    }
+    .read_bt a {
+         width: 100%;
+         float: left;
+         font-size: 11px;
+         background-color: #ff050a;
+         color: #ffffff;
+         text-align: center;
+         padding: 10px;
+         margin-left: 10px;
+         border-radius: 5px;
+         text-transform: uppercase;
     }
 </style>
 <body>
-  <div class="coffee_section">
-    <div class="container" style="padding-top:10px;">
-        <div class="card">
-            {% if cart_data %}
-            <div class="row">
-                <div class="col-md-8 cart">
-                    <div class="title">
-                        <div class="row">
-                            <div class="col"><h4><b>Shopping Cart</b></h4></div>
+    <div class="coffee_section">
+        <div class="container" style="padding-top:10px;">
+            <div class="card">
+                {% if cart_data %}
+                <div class="row">
+                    <div class="col-md-8 cart">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row border-top border-bottom" id="cart">
-                        {% for i in cart_data %}
-                         {% for j in coffee_details %}
-                            {% if j.id == i.item_id%}
-                            <div class="row main align-items-center" id="cart-item" >
-                                <div class="col-2"><img class="img-fluid" src="{{ j.image.url }}"></div>
-                                <div class="col">
-                                    <div class="row text-muted" id="item">{{ j.item_name }}</div>
+                        <div class="row border-top border-bottom" id="cart">
+                            {% for i in cart_data %}
+                            <div class="row main align-items-center cart-item" data-item-id="{{ i.id }}">
+                                <div class="col-2">
+                                    {% if i.item.image %}
+                                        <img class="img-fluid" src="{{ i.item.image.url }}">
+                                    {% endif %}
                                 </div>
-                                <div class="quantity-control" data-item-id="{{ i.item_id }}">
+                                <div class="col">
+                                    <div class="row text-muted">{{ i.item.item_name }}</div>
+                                </div>
+                                <div class="quantity-control">
                                     <button class="decrement">-</button>
                                     <span class="quantity">{{ i.quantity }}</span>
                                     <button class="increment">+</button>
                                 </div>
-                                <div class="col">{{ i.item_total }}</div>
-                                <span><a href="{% url 'delete_cart_item' i.item_id %}"  style="color: black;"><i class="fa fa-times" style="font-size:12px;"></i></a></span>
+                                <div class="col item-total">₹ {{ i.item_total }}</div>
+                                <span>
+                                    <a href="{% url 'delete_cart_item' i.id %}" style="color: black;">
+                                        <i class="fa fa-times" style="font-size:12px;"></i>
+                                    </a>
+                                </span>
                             </div>
-                             {% endif %}
-                         {% endfor %}
-                       {% endfor %}
+                            {% endfor %}
+                        </div>
+                        <div class="back-to-shop"><a href="{% url 'coffees' %}">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
                     </div>
-                    <div class="back-to-shop"><a href="{% url 'coffees' %}">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
-                </div>
-                <div class="col-md-4 summary">
-                    <div><h5><b>Summary</b></h5></div>
-                    <hr>
-                    {% for i in cart_data %}
-                      {% for j in coffee_details %}
-                        {% if j.id == i.item_id %}
-                            <div class="row">
-                                <div class="col" style="padding-left:0;">{{ j.item_name }} ({{ i.quantity }})</div>
-                                <div class="col text-right">₹ {{ i.item_total }}</div>
-                            </div>
-                        {% endif %}
-                      {% endfor %}
-                    {% endfor %}
-                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                        <div class="col">TOTAL PRICE</div>
-                        <div class="col text-right">₹ {{ grand_total }}</div>
-                    </div>
-                    <div class="address-section">
-                    <h5 style="font-size:15px;"><b>Delivery Address</b></h5>
-                    {% if address %}
-                    <form action="{% url 'order_items' %}" method="POST">
-                    {% csrf_token %}
-                    <label for="address" >Select Address:</label>
-                    <select id="address" name="address" class="form-control">
-                        {% for i in address %}
-                            <option value="{{ i.id }}">{{ i.city }}, {{ i.Zipcode }}, {{ i.Land_Mark }}</option>
+                    <div class="col-md-4 summary">
+                        <div><h5><b>Summary</b></h5></div>
+                        <hr>
+                        {% for i in cart_data %}
+                        <div class="row summary-item" data-item-id="{{ i.id }}">
+                            <div class="col" style="padding-left:0;">{{ i.item.item_name }} ({{ i.quantity }})</div>
+                            <div class="col text-right">₹ {{ i.item_total }}</div>
+                        </div>
                         {% endfor %}
-                    </select>
-                     <button type="submit" class="btn btn-round btn-danger" style="height: 37px;width: 35%;">checkout</button>
-                   </form>
-                   {% else %}
-                      <div class="buttons">
-                         <a href="{% url 'add_address'%}" class="btn-danger" style="height: 35px; width: 61%;font-size: 14px;text-align: center;margin-top: 8px;padding-top: 8px;"  type="submit">Add Address</a>
-                     </div>
-                   {% endif %}
-                    <div id="new-address" style="display: none; margin-top: 10px;">
-                        <input type="text" name="city" placeholder="city" class="form-control mb-2">
-                        <input type="text" name="Zipcode" placeholder="Zipcode" class="form-control mb-2">
-                        <input type="text" name="Land_Mark" placeholder="Land_Mark" class="form-control mb-2">
+                        <hr>
+                        <div class="row">
+                            <div class="col"><strong>Total</strong></div>
+                            <div class="col text-right" id="grand-total">₹ {{ grand_total }}</div>
+                        </div>
+                        <div class="address-section">
+                        <h5 style="font-size:15px;"><b>Delivery Address</b></h5>
+                        {% if address %}
+                        <form action="{% url 'order_items' %}" method="POST">
+                        {% csrf_token %}
+                        <label for="address" >Select Address:</label>
+                        <select id="address" name="address" class="form-control">
+                            {% for i in address %}
+                                <option value="{{ i.id }}">{{ i.city }}, {{ i.Zipcode }}, {{ i.Land_Mark }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-round btn-danger" style="height: 37px;width: 35%;">checkout</button>
+                    </form>
+                    {% else %}
+                        <div class="buttons">
+                            <a href="{% url 'add_address'%}" class="btn-danger" style="height: 35px; width: 61%;font-size: 14px;text-align: center;margin-top: 8px;padding-top: 8px;"  type="submit">Add Address</a>
+                        </div>
+                    {% endif %}
+                        <div id="new-address" style="display: none; margin-top: 10px;">
+                            <input type="text" name="city" placeholder="city" class="form-control mb-2">
+                            <input type="text" name="Zipcode" placeholder="Zipcode" class="form-control mb-2">
+                            <input type="text" name="Land_Mark" placeholder="Land_Mark" class="form-control mb-2">
+                        </div>
                     </div>
                 </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body cart">
+                            <div class="col-sm-12 empty-cart-cls text-center">
+                                <img src="{% static 'images\11329060.png' %}" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                <h3><strong>Your Cart is Empty</strong></h3>
+                                <h4>Add something to make me happy :)</h4>
+                                <div class="read_bt"><a href="{% url 'coffees' %}">Continue shopping</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
             </div>
-            {% else %}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card-body cart">
-                        <div class="col-sm-12 empty-cart-cls text-center">
-                            <img src="{% static 'images\11329060.png' %}" width="130" height="130" class="img-fluid mb-4 mr-3">
-                            <h3><strong>Your Cart is Empty</strong></h3>
-                            <h4>Add something to make me happy :)</h4>
-                            <div class="read_bt"><a href="{% url 'coffees' %}">Continue shopping</a></div>
+        </div>
+    </div>
+    <div class="footer_section layout_padding">
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="footer_social_icon">
+                            <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="location_text">
+                            <ul>
+                            <li>
+                                <a href="#">
+                                <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
+                                </a>
+                            </li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="update_mail" placeholder="Your Email" name="Your Email"></textarea>
+                            <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endif %}
+        </div>
+        <div class="copyright_section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="copyright_text">2020 All Rights Reserved. Design by</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-  </div>
-  <div class="footer_section layout_padding">
-      <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="footer_social_icon">
-                        <ul>
-                           <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                           <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                           <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                           <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="location_text">
-                        <ul>
-                           <li>
-                              <a href="#">
-                              <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
-                              </a>
-                           </li>
-                           <li>
-                              <a href="#">
-                              <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
-                              </a>
-                           </li>
-                        </ul>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="update_mail" placeholder="Your Email" name="Your Email"></textarea>
-                        <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-      <div class="copyright_section">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                     <p class="copyright_text">2020 All Rights Reserved. Design by</p>
-                </div>
-            </div>
-        </div>
-      </div>
-  </div>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
     function getCSRFToken() {
@@ -350,26 +474,42 @@
         }
         return cookieValue;
     }
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('increment') || e.target.classList.contains('decrement')) {
-            const parent = e.target.closest('.quantity-control');
-            const itemId = parent.getAttribute('data-item-id');
-            const action = e.target.classList.contains('increment') ? 'increment' : 'decrement';
+    document.querySelectorAll('.quantity-control').forEach(control => {
+        const itemId = control.closest('.cart-item').dataset.itemId;
 
-            fetch(`/cart/${action}/${itemId}/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': getCSRFToken(),
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                parent.querySelector('.quantity').textContent = data.quantity;
-            })
-            .catch(err => console.error(err));
-        }
+        control.querySelector('.increment').addEventListener('click', () => updateCart('increment', itemId));
+        control.querySelector('.decrement').addEventListener('click', () => updateCart('decrement', itemId));
     });
+
+    function updateCart(action, itemId) {
+        fetch(`/cart/${action}/${itemId}/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            // Update quantity in row
+            let row = document.querySelector(`.cart-item[data-item-id="${itemId}"]`);
+            row.querySelector('.quantity').textContent = data.quantity;
+            row.querySelector('.item-total').textContent = "₹ " + data.item_total;
+
+            // Update summary item
+            let summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
+            if (summaryRow) {
+                summaryRow.querySelector('.col.text-right').textContent = "₹ " + data.item_total;
+                summaryRow.querySelector('.col').textContent = row.querySelector('.text-muted').textContent + " (" + data.quantity + ")";
+            }
+
+            // Recalculate grand total
+            let sum = 0;
+            document.querySelectorAll('.item-total').forEach(el => {
+                sum += parseFloat(el.textContent.replace("₹", "").trim());
+            });
+            document.getElementById("grand-total").textContent = "₹ " + sum.toFixed(2);
+        });
+    }
     </script>
     <script>
         document.getElementById('address').addEventListener('change', function() {

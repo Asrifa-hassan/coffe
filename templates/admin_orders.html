@@ -179,8 +179,12 @@
                     {% for i in new_orders %}
                       <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td><img src="{{ i.coffee.image.url }}" width="50px"></td>
-                        <td>{{ i.coffee.item_name }}</td>
+                        <td>
+                          {% if i.item.image %}
+                            <img src="{{ i.item.image.url }}" width="50px">
+                          {% endif %}
+                        </td>
+                        <td>{{ i.item.item_name }}</td>
                         <td>{{ i.quantity }}</td>
                         <td>₹{{ i.total_price }}</td>
                         <td>{{ i.order_time|date:"M d, Y H:i" }}</td>
