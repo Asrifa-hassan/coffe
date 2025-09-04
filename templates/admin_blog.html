@@ -1,265 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% load static %}
+{% load static %}
 <head>
   <title>BLOGS</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link  href="{% static 'images/favicon.png' %}" rel="shortcut icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <link href="{% static 'images/favicon.png' %}" rel="shortcut icon">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="{% static 'admin/css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <link rel="stylesheet" href="{% static 'admin/css/style.css' %}">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Poppins', sans-serif; }
+
     .sidenav {
-        background: #333;
-        color: white;
-        height: 100vh;
-        padding-top: 19px;
-        position: relative;
-        width: 25%;
-        overflow: auto;
-    }
-    .ftco-section {
-      padding: 0em 0;
-    }
-    .container-fluid{
-      display: flex;
-      padding-right: 0px;
-      padding-left: 0px;
-      margin-right: auto;
-      margin-left: auto;
-      height:602px
-    }
-    nav{
-      position: relative;
-      top: 0;
-      bottom: 0;
+      background: #333;
+      color: white;
       height: 100vh;
-      left: 0;
-      background: #fff;
-      width: 280px;
-      overflow: hidden;
-      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+      padding-top: 19px;
+      width: 250px;
+      position: fixed;
+      top: 0; left: 0;
     }
-    .logo{
-      text-align: center;
-      display: flex;
-      margin: 10px 0 0 10px;
-    }
-    .logo img{
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-    }
-    .logo span{
-      font-weight: bold;
-      padding-left: 15px;
-      font-size: 18px;
-      text-transform: uppercase;
-    }
-    .row {
-      margin-right: 0px;
-      margin-left: 0px;
-    }
-    .sidenav ul li {
-        padding: 10px;
-    }
-    .sidenav ul li a {
-        text-decoration: none;
-        color: white;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 16px;
-    }
-    .sidenav h2 {
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
-        color: white;
-        margin-bottom: 20px;
-    }
+    .sidenav h2 { color: #fff; font-weight: bold; text-align: center; margin-bottom: 20px; }
+    .sidenav ul li { padding: 10px; }
+    .sidenav ul li a { color: white; display: block; text-decoration: none; }
     .sidenav ul li a:hover, .sidenav ul .active a {
-        background: #007bff;
-        color: white;
-        padding: 10px;
-        border-radius: 5px;
+      background: #007bff; color: #fff; border-radius: 5px;
     }
-    .table-wrap {
-      overflow-x: hidden;
-    }
-    
-    .table_button{
-      width: 196px;
-    }
-    .h1{
-      font-size: 30px;
-      font-weight: 500;
-    }
-    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-      line-height: 3.428571;
-      vertical-align: center;
-      border-top: 1px solid #ddd;
-    }
-    .table thead.thead-primary {
-      background: #000000;
-      color: rgb(255, 255, 255);
-      font-size: 18px;
-    }
-    .table tbody td .email span:last-child {
-      font-size: 16px;
-      color: rgb(0, 0, 0);
-    }
-    .btn-primary {
-      width: 150px;
-      height: 44px;
-      color: #fff;
-      font-size: 17px;
-      background-color: #007bff;
-      border-color:#007bff;
-    }
-    .email {
-      font-size: 10px;
-      width: 48px;
-    }
-    img {
-        vertical-align: middle;
-        width: 40px;
-        height: 38px;
-    }
-    .btn-primary {
-      width: 150px;
-      height: 44px;
-      color: #fff;
-      font-size: 17px;
-      background-color: #038ecf;
-      border-color: #038ecf;
-    }
+
+    .content-area { margin-left: 250px; padding: 20px; }
+
+    .table-wrap { overflow-x: auto; }
+    .table thead { background: #000; color: #fff; }
+    .table td, .table th { vertical-align: middle !important; }
+
     .description {
-      max-width: 300px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      max-width: 250px;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
+    /* Mobile-friendly stacked table */
+    @media (max-width: 768px) {
+      .table thead { display: none; }
+      .table, .table tbody, .table tr, .table td { display: block; width: 100%; }
+      .table tr { margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; padding: 10px; }
+      .table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+      }
+      .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: 45%;
+        white-space: nowrap;
+        font-weight: bold;
+        text-align: left;
+      }
     }
   </style>
 </head>
-   <class class="container-fluid">
-      <div class="row content">
-        	<div class="col-sm-3 sidenav hidden-xs">
-				<h2>COFFO</h2>
-				<ul class="nav nav-pills nav-stacked">
-					<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-					<li><a href="{% url 'admin_products' %}">
-					<i class="fas fa-shopping-bag"></i>
-					<span class="nav-item">Products</span>
-					</a></li>
-					<li><a href="{% url 'admin_orders' %}">
-					<i class="fas fa-shopping-cart"></i>
-					<span class="nav-item">Order</span>
-					</a></li>
-					<li><a href="{% url 'notification_admin' %}">
-					<i class='fas fa-bell' style='font-size:24px'></i>
-					<span class="nav-item">Notification</span>
-					</a></li>
-					<li class="active"><a href="{% url 'admin_blog' %}">
-					<i class='fas fa-blog' style='font-size:24px'></i>
-					<span class="nav-item">Blog</span>
-					</a></li>
-					<li><a href="{% url 'admin_contact' %}">
-					<i class='fas fa-phone-alt' style='font-size:24px'></i>
-					<span class="nav-item">Contact</span>
-					</a></li>
-					<li><a href="{% url 'admin_users' %}">
-					<i class="fas fa-user"></i>
-					<span class="nav-item">Users</span>
-					</a></li>
-					<li><a href="{% url 'logout' %}">Logout</a></li>
-				</ul><br>
+<body>
+  	<div class="sidenav hidden-xs">
+		<h2>COFFO</h2>
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'admin_products' %}"><i class="fas fa-shopping-bag"></i> Products</a></li>
+			<li><a href="{% url 'admin_orders' %}"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+			<li><a href="{% url 'notification_admin' %}"><i class="fas fa-bell"></i> Notifications</a></li>
+			<li class="active"><a href="{% url 'admin_blog' %}"><i class="fas fa-blog"></i> Blogs</a></li>
+			<li><a href="{% url 'admin_contact' %}"><i class="fas fa-phone-alt"></i> Contact</a></li>
+			<li><a href="{% url 'admin_users' %}"><i class="fas fa-user"></i> Users</a></li>
+			<li><a href="{% url 'logout' %}">Logout</a></li>
+		</ul>
+  	</div>
+	<div class="content-area">
+		<div class="messages">
+			{% for message in messages %}
+			<div class="alert alert-{{ message.tags }} alert-dismissible fade in">
+			{{ message }}
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			</div>
-        	<div class="col-sm-9">
-          	<br>
-          	<div class="messages">
-              	{% for message in messages %}
-                	<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                  	{{ message }}
-                  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    		<span aria-hidden="true">&times;</span>
-                  	</button>
-                	</div>
-              	{% endfor %}
-          	</div>
-				<section class="ftco-section">
-					<div class="container">
-						<div class="row">
-							{% if blogs %}
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-9">
-										<h1 class="h1 mb-4 text-center">OUR BLOGS</h1>
-									</div>
-									<div class="col-md-3 text-center ">
-										<a href="{% url 'add_blog' %}"><button class="btn btn-round btn-primary" type="button">Add</button></a>
-									</div>
-								</div>
-								<div class="table-wrap table-responsive">
-									<table class="table" style="width: 890px !important;">
-										<thead class="thead-primary">
-											<tr>
-												<th>#</th>
-												<th>Image</th>
-												<th>Date</th>
-												<th>Title</th>
-												<th>Description</th>
-												<th>&nbsp;</th>
-											</tr>
-										</thead>
-										<tbody>
-											{% for i in blogs %}
-											<tr class="alert" role="alert">
-												<td class="align-content-start">{{ forloop.counter }}</td>
-												<td class="align-content-start">
-												{% if i.image %}
-												<img src="{{ i.image.url }}"  width="70px">
-												{% endif %}
-												</td>
-												<td class="align-content-start">
-													<div class="email">{{ i.date|date:"M d, Y" }}</div>
-												</td>
-												<td class="title">{{ i.title }}</td>
-												<td class="description" style="line-break: anywhere;">{{ i.description }}</td>
-												<td class="quantity">
-												<a href="{% url 'admin_view_blog' i.id %}">view</a>
-												</td>
-											</tr>
-											{% endfor %}
-										</tbody>
-									</table>
-								</div>
-							</div>
-							{% else %}
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-9"></div>
-									<div class="col-md-3 text-center">
-										<a href="{% url 'add_blog' %}"><button class="btn btn-round btn-danger" type="button">Add new</button></a>
-									</div>
-								</div>
-							{% endif %}
-							</div>
-						</div>
-					</div>
-				</section>
-        </div>
+			{% endfor %}
 		</div>
-	</class>
-  <script src="{% static 'admin/js/jquery.min.js' %}"></script>
-  <script src="{% static 'admin/js/popper.js' %}"></script>
-  <script src="{% static 'admin/js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'admin/js/main.js' %}"></script>
 
+		<h1 class="text-center">OUR BLOGS</h1>
+		<div class="text-right" style="margin-bottom:15px;">
+			<a href="{% url 'add_blog' %}" class="btn btn-primary">+ Add Blog</a>
+		</div>
+
+		{% if blogs %}
+		<div class="table-wrap">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Image</th>
+						<th>Date</th>
+						<th>Title</th>
+						<th>Description</th>
+						<th>View</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in blogs %}
+					<tr>
+						<td data-label="#"> {{ forloop.counter }} </td>
+						<td data-label="Image">
+						{% if i.image %}
+						<img src="{{ i.image.url }}" width="60" class="img-thumbnail">
+						{% endif %}
+						</td>
+						<td data-label="Date"> {{ i.date|date:"M d, Y" }} </td>
+						<td data-label="Title"> {{ i.title }} </td>
+						<td data-label="Description" class="description"> {{ i.description }} </td>
+						<td data-label="Action">
+						<a href="{% url 'admin_view_blog' i.id %}" class="btn btn-xs btn-info">View</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		{% else %}
+		<p class="text-center text-muted">No blogs found. <a href="{% url 'add_blog' %}">Add one now</a>.</p>
+		{% endif %}
+	</div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
