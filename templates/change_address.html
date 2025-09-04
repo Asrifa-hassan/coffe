@@ -2,122 +2,41 @@
    {% load static %}
       {% block content %}
       <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
    <style>
-      .footer_section {
-        width: 100%;
-        float: left;
-        height: auto;
-        background-color: #1d1d1d;
-        background-size: 100%;
-        padding: 50px 0px;
-      }
-      .footer_social_icon {
-         width: 100%;
-         margin: 0 auto;
-         text-align: center;
-      }
-      .footer_social_icon ul {
-         margin: 0px;
-         padding: 0px;
-         display: inline-block;
-      }
-      .footer_social_icon li {
-          float: left;
-      }
-      .form-group{
-          display: flex;
-          width: 50%;
-          margin: 0 auto;
-          text-align: center;
-      }
-      .update_mail {
-          color: #383838;
-          width: 100%;
-          height: 51px;
-          font-size: 18px;
-          padding: 10px 20px 0px 20px;
-          background-color: #efefef;
-          margin: 0 auto;
-          justify-content: center;
-          align-items: center;
-          display: block;
-          margin-top: 20px;
-          border: 1px solid #f01c1c;
-      }
-      .subscribe_bt {
-          width: 70px;
-          float: left;
-          padding-top: 20px;
-      }
-      .subscribe_bt a {
-          width: 100%;
-          float: left;
-          color: #fefefd;
-          font-size: 16px;
-          padding: 13px 0px 14px 0px;
-          background-color: #f01c1c;
-          text-transform: uppercase;
-          text-align: center;
-      }
-       .copyright_section {
-           width: 100%;
-           float: left;
-           background-color: #f01c1c;
-           height: auto;
-       }
-       .copyright_text {
-           width: 100%;
-           float: left;
-           font-size: 16px;
-           color: #fefefd;
-
-           text-align: center;
-          margin-left: 0px;
-          font-family: 'Poppins', sans-serif;
-      }
-      .copyright_text a {
-          color: #fefefd;
-      }
-      .fa {
-         display: inline-block;
-         font-family: FontAwesome;
-         font-style: normal;
-         font-weight: normal;
-         line-height: 1;
-         margin-top: 0px;
-      }
-      i.fa.fa-shopping-cart{
-        font-size: 24px;
-        margin-top: 0px;
-      }
       .address-section {
          display: flex;
          align-items: center;
          justify-content: center;
          min-height: 100vh;
          background: #f2f2f2;
-         padding: 50px 20px;
+         padding: 30px 15px;
       }
+
       .address-card {
          background: #fff;
-         padding: 40px;
+         padding: 30px;
          width: 100%;
          max-width: 600px;
          border-radius: 20px;
          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
          font-family: 'Poppins', sans-serif;
       }
+
       .address-card h2 {
-         font-size: 28px;
+         font-size: 24px;
          font-weight: 600;
          color: #333;
-         margin-bottom: 30px;
+         margin-bottom: 20px;
          text-align: center;
       }
+
       .form-group {
          margin-bottom: 20px;
-         width:100%;
+         width: 100%;
       }
+
       .form-group input {
          width: 100%;
          padding: 14px 20px;
@@ -127,17 +46,22 @@
          background: #fafafa;
          transition: border-color 0.3s ease;
       }
+
       .form-group input:focus {
          outline: none;
          border-color: #038ecf;
          background: #fff;
       }
+
       .center-button {
          text-align: center;
-         margin-left: 185px;
+         margin-left: 0; /* FIX: Removed hard-coded margin */
       }
+
       .center-button button {
-         padding: 14px 40px;
+         width: 100%;
+         max-width: 250px;
+         padding: 14px 30px;
          background-color: #038ecf;
          color: #fff;
          font-size: 18px;
@@ -147,21 +71,77 @@
          cursor: pointer;
          transition: background-color 0.3s ease;
       }
+
       .center-button button:hover {
          background-color: #027ab1;
       }
-      .cart-count-badge {
-          position: absolute;
-          top: 22px;
-          right: 156px;
-          background-color: red !important;
-          color: white;
-          font-size: 12px;
-          font-weight: bold;
-          border-radius: 50%;
-          padding: 2px 5px;
-          min-width: 16px;
-          text-align: center;
+
+      /* --- Footer responsiveness --- */
+      .footer_social_icon ul {
+         display: flex;
+         justify-content: center;
+         gap: 15px;
+         flex-wrap: wrap;
+      }
+
+      .footer_social_icon li {
+         list-style: none;
+      }
+
+      .location_text ul {
+         display: flex;
+         justify-content: center;
+         flex-wrap: wrap;
+         gap: 20px;
+         padding: 0;
+         margin: 20px 0;
+      }
+
+      .form-group textarea.update_mail {
+         width: 100%;
+         height: 50px;
+         resize: none;
+         margin-top: 15px;
+      }
+
+      .subscribe_bt {
+         width: auto;
+         margin: 10px auto;
+      }
+
+      /* --- Mobile Breakpoints --- */
+      @media (max-width: 768px) {
+         .address-card {
+            padding: 20px;
+         }
+         .address-card h2 {
+            font-size: 20px;
+         }
+         .center-button button {
+            font-size: 16px;
+            padding: 12px 20px;
+         }
+      }
+
+      @media (max-width: 480px) {
+         .address-card {
+            padding: 15px;
+            border-radius: 12px;
+         }
+         .address-card h2 {
+            font-size: 18px;
+         }
+         .form-group input {
+            font-size: 14px;
+            padding: 12px 15px;
+         }
+         .center-button button {
+            width: 100%;
+            max-width: 200px;
+         }
+         .footer_social_icon ul {
+            gap: 10px;
+         }
       }
    </style>
 <body>
