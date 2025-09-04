@@ -1131,7 +1131,7 @@ textarea#comment.update_mail::placeholder {
 .cart-count-badge,
 .notification-badge {
     font-size: 10px;
-    padding: 2px 5px;
+    padding: 4px 7px;
     border-radius: 50%;
     position: absolute;
     top: 0;
