@@ -3,135 +3,154 @@
       {% block content %}
       <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
 <style>
+    /* General notification card style */
     .alert {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      width: 90%;
-      max-width: 500px;
-      padding: 15px;
-      margin-left: 380px;
-      margin-top: 24px;
-      border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(255, 255, 255, 0.1) inset;
-      backdrop-filter: blur(10px);
-      position: relative;
-    }
-    .notification-content {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      margin-left: 20px;
-      color: rgb(0, 0, 0);
-    }
-    .notification-title {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin: 0;
-      color: black;
-      text-shadow: 0 0 1px black;
-      ;
-    }
-    .notification-body {
-      font-size: 20px;
-      margin: 0;
-      color: rgba(0, 0, 0, 0.6);
-    }
-    .close-btn{
-        font-size:13px;
-        color: #242424;
-        padding-bottom: 16px;
-        align-self: flex-end;
-    }
-    .timestamp {
-      font-size: 0.8em;
-      color: rgba(0, 0, 0, 0.5);
-      margin-top: 5px;
-      align-self: flex-end;
-    }
-    .fa {
-        display: inline-block;
-        font-family: FontAwesome;
-        font-style: normal;
-        font-weight: normal;
-        line-height: 1;
-        margin-top:0px;
-    }
-    .footer_section {
-        width: 100%;
-        float: left;
-        height: auto;
-        background-color: #1d1d1d;
-        background-size: 100%;
-        padding: 50px 0px;
-    }
-    .footer_social_icon {
-       width: 100%;
-       margin: 0 auto;
-       text-align: center;
-    }
-    .footer_social_icon ul {
-        margin: 0px;
-        padding: 0px;
-        display: inline-block;
-    }
-    .footer_social_icon li {
-        float: left;
-    }
-    .footer_social_icon li a {
-        float: left;
-        padding: 5px 10px;
-        background-color: #fff;
-        color: #1d1d1d;
-        border-radius: 100%;
-        font-size: 19px;
-        margin-right: 5px;
-        width: 44px;
-        text-align: center;
-        margin-top: 10px;
-    }
-    .form-group{
         display: flex;
-        width: 50%;
-        margin: 0 auto;
-        text-align: center;
-    }
-    .update_mail {
-        color: #383838;
-        width: 100%;
-        height: 51px;
-        font-size: 18px;
-        padding: 10px 20px 0px 20px;
-        background-color: #efefef;
-        margin: 0 auto;
-        justify-content: center;
-        align-items: center;
-        display: block;
-        margin-top: 20px;
-        border: 1px solid #f01c1c;
-    }
-    .subscribe_bt {
-        width: 70px;
-        float: left;
-        padding-top: 20px;
-    }
-    .subscribe_bt a {
-        width: 100%;
-        float: left;
-        color: #fefefd;
-        font-size: 16px;
-        padding: 13px 0px 14px 0px;
-        background-color: #f01c1c;
-        text-transform: uppercase;
-        text-align: center;
-    }
-    .copyright_section {
-        width: 100%;
-        float: left;
-        background-color: #f01c1c;
-        height: auto;
+        flex-direction: column;         /* stack content on small screens */
+        align-items: flex-start;
+        gap: 10px;
+        width: 90%;
+        max-width: 600px;
+        padding: 15px 20px;
+        margin: 20px auto;              /* center horizontally */
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        position: relative;
+        background: #fff;
+        word-break: break-word;
     }
 
+    .notification-title {
+        font-size: 1.1em;
+        font-weight: bold;
+        margin: 0;
+        color: #000;
+    }
+
+    .notification-body {
+        font-size: 1rem;
+        color: rgba(0, 0, 0, 0.7);
+    }
+
+    .timestamp {
+        font-size: 0.8em;
+        color: rgba(0, 0, 0, 0.5);
+        margin-top: 5px;
+        align-self: flex-end;
+    }
+
+    .close-btn, .alert a .fa-times {
+        font-size: 14px;
+        color: #444;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 12px;
+    }
+
+        /* Footer responsiveness */
+    .footer_section {
+        width: 100%;
+        background-color: #1d1d1d;
+        padding: 40px 15px;
+        text-align: center;
+    }
+
+    .footer_social_icon ul {
+        padding: 0;
+        margin: 10px 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .footer_social_icon li {
+        list-style: none;
+        margin: 5px;
+    }
+
+    .footer_social_icon li a {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #fff;
+        color: #1d1d1d;
+        font-size: 18px;
+    }
+
+    .form-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 500px;
+        margin: 20px auto;
+        gap: 10px;
+    }
+
+    .update_mail {
+        flex: 1;
+        height: 45px;
+        font-size: 16px;
+        padding: 8px 15px;
+        border: 1px solid #f01c1c;
+        border-radius: 5px;
+    }
+
+    .subscribe_bt a {
+        display: inline-block;
+        padding: 12px 18px;
+        background: #f01c1c;
+        color: #fff;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+
+    .copyright_section {
+        background: #f01c1c;
+        padding: 12px;
+        text-align: center;
+        color: #fff;
+    }
+
+        /* Mobile adjustments */
+    @media (max-width: 768px) {
+        .alert {
+            max-width: 95%;
+            padding: 12px 15px;
+        }
+        .notification-body {
+            font-size: 0.9rem;
+        }
+        .update_mail {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .alert {
+            gap: 6px;
+        }
+        .notification-title {
+            font-size: 1rem;
+        }
+        .notification-body {
+            font-size: 0.85rem;
+        }
+        .timestamp {
+            font-size: 0.7rem;
+        }
+        .form-group {
+            flex-direction: column;
+        }
+        .subscribe_bt a {
+            width: 100%;
+        }
+    }
 </style>
 <body>
     <div class="coffee_section" style="height: 500px; overflow-x: hidden;overflow-y: scroll;scroll-snap-type: y mandatory;">
