@@ -177,20 +177,16 @@
                   </thead>
                   <tbody>
                     {% for i in new_orders %}
-                      {% with coffee=coffee_details|get_item:i.item_id %}
-                        {% if i.status == 1 %}
-                          <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td><img src="{{ coffee.image.url }}" width="50px"></td>
-                            <td>{{ coffee.item_name }}</td>
-                            <td>{{ i.quantity }}</td>
-                            <td>₹{{ i.total_price }}</td>
-                            <td>{{ i.order_time|date:"M d, Y H:i" }}</td>
-                            <td><a href="{% url 'Accept_item' i.id %}" class="btn btn-accept">Accept</a></td>
-                            <td><a href="{% url 'Cancel_item' i.id %}" class="btn btn-cancel">Cancel</a></td>
-                          </tr>
-                        {% endif %}
-                      {% endwith %}
+                      <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><img src="{{ i.coffee.image.url }}" width="50px"></td>
+                        <td>{{ i.coffee.item_name }}</td>
+                        <td>{{ i.quantity }}</td>
+                        <td>₹{{ i.total_price }}</td>
+                        <td>{{ i.order_time|date:"M d, Y H:i" }}</td>
+                        <td><a href="{% url 'Accept_item' i.id %}" class="btn btn-accept">Accept</a></td>
+                        <td><a href="{% url 'Cancel_item' i.id %}" class="btn btn-cancel">Cancel</a></td>
+                      </tr>
                     {% endfor %}
                   </tbody>
                 </table>

@@ -314,18 +314,23 @@ def delete_item(request, id):
 
 @login_required
 def admin_orders(request):
-    coffee_details = Food_items.objects.all()
     new_orders = Orders.objects.filter(status=1).order_by('-order_time')
     accepted_orders = Orders.objects.filter(status=2).order_by('-order_time')
     delivered_orders = Orders.objects.filter(status=3).order_by('-order_time')
-    cancel_order = Orders.objects.filter(status=4).order_by('-order_time')
+    cancelled_orders = Orders.objects.filter(status=4).order_by('-order_time')
 
-    # for i in all_orders:
-    #     for j in coffee_details:
-    #         if i.item_id == j.id:
-    #             print(i.item_id,j.id)
+    # Attach coffee item to each order
+    for order in list(new_orders) + list(accepted_orders) + list(delivered_orders) + list(cancelled_orders):
+        order.coffee = Food_items.objects.filter(id=order.item_id).first()
 
-    return render(request, 'admin_orders.html', locals())
+    return render(request, 'admin_orders.html', {
+        'new_orders': new_orders,
+        'accepted_orders': accepted_orders,
+        'delivered_orders': delivered_orders,
+        'cancelled_orders': cancelled_orders,
+    })
+
+
 
 
 @login_required
