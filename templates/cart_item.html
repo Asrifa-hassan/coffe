@@ -579,11 +579,28 @@
                     .then(res => res.json())
                     .then(data => {
                         if (data.removed) {
+                            // remove item row + summary row
                             row.remove();
                             document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
+
+                            // empty cart message if no items left
+                            if (!document.querySelector(".cart-item")) {
+                                document.getElementById("cart").innerHTML = `
+                                    <div class="empty-cart-cls text-center">
+                                        <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4">
+                                        <h3><strong>Your Cart is Empty</strong></h3>
+                                        <h4>Add something to make me happy :)</h4>
+                                        <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
+                                    </div>`;
+                                document.querySelector(".summary")?.remove();
+                            }
                         } else {
+                            // update quantity
                             row.querySelector(".quantity").textContent = data.quantity;
+                            // update item total
                             row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
+
+                            // update summary row
                             const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
                             if (summaryRow) {
                                 summaryRow.querySelector(".col").textContent =
@@ -591,11 +608,14 @@
                                 summaryRow.querySelector(".text-right").textContent = "₹ " + data.item_total.toFixed(2);
                             }
                         }
+
+                        // ✅ always update grand total
                         document.getElementById("grand-total").textContent = "₹ " + data.grand_total.toFixed(2);
                     });
                 });
             });
         });
+
         
         document.getElementById('address').addEventListener('change', function() {
             if (this.value === 'new') {
