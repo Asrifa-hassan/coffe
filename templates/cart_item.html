@@ -494,6 +494,19 @@
                         if (data.removed) {
                             row.remove();
                             document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
+
+                            // If cart empty → show empty cart message
+                            if (!document.querySelector(".cart-item")) {
+                                document.querySelector(".cart").innerHTML = `
+                                    <div class="col-sm-12 empty-cart-cls text-center">
+                                        <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                        <h3><strong>Your Cart is Empty</strong></h3>
+                                        <h4>Add something to make me happy :)</h4>
+                                        <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
+                                    </div>
+                                `;
+                                document.querySelector(".summary").remove(); // remove summary section
+                            }
                         } else {
                             row.querySelector(".quantity").textContent = data.quantity;
                             row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
