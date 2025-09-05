@@ -1,180 +1,537 @@
 {% include 'header.html' %}
 {% load static %}
-{% block content %}
-<link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+    {% block content %}
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
 <style>
-/* --- your CSS kept as is (shortened for clarity) --- */
-.cart{background:#fff;padding:4vh 5vh;border-bottom-left-radius:1rem;border-top-left-radius:1rem;}
-.summary{background:#ddd;border-top-right-radius:1rem;border-bottom-right-radius:1rem;padding:4vh;color:#414141;}
-.quantity-control{display:flex;align-items:center;}
-.quantity-control button{width:28px;height:28px;border:1px solid #aaa;background:#f8f8f8;cursor:pointer;}
-.quantity-control .quantity{font-size:15px;width:30px;text-align:center;}
-.read_bt a{font-size:12px;background:#ff050a;color:#fff;padding:10px;border-radius:5px;text-transform:uppercase;}
-</style>
-
-<body>
-<div class="coffee_section">
-  <div class="container" style="padding-top:10px;">
-    <div class="card">
-      {% if cart_data %}
-      <div class="row">
-        <!-- Cart Section -->
-        <div class="col-md-8 cart">
-          <div class="title">
-            <div class="row">
-              <div class="col"><h4><b>Shopping Cart</b></h4></div>
-            </div>
-          </div>
-
-          <div class="row border-top border-bottom" id="cart">
-            {% for i in cart_data %}
-            <div class="row main align-items-center cart-item" data-item-id="{{ i.id }}">
-              <div class="col-2">
-                <img class="img-fluid" src="{{ i.item.image.url }}">
-              </div>
-              <div class="col">
-                <div class="row text-muted">{{ i.item.item_name }}</div>
-              </div>
-              <div class="quantity-control">
-                <button type="button" class="decrement">-</button>
-                <span class="quantity">{{ i.quantity }}</span>
-                <button type="button" class="increment">+</button>
-              </div>
-              <div class="col item-total">₹ {{ i.item_total }}</div>
-              <span>
-                <!-- ✅ FIX: use cart id, not item_id -->
-                <a href="{% url 'delete_cart_item' i.id %}" style="color:black;">
-                  <i class="fa fa-times" style="font-size:12px;"></i>
-                </a>
-              </span>
-            </div>
-            {% endfor %}
-          </div>
-
-          <div class="back-to-shop">
-            <a href="{% url 'coffees' %}">&leftarrow;</a>
-            <span class="text-muted">Back to shop</span>
-          </div>
-        </div>
-
-        <!-- Summary Section -->
-        <div class="col-md-4 summary">
-          <div><h5><b>Summary</b></h5></div>
-          <hr>
-          {% for i in cart_data %}
-          <div class="row summary-item" data-item-id="{{ i.id }}">
-            <div class="col" style="padding-left:0;">{{ i.item.item_name }} ({{ i.quantity }})</div>
-            <div class="col text-right">₹ {{ i.item_total }}</div>
-          </div>
-          {% endfor %}
-          <hr>
-          <div class="row">
-            <div class="text-right"><strong>Grand Total: <span id="grand-total">₹ {{ grand_total }}</span></strong></div>
-          </div>
-
-          <!-- Address Section -->
-          <div class="address-section mt-3">
-            <h5 style="font-size:15px;"><b>Delivery Address</b></h5>
-            {% if address %}
-            <form action="{% url 'order_items' %}" method="POST">
-              {% csrf_token %}
-              <label for="address">Select Address:</label>
-              <select id="address" name="address" class="form-control">
-                {% for i in address %}
-                  <option value="{{ i.id }}">{{ i.city }}, {{ i.Zipcode }}, {{ i.Land_Mark }}</option>
-                {% endfor %}
-              </select>
-              <button type="submit" class="btn btn-round btn-danger mt-2" style="height:37px;width:35%;">Checkout</button>
-            </form>
-            {% else %}
-            <div class="buttons">
-              <a href="{% url 'add_address'%}" class="btn btn-danger mt-2" style="height:35px;width:61%;font-size:14px;text-align:center;">Add Address</a>
-            </div>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-
-      {% else %}
-      <!-- Empty Cart -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card-body cart">
-            <div class="col-sm-12 empty-cart-cls text-center">
-              <img src="{% static 'images/11329060.png' %}" width="130" height="130" class="img-fluid mb-4 mr-3">
-              <h3><strong>Your Cart is Empty</strong></h3>
-              <h4>Add something to make me happy :)</h4>
-              <div class="read_bt"><a href="{% url 'coffees' %}">Continue shopping</a></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endif %}
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
-<div class="footer_section layout_padding"> ... (keep your footer as is) ... </div>
-<div class="copyright_section"> ... </div>
-
-<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-<script>
-function getCSRFToken(){
-  let cookieValue=null;const name="csrftoken";
-  if(document.cookie&&document.cookie!==""){
-    const cookies=document.cookie.split(";");
-    for(let cookie of cookies){
-      cookie=cookie.trim();
-      if(cookie.startsWith(name+"=")){
-        cookieValue=decodeURIComponent(cookie.substring(name.length+1));break;
-      }
+    body{
+        background: #ddd;
+        min-height: 100vh;
+        vertical-align: middle;
+        font-family: sans-serif;
+        font-size: 0.8rem;
+        font-weight: bold;
     }
-  }
-  return cookieValue;
-}
-
-document.addEventListener("DOMContentLoaded",()=>{
-  document.querySelectorAll(".increment,.decrement").forEach(button=>{
-    button.addEventListener("click",e=>{
-      e.preventDefault();
-      const row=button.closest(".cart-item");
-      const itemId=row.dataset.itemId;
-      const action=button.classList.contains("increment")?"increment":"decrement";
-
-      fetch(`/cart/${action}_quantity/${itemId}/`,{
-        method:"POST",
-        headers:{"X-CSRFToken":getCSRFToken(),"Content-Type":"application/json"}
-      })
-      .then(res=>res.json())
-      .then(data=>{
-        if(data.removed){
-          row.remove();
-          document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
-          if(!document.querySelector(".cart-item")){
-            document.querySelector(".cart").innerHTML=`
-              <div class="col-sm-12 empty-cart-cls text-center">
-                <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                <h3><strong>Your Cart is Empty</strong></h3>
-                <h4>Add something to make me happy :)</h4>
-                <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
-              </div>`;
-            document.querySelector(".summary")?.remove();
-          }
-        } else {
-          row.querySelector(".quantity").textContent=data.quantity;
-          row.querySelector(".item-total").textContent="₹ "+data.item_total.toFixed(2);
-          const summaryRow=document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
-          if(summaryRow){
-            summaryRow.querySelector(".col").textContent=
-              `${row.querySelector(".text-muted").textContent} (${data.quantity})`;
-            summaryRow.querySelector(".text-right").textContent="₹ "+data.item_total.toFixed(2);
-          }
+    i.fa.fa-shopping-cart{
+        font-size: 24px;
+        margin-top: 0px;
+    }
+    .title{
+        margin-bottom: 5vh;
+    }
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding: 30px 20px 10px 20px;
+        font-size: 17px;
+        font-weight:100;
+        text-transform: uppercase;
+        margin: 0px 5px;
+    }
+    .card{
+        margin:88px auto;
+        max-width: 950px;
+        width: 90%;
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 1rem;
+        border: transparent;
+    }
+    h1{
+        font-size: 25px;
+        font-family: system-ui;
+        font-weight: 600;
+    }
+    @media(max-width:767px){
+        .card{
+            margin: 3vh auto;
         }
-        document.getElementById("grand-total").textContent="₹ "+data.grand_total.toFixed(2);
-      });
-    });
-  });
-});
-</script>
+    }
+    .cart{
+        background-color: #fff;
+        padding: 4vh 5vh;
+        border-bottom-left-radius: 1rem;
+        border-top-left-radius: 1rem;
+    }
+    @media(max-width:767px){
+        .cart{
+            padding: 4vh;
+            border-bottom-left-radius: unset;
+            border-top-right-radius: 1rem;
+        }
+    }
+    .summary{
+        background-color: #ddd;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        padding: 4vh;
+        color: rgb(65, 65, 65);
+    }
+    @media(max-width:767px){
+        .summary{
+        border-top-right-radius: unset;
+        border-bottom-left-radius: 1rem;
+        }
+    }
+    .summary .col-2{
+        padding: 0;
+    }
+    .summary .col-10
+    {
+        padding: 0;
+    }.row{
+        margin: 0;
+    }
+    .title b{
+        font-size: 1.5rem;
+    }
+    .main{
+        margin: 0;
+        padding: 2vh 0;
+        width: 100%;
+    }
+    .col-2, .col{
+        padding: 0 1vh;
+    }
+    a{
+        padding: 0 1vh;
+    }
+    .close{
+        margin-left: auto;
+        font-size: 0.7rem;
+    }
+    img{
+        width: 7.5rem;
+    }
+    .back-to-shop{
+        margin-top: 4.5rem;
+    }
+    .text-muted {
+        color:black !important;
+    }
+    h5{
+        margin-top: 4vh;
+    }
+    hr{
+        margin-top: 1.25rem;
+    }
+    .quantity-control {
+      display: flex;
+      align-items: center;
+    }
+
+    .quantity-control a {
+      text-decoration: none;
+      color: black;
+      font-size: 20px;
+      margin: 0 10px;
+    }
+
+    .quantity-control .quantity {
+      font-size: 16px;
+      width: 30px;
+      text-align: center;
+    }
+    form{
+        padding: 2vh 0;
+    }
+    select{
+        border: 1px solid rgba(0, 0, 0, 0.137);
+        padding: 1.5vh 1vh;
+        margin-bottom: 4vh;
+        outline: none;
+        width: 100%;
+        background-color: rgb(247, 247, 247);
+    }
+    input{
+        border: 1px solid rgba(0, 0, 0, 0.137);
+        padding: 1vh;
+        margin-bottom: 4vh;
+        outline: none;
+        width: 100%;
+        background-color: rgb(247, 247, 247);
+    }
+    input:focus::-webkit-input-placeholder
+    {
+        color:transparent;
+    }
+    .btn{
+        background-color: #000;
+        border-color: #000;
+        color: white;
+        width: 100%;
+        font-size: 0.7rem;
+        margin-top: 4vh;
+        padding: 1vh;
+        border-radius: 0;
+    }
+    .btn:focus{
+        box-shadow: none;
+        outline: none;
+        box-shadow: none;
+        color: white;
+        -webkit-box-shadow: none;
+        transition: none;
+    }
+    .btn:hover{
+        color: white;
+    }
+    a{
+        color: black;
+        margin-top: -5px;
+    }
+    a:hover{
+        color: black;
+        text-decoration: none;
+    }
+    #code{
+        background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253) , rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+        background-repeat: no-repeat;
+        background-position-x: 95%;
+        background-position-y: center;
+    }
+    .link{
+        padding: 10px 10px;
+        font-size: 12px;
+        color: brown !important;
+    }
+    .fa {
+        display: inline-block;
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        margin-top:0px;
+    }
+    .footer_section {
+        width: 100%;
+        float: left;
+        height: auto;
+        background-color: #1d1d1d;
+        background-size: 100%;
+        padding: 50px 0px;
+    }
+    .footer_social_icon {
+       width: 100%;
+       margin: 0 auto;
+       text-align: center;
+    }
+    .footer_social_icon ul {
+        margin: 0px;
+        padding: 0px;
+        display: inline-block;
+    }
+    .footer_social_icon li {
+        float: left;
+    }
+    .footer_social_icon li a {
+        float: left;
+        padding: 5px 10px;
+        background-color: #fff;
+        color: #1d1d1d;
+        border-radius: 100%;
+        font-size: 19px;
+        margin-right: 5px;
+        width: 44px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .form-group{
+        display: flex;
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .update_mail {
+        color: #383838;
+        width: 100%;
+        height: 51px;
+        font-size: 18px;
+        padding: 10px 20px 0px 20px;
+        background-color: #efefef;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        display: block;
+        margin-top: 20px;
+        border: 1px solid #f01c1c;
+    }
+    .subscribe_bt {
+        width: 70px;
+        float: left;
+        padding-top: 25px;
+    }
+    .subscribe_bt a {
+        width: 100%;
+        float: left;
+        color: #fefefd;
+        font-size: 16px;
+        padding: 13px 0px 14px 0px;
+        background-color: #f01c1c;
+        text-transform: uppercase;
+        text-align: center;
+    }
+    .copyright_section {
+        width: 100%;
+        float: left;
+        background-color: #f01c1c;
+        height: auto;
+    }
+    .copyright_text {
+        width: 100%;
+        float: left;
+        font-size: 16px;
+        color: #fefefd;
+        text-align: center;
+        margin-left: 0px;
+        font-family: 'Poppins', sans-serif;
+    }
+    .copyright_text a {
+        color: #fefefd;
+    }
+
+    fa fa-times{
+         font-size:12px;
+    }
+    .decrement, .increment{
+         width: 28px;
+         vertical-align: middle;
+         text-align: center;
+    }
+    .read_bt {
+         width: 160px;
+         margin: 0 auto;
+         text-align: center;
+         padding-top: 20px;
+         display: flex;
+    }
+    .read_bt a:hover {
+         color: #fefefd;
+         background-color: #242c2f;
+    }
+    .read_bt a {
+         width: 100%;
+         float: left;
+         font-size: 11px;
+         background-color: #ff050a;
+         color: #ffffff;
+         text-align: center;
+         padding: 10px;
+         margin-left: 10px;
+         border-radius: 5px;
+         text-transform: uppercase;
+    }
+</style>
+<body>
+    <div class="coffee_section">
+        <div class="container" style="padding-top:10px;">
+            <div class="card">
+                {% if cart_data %}
+                <div class="row">
+                    <div class="col-md-8 cart">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                            </div>
+                        </div>
+                        <div class="row border-top border-bottom" id="cart">
+                            {% for i in cart_data %}
+                            <div class="row main align-items-center cart-item" data-item-id="{{ i.id }}">
+                                <div class="col-2">
+                                    <img class="img-fluid" src="{{ i.item.image.url }}">
+                                </div>
+                                <div class="col">
+                                    <div class="row text-muted">{{ i.item.item_name }}</div>
+                                </div>
+                                <div class="quantity-control" data-item-id="{{ i.id }}">
+                                    <button type="button" class="decrement">-</button>
+                                    <span class="quantity">{{ i.quantity }}</span>
+                                    <button type="button" class="increment">+</button>
+                                </div>
+                                <div class="col item-total">₹ {{ i.item_total }}</div>
+                                <span>
+                                    <a href="{% url 'delete_cart_item' i.item_id %}" style="color: black;">
+                                        <i class="fa fa-times" style="font-size:12px;"></i>
+                                    </a>
+                                </span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="back-to-shop"><a href="{% url 'coffees' %}">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+                    </div>
+                    <div class="col-md-4 summary">
+                        <div><h5><b>Summary</b></h5></div>
+                        <hr>
+                        {% for i in cart_data %}
+                        <div class="row summary-item" data-item-id="{{ i.id }}">
+                            <div class="col" style="padding-left:0;">{{ i.item.item_name }} ({{ i.quantity }})</div>
+                            <div class="col text-right">₹ {{ i.item_total }}</div>
+                        </div>
+                        {% endfor %}
+                        <hr>
+                        <div class="row">
+                            <hr>
+                            <div class="text-right"><strong>Grand Total: <span id="grand-total">₹ {{ grand_total }}</span></strong></div>
+                        </div>
+                        <div class="address-section">
+                        <h5 style="font-size:15px;"><b>Delivery Address</b></h5>
+                        {% if address %}
+                        <form action="{% url 'order_items' %}" method="POST">
+                        {% csrf_token %}
+                        <label for="address" >Select Address:</label>
+                        <select id="address" name="address" class="form-control">
+                            {% for i in address %}
+                                <option value="{{ i.id }}">{{ i.city }}, {{ i.Zipcode }}, {{ i.Land_Mark }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-round btn-danger" style="height: 37px;width: 35%;">checkout</button>
+                    </form>
+                    {% else %}
+                        <div class="buttons">
+                            <a href="{% url 'add_address'%}" class="btn-danger" style="height: 35px; width: 61%;font-size: 14px;text-align: center;margin-top: 8px;padding-top: 8px;"  type="submit">Add Address</a>
+                        </div>
+                    {% endif %}
+                        <div id="new-address" style="display: none; margin-top: 10px;">
+                            <input type="text" name="city" placeholder="city" class="form-control mb-2">
+                            <input type="text" name="Zipcode" placeholder="Zipcode" class="form-control mb-2">
+                            <input type="text" name="Land_Mark" placeholder="Land_Mark" class="form-control mb-2">
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body cart">
+                            <div class="col-sm-12 empty-cart-cls text-center">
+                                <img src="{% static 'images\11329060.png' %}" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                <h3><strong>Your Cart is Empty</strong></h3>
+                                <h4>Add something to make me happy :)</h4>
+                                <div class="read_bt"><a href="{% url 'coffees' %}">Continue shopping</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="footer_section layout_padding">
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="footer_social_icon">
+                            <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="location_text">
+                            <ul>
+                            <li>
+                                <a href="#">
+                                <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">+01 1234567890</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">demo@gmail.com</span>
+                                </a>
+                            </li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="update_mail" placeholder="Your Email" name="Your Email"></textarea>
+                            <div class="subscribe_bt"><a href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright_section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="copyright_text">2020 All Rights Reserved. Design by</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        function getCSRFToken(){
+            let cookieValue=null;
+            const name="csrftoken";
+            if(document.cookie && document.cookie!==""){
+                const cookies=document.cookie.split(";");
+                for(let cookie of cookies){
+                cookie=cookie.trim();
+                if(cookie.startsWith(name+"=")){
+                    cookieValue=decodeURIComponent(cookie.substring(name.length+1));
+                    break;
+                }
+                }
+            }
+            return cookieValue;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".increment, .decrement").forEach(button => {
+                button.addEventListener("click", e => {
+                    e.preventDefault();
+                    const row = button.closest(".cart-item");
+                    const itemId = row.dataset.itemId;
+                    const action = button.classList.contains("increment") ? "increment" : "decrement";
+
+                    fetch(`/cart/${action}_quantity/${itemId}/`, {
+                        method: "POST",
+                        headers: {
+                        "X-CSRFToken": getCSRFToken(),
+                        "Content-Type": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.removed) {
+                        // Item removed
+                            row.remove();
+                            document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
+
+                            if (!document.querySelector(".cart-item")) {
+                                document.querySelector(".cart").innerHTML = `
+                                <div class="empty-cart-cls text-center">
+                                    <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4">
+                                    <h3><strong>Your Cart is Empty</strong></h3>
+                                    <h4>Add something to make me happy :)</h4>
+                                    <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
+                                </div>`;
+                                document.querySelector(".summary")?.remove();
+                            }
+                        } else {
+                            // Update quantity and totals
+                            row.querySelector(".quantity").textContent = data.quantity;
+                            row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
+
+                            const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
+                            if (summaryRow) {
+                                summaryRow.querySelector(".col").textContent =
+                                `${row.querySelector(".text-muted").textContent} (${data.quantity})`;
+                                summaryRow.querySelector(".text-right").textContent = "₹ " + data.item_total.toFixed(2);
+                            }
+                        }
+
+                        // Update grand total
+                        document.getElementById("grand-total").textContent = "₹ " + data.grand_total.toFixed(2);
+                    });
+                });
+            });
+        });
+
+        document.getElementById('address').addEventListener('change', function() {
+            if (this.value === 'new') {
+                document.getElementById('new-address').style.display = 'block';
+            } else {
+                document.getElementById('new-address').style.display = 'none';
+            }
+        });
+    </script>
+</body>
 {% endblock %}

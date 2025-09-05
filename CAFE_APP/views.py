@@ -448,45 +448,40 @@ def increment_quantity(request, item_id):
     if request.method == "POST":
         cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
         cart_item.quantity += 1
-        cart_item.item_total = cart_item.quantity * cart_item.item.price  # FIX
+        cart_item.item_total = cart_item.quantity * cart_item.item.price
         cart_item.save()
 
-        # Recalculate grand total
-        cart_data = Cart.objects.filter(user=request.user)
-        grand_total = sum(item.item_total for item in cart_data)
+        grand_total = Cart.objects.filter(user=request.user).aggregate(total=Sum("item_total"))["total"] or 0
 
         return JsonResponse({
-            'quantity': cart_item.quantity,
-            'item_total': float(cart_item.item_total),
-            'grand_total': float(grand_total),
-            'removed': False
+            "quantity": cart_item.quantity,
+            "item_total": float(cart_item.item_total),
+            "grand_total": float(grand_total),
+            "removed": False,
         })
-
 
 
 @login_required
 def decrement_quantity(request, item_id):
     if request.method == "POST":
         cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
-
         removed = False
+
         if cart_item.quantity > 1:
             cart_item.quantity -= 1
-            cart_item.item_total = cart_item.quantity * cart_item.item.price  # FIX
+            cart_item.item_total = cart_item.quantity * cart_item.item.price
             cart_item.save()
         else:
             cart_item.delete()
             removed = True
 
-        # Recalculate grand total
-        cart_data = Cart.objects.filter(user=request.user)
-        grand_total = sum(item.item_total for item in cart_data)
+        grand_total = Cart.objects.filter(user=request.user).aggregate(total=Sum("item_total"))["total"] or 0
 
         return JsonResponse({
-            'quantity': cart_item.quantity if not removed else 0,
-            'item_total': float(cart_item.item_total) if not removed else 0,
-            'grand_total': float(grand_total),
-            'removed': removed,  # tell JS it’s gone
+            "quantity": cart_item.quantity if not removed else 0,
+            "item_total": float(cart_item.item_total) if not removed else 0,
+            "grand_total": float(grand_total),
+            "removed": removed,
         })
 
 
