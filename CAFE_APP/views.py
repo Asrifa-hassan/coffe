@@ -500,11 +500,18 @@ def cart_item(request):
     return render(request,'cart_item.html', locals())
 
 
-@login_required
-def delete_cart_item(request, id):
-    cart_items = Cart.objects.filter(item_id=id)
-    cart_items.delete()
-    return redirect(cart_item)
+def remove_cart_item(request, item_id):
+    if request.method == "POST":
+        cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
+        cart_item.delete()
+
+        return JsonResponse({
+            "grand_total": sum(i.item_total for i in Cart.objects.filter(user=request.user)),
+            "removed": True,
+            "item_id": item_id,
+        })
+    raise Http404
+
 
 
 @login_required
