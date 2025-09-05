@@ -340,9 +340,9 @@
                                     <div class="row text-muted">{{ i.item.item_name }}</div>
                                 </div>
                                 <div class="quantity-control" data-item-id="{{ i.id }}">
-                                    <button class="decrement">-</button>
+                                    <button type="button" class="decrement">-</button>
                                     <span class="quantity">{{ i.quantity }}</span>
-                                    <button class="increment">+</button>
+                                    <button type="button" class="increment">+</button>
                                 </div>
                                 <div class="col item-total">₹ {{ i.item_total }}</div>
                                 <span>
@@ -366,7 +366,6 @@
                         {% endfor %}
                         <hr>
                         <div class="row">
-                            <div class="col"><strong>Total</strong></div>
                             <hr>
                             <div class="text-right"><strong>Grand Total: <span id="grand-total">₹ {{ grand_total }}</span></strong></div>
                         </div>
@@ -476,7 +475,9 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll(".increment, .decrement").forEach(button => {
-                button.addEventListener("click", () => {
+                button.addEventListener("click", (e) => {
+                    e.preventDefault();  // stop form submit
+
                     const row = button.closest(".cart-item");
                     const itemId = row.dataset.itemId;
                     const action = button.classList.contains("increment") ? "increment" : "decrement";
@@ -491,15 +492,12 @@
                     .then(res => res.json())
                     .then(data => {
                         if (data.removed) {
-                            // Remove item from cart + summary
                             row.remove();
                             document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
                         } else {
-                            // Update cart row
                             row.querySelector(".quantity").textContent = data.quantity;
                             row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
 
-                            // Update summary row
                             const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
                             if (summaryRow) {
                                 summaryRow.querySelector(".col").textContent =
@@ -509,7 +507,6 @@
                             }
                         }
 
-                        // Update grand total
                         document.getElementById("grand-total").textContent = "₹ " + data.grand_total.toFixed(2);
                     });
                 });
