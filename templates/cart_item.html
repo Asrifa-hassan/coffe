@@ -579,11 +579,9 @@
                     .then(res => res.json())
                     .then(data => {
                         if (data.removed) {
-                            // remove item row + summary row
                             row.remove();
                             document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
 
-                            // empty cart message if no items left
                             if (!document.querySelector(".cart-item")) {
                                 document.getElementById("cart").innerHTML = `
                                     <div class="empty-cart-cls text-center">
@@ -595,28 +593,26 @@
                                 document.querySelector(".summary")?.remove();
                             }
                         } else {
-                            // update quantity
+                            // update quantity text
                             row.querySelector(".quantity").textContent = data.quantity;
                             // update item total
-                            row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
+                            row.querySelector(".item-total").textContent = `₹ ${data.item_total.toFixed(2)}`;
 
-                            // update summary row
+                            // update summary section
                             const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
                             if (summaryRow) {
                                 summaryRow.querySelector(".col").textContent =
                                 `${row.querySelector(".text-muted").textContent} (${data.quantity})`;
-                                summaryRow.querySelector(".text-right").textContent = "₹ " + data.item_total.toFixed(2);
+                                summaryRow.querySelector(".text-right").textContent = `₹ ${data.item_total.toFixed(2)}`;
                             }
                         }
 
-                        // ✅ always update grand total
-                        document.getElementById("grand-total").textContent = "₹ " + data.grand_total.toFixed(2);
+                        // ✅ update grand total every time
+                        document.getElementById("grand-total").textContent = `₹ ${data.grand_total.toFixed(2)}`;
                     });
                 });
             });
         });
-
-        
         document.getElementById('address').addEventListener('change', function() {
             if (this.value === 'new') {
                 document.getElementById('new-address').style.display = 'block';

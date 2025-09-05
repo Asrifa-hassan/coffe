@@ -452,37 +452,37 @@ def increment_quantity(request, item_id):
         cart_item.quantity += 1
         cart_item.save()
 
-        grand_total = sum(i.item_total for i in Cart.objects.filter(user=request.user))
+        cart_items = Cart.objects.filter(user=request.user)
+        grand_total = sum(i.item_total for i in cart_items)
+
         return JsonResponse({
             "quantity": cart_item.quantity,
             "item_total": cart_item.item_total,
             "grand_total": grand_total,
             "removed": False
         })
-    raise Http404
 
 
 def decrement_quantity(request, item_id):
     if request.method == "POST":
         cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
+        removed = False
         if cart_item.quantity > 1:
             cart_item.quantity -= 1
             cart_item.save()
-            removed = False
-            item_total = cart_item.item_total
         else:
             cart_item.delete()
             removed = True
-            item_total = 0
 
-        grand_total = sum(i.item_total for i in Cart.objects.filter(user=request.user))
+        cart_items = Cart.objects.filter(user=request.user)
+        grand_total = sum(i.item_total for i in cart_items)
+
         return JsonResponse({
             "quantity": cart_item.quantity if not removed else 0,
-            "item_total": item_total,
+            "item_total": cart_item.item_total if not removed else 0,
             "grand_total": grand_total,
             "removed": removed
         })
-    raise Http404
 
 @login_required
 def cart_item(request):
