@@ -334,21 +334,19 @@
                             {% for i in cart_data %}
                             <div class="row main align-items-center cart-item" data-item-id="{{ i.id }}">
                                 <div class="col-2">
-                                    {% if i.item.image %}
-                                        <img class="img-fluid" src="{{ i.item.image.url }}">
-                                    {% endif %}
+                                    <img class="img-fluid" src="{{ j.image.url }}">
                                 </div>
                                 <div class="col">
-                                    <div class="row text-muted">{{ i.item.item_name }}</div>
+                                    <div class="row text-muted">{{ j.item_name }}</div>
                                 </div>
-                                <div class="quantity-control">
+                                <div class="quantity-control" data-item-id="{{ i.id }}">
                                     <button class="decrement">-</button>
                                     <span class="quantity">{{ i.quantity }}</span>
                                     <button class="increment">+</button>
                                 </div>
                                 <div class="col item-total">₹ {{ i.item_total }}</div>
                                 <span>
-                                    <a href="{% url 'delete_cart_item' i.id %}" style="color: black;">
+                                    <a href="{% url 'delete_cart_item' i.item_id %}" style="color: black;">
                                         <i class="fa fa-times" style="font-size:12px;"></i>
                                     </a>
                                 </span>
@@ -369,7 +367,8 @@
                         <hr>
                         <div class="row">
                             <div class="col"><strong>Total</strong></div>
-                            <div class="col text-right" id="grand-total">₹ {{ grand_total }}</div>
+                            <hr>
+                            <div class="text-right"><strong>Grand Total: <span id="grand-total">₹ {{ grand_total }}</span></strong></div>
                         </div>
                         <div class="address-section">
                         <h5 style="font-size:15px;"><b>Delivery Address</b></h5>
@@ -459,57 +458,53 @@
     </div>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
-    function getCSRFToken() {
-        let cookieValue = null;
-        const name = 'csrftoken';
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let cookie of cookies) {
-                cookie = cookie.trim();
-                if (cookie.startsWith(name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
+        function getCSRFToken() {
+            let cookieValue = null;
+            const name = "csrftoken";
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let cookie of cookies) {
+                    cookie = cookie.trim();
+                    if (cookie.startsWith(name + "=")) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
                 }
             }
+            return cookieValue;
         }
-        return cookieValue;
-    }
-    document.querySelectorAll('.quantity-control').forEach(control => {
-        const itemId = control.closest('.cart-item').dataset.itemId;
 
-        control.querySelector('.increment').addEventListener('click', () => updateCart('increment', itemId));
-        control.querySelector('.decrement').addEventListener('click', () => updateCart('decrement', itemId));
-    });
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".increment, .decrement").forEach(button => {
+                button.addEventListener("click", () => {
+                    const itemId = button.closest(".cart-item").dataset.itemId;
+                    const action = button.classList.contains("increment") ? "increment" : "decrement";
 
-    function updateCart(action, itemId) {
-        fetch(`/cart/${action}/${itemId}/`, {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            // Update quantity in row
-            let row = document.querySelector(`.cart-item[data-item-id="${itemId}"]`);
-            row.querySelector('.quantity').textContent = data.quantity;
-            row.querySelector('.item-total').textContent = "₹ " + data.item_total;
+                    fetch(`/cart/${action}_quantity/${itemId}/`, {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": getCSRFToken(),
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.quantity !== undefined) {
+                            const row = document.querySelector(`.cart-item[data-item-id="${itemId}"]`);
+                            row.querySelector(".quantity").textContent = data.quantity;
+                            row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
 
-            // Update summary item
-            let summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
-            if (summaryRow) {
-                summaryRow.querySelector('.col.text-right').textContent = "₹ " + data.item_total;
-                summaryRow.querySelector('.col').textContent = row.querySelector('.text-muted').textContent + " (" + data.quantity + ")";
-            }
-
-            // Recalculate grand total
-            let sum = 0;
-            document.querySelectorAll('.item-total').forEach(el => {
-                sum += parseFloat(el.textContent.replace("₹", "").trim());
+                            // Update grand total
+                            let sum = 0;
+                            document.querySelectorAll(".item-total").forEach(el => {
+                                sum += parseFloat(el.textContent.replace("₹", "").trim());
+                            });
+                            document.getElementById("grand-total").textContent = "₹ " + sum.toFixed(2);
+                        }
+                    });
+                });
             });
-            document.getElementById("grand-total").textContent = "₹ " + sum.toFixed(2);
         });
-    }
     </script>
     <script>
         document.getElementById('address').addEventListener('change', function() {
