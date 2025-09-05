@@ -477,7 +477,8 @@
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll(".increment, .decrement").forEach(button => {
                 button.addEventListener("click", () => {
-                    const itemId = button.closest(".cart-item").dataset.itemId;
+                    const row = button.closest(".cart-item");
+                    const itemId = row.dataset.itemId;
                     const action = button.classList.contains("increment") ? "increment" : "decrement";
 
                     fetch(`/cart/${action}_quantity/${itemId}/`, {
@@ -489,18 +490,27 @@
                     })
                     .then(res => res.json())
                     .then(data => {
-                        if (data.quantity !== undefined) {
-                            const row = document.querySelector(`.cart-item[data-item-id="${itemId}"]`);
+                        if (data.removed) {
+                            // Remove item from cart + summary
+                            row.remove();
+                            document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
+                        } else {
+                            // Update cart row
                             row.querySelector(".quantity").textContent = data.quantity;
                             row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
 
-                            // Update grand total
-                            let sum = 0;
-                            document.querySelectorAll(".item-total").forEach(el => {
-                                sum += parseFloat(el.textContent.replace("₹", "").trim());
-                            });
-                            document.getElementById("grand-total").textContent = "₹ " + sum.toFixed(2);
+                            // Update summary row
+                            const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
+                            if (summaryRow) {
+                                summaryRow.querySelector(".col").textContent =
+                                    `${row.querySelector(".text-muted").textContent} (${data.quantity})`;
+                                summaryRow.querySelector(".text-right").textContent =
+                                    "₹ " + data.item_total.toFixed(2);
+                            }
                         }
+
+                        // Update grand total
+                        document.getElementById("grand-total").textContent = "₹ " + data.grand_total.toFixed(2);
                     });
                 });
             });

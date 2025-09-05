@@ -442,16 +442,24 @@ def add_to_cart(request, id):
 
     return redirect('coffees')
 
+
 @login_required
 def increment_quantity(request, item_id):
     if request.method == "POST":
         cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
         cart_item.quantity += 1
-        cart_item.save()  # save() auto-updates item_total
+        cart_item.save()
+
+        # Recalculate grand total
+        cart_data = Cart.objects.filter(user=request.user)
+        grand_total = sum(item.item_total for item in cart_data)
+
         return JsonResponse({
             'quantity': cart_item.quantity,
-            'item_total': float(cart_item.item_total)  # for JS
+            'item_total': float(cart_item.item_total),
+            'grand_total': float(grand_total),
         })
+
 
 @login_required
 def decrement_quantity(request, item_id):
@@ -459,12 +467,21 @@ def decrement_quantity(request, item_id):
         cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
         if cart_item.quantity > 1:
             cart_item.quantity -= 1
-            cart_item.save()  # auto-updates item_total
-        return JsonResponse({
-            'quantity': cart_item.quantity,
-            'item_total': float(cart_item.item_total)
-        })
+            cart_item.save()
+        else:
+            # If 0 → delete item
+            cart_item.delete()
 
+        # Recalculate grand total
+        cart_data = Cart.objects.filter(user=request.user)
+        grand_total = sum(item.item_total for item in cart_data)
+
+        return JsonResponse({
+            'quantity': cart_item.quantity if cart_item.id else 0,
+            'item_total': float(cart_item.item_total) if cart_item.id else 0,
+            'grand_total': float(grand_total),
+            'removed': not cart_item.id,  # Flag for JS
+        })
 
 
 @login_required
