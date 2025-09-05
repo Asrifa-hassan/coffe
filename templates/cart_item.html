@@ -334,10 +334,10 @@
                             {% for i in cart_data %}
                             <div class="row main align-items-center cart-item" data-item-id="{{ i.id }}">
                                 <div class="col-2">
-                                    <img class="img-fluid" src="{{ j.image.url }}">
+                                    <img class="img-fluid" src="{{ i.item.image.url }}">
                                 </div>
                                 <div class="col">
-                                    <div class="row text-muted">{{ j.item_name }}</div>
+                                    <div class="row text-muted">{{ i.item.item_name }}</div>
                                 </div>
                                 <div class="quantity-control" data-item-id="{{ i.id }}">
                                     <button class="decrement">-</button>
