@@ -442,6 +442,9 @@ def add_to_cart(request, id):
 
     return redirect('coffees')
 
+from django.http import JsonResponse, Http404
+from django.shortcuts import get_object_or_404
+from .models import Cart
 
 def increment_quantity(request, item_id):
     if request.method == "POST":
@@ -455,6 +458,7 @@ def increment_quantity(request, item_id):
             "removed": False
         })
     raise Http404
+
 
 def decrement_quantity(request, item_id):
     if request.method == "POST":

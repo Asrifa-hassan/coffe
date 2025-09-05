@@ -317,6 +317,94 @@
          border-radius: 5px;
          text-transform: uppercase;
     }
+    /* Quantity control advanced style */
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .quantity-control button {
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #ff6a6a, #ff050a);
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .quantity-control button:hover {
+        background: linear-gradient(135deg, #ff050a, #ff6a6a);
+        transform: scale(1.1);
+    }
+
+    .quantity-control button:active {
+        transform: scale(0.95);
+    }
+
+    .quantity-control .quantity {
+        min-width: 32px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 6px 10px;
+        border-radius: 6px;
+        background: #f8f8f8;
+        border: 1px solid #ddd;
+    }
+
+    /* Delete (trash) button */
+    .remove-btn {
+        background: none;
+        border: none;
+        color: #999;
+        font-size: 18px;
+        cursor: pointer;
+        margin-left: 10px;
+        transition: color 0.2s ease;
+    }
+
+    .remove-btn:hover {
+        color: #ff050a;
+    }
+
+    /* Responsive cart row */
+    .cart-item {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .cart-item img {
+        max-width: 70px;
+        border-radius: 6px;
+    }
+
+    .cart-item .item-total {
+        font-weight: bold;
+        color: #ff050a;
+    }
+
+    @media (max-width: 768px) {
+        .cart-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .quantity-control {
+            margin: 8px 0;
+        }
+        .remove-btn {
+            align-self: flex-end;
+        }
+    }
 </style>
 <body>
     <div class="coffee_section">
@@ -339,17 +427,17 @@
                                 <div class="col">
                                     <div class="row text-muted">{{ i.item.item_name }}</div>
                                 </div>
+
                                 <div class="quantity-control" data-item-id="{{ i.id }}">
                                     <button type="button" class="decrement">-</button>
                                     <span class="quantity">{{ i.quantity }}</span>
                                     <button type="button" class="increment">+</button>
                                 </div>
+
                                 <div class="col item-total">₹ {{ i.item_total }}</div>
-                                <span>
-                                    <a href="{% url 'delete_cart_item' i.item_id %}" style="color: black;">
-                                        <i class="fa fa-times" style="font-size:12px;"></i>
-                                    </a>
-                                </span>
+                                <button class="remove-btn" data-item-id="{{ i.item_id }}">
+                                    <i class="fa fa-trash"></i>
+                                </button>
                             </div>
                             {% endfor %}
                         </div>
@@ -472,6 +560,7 @@
             }
             return cookieValue;
         }
+
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll(".increment, .decrement").forEach(button => {
                 button.addEventListener("click", e => {
@@ -492,23 +581,9 @@
                         if (data.removed) {
                             row.remove();
                             document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
-
-                            if (!document.querySelector(".cart-item")) {
-                                document.querySelector(".cart").innerHTML = `
-                                <div class="empty-cart-cls text-center">
-                                    <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4">
-                                    <h3><strong>Your Cart is Empty</strong></h3>
-                                    <h4>Add something to make me happy :)</h4>
-                                    <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
-                                </div>`;
-                                document.querySelector(".summary")?.remove();
-                            }
                         } else {
-                            // update cart row
                             row.querySelector(".quantity").textContent = data.quantity;
                             row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
-
-                            // update summary row
                             const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
                             if (summaryRow) {
                                 summaryRow.querySelector(".col").textContent =
@@ -516,15 +591,12 @@
                                 summaryRow.querySelector(".text-right").textContent = "₹ " + data.item_total.toFixed(2);
                             }
                         }
-
-                        // update grand total
                         document.getElementById("grand-total").textContent = "₹ " + data.grand_total.toFixed(2);
                     });
                 });
             });
         });
-
-
+        
         document.getElementById('address').addEventListener('change', function() {
             if (this.value === 'new') {
                 document.getElementById('new-address').style.display = 'block';
