@@ -458,21 +458,20 @@
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
         function getCSRFToken(){
-            let cookieValue=null;
-            const name="csrftoken";
-            if(document.cookie && document.cookie!==""){
-                const cookies=document.cookie.split(";");
+            let cookieValue = null;
+            const name = "csrftoken";
+            if(document.cookie && document.cookie !== ""){
+                const cookies = document.cookie.split(";");
                 for(let cookie of cookies){
-                cookie=cookie.trim();
-                if(cookie.startsWith(name+"=")){
-                    cookieValue=decodeURIComponent(cookie.substring(name.length+1));
-                    break;
-                }
+                    cookie = cookie.trim();
+                    if(cookie.startsWith(name + "=")){
+                        cookieValue = decodeURIComponent(cookie.substring(name.length+1));
+                        break;
+                    }
                 }
             }
             return cookieValue;
         }
-
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll(".increment, .decrement").forEach(button => {
                 button.addEventListener("click", e => {
@@ -484,14 +483,13 @@
                     fetch(`/cart/${action}_quantity/${itemId}/`, {
                         method: "POST",
                         headers: {
-                        "X-CSRFToken": getCSRFToken(),
-                        "Content-Type": "application/json"
+                            "X-CSRFToken": getCSRFToken(),
+                            "Content-Type": "application/json"
                         }
                     })
                     .then(res => res.json())
                     .then(data => {
                         if (data.removed) {
-                        // Item removed
                             row.remove();
                             document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
 
@@ -506,10 +504,11 @@
                                 document.querySelector(".summary")?.remove();
                             }
                         } else {
-                            // Update quantity and totals
+                            // update cart row
                             row.querySelector(".quantity").textContent = data.quantity;
                             row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
 
+                            // update summary row
                             const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
                             if (summaryRow) {
                                 summaryRow.querySelector(".col").textContent =
@@ -518,12 +517,13 @@
                             }
                         }
 
-                        // Update grand total
+                        // update grand total
                         document.getElementById("grand-total").textContent = "₹ " + data.grand_total.toFixed(2);
                     });
                 });
             });
         });
+
 
         document.getElementById('address').addEventListener('change', function() {
             if (this.value === 'new') {
