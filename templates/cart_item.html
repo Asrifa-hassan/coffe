@@ -467,7 +467,6 @@
                             {% for i in address %}
                                 <option value="{{ i.id }}">{{ i.city }}, {{ i.Zipcode }}, {{ i.Land_Mark }}</option>
                             {% endfor %}
-                            <option value="new">➕ Add New Address</option>
                         </select>
                         <button type="submit" class="btn btn-round btn-danger" style="height: 37px;width: 35%;">checkout</button>
                     </form>
@@ -563,11 +562,9 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Quantity increment/decrement
             document.querySelectorAll(".increment, .decrement").forEach(button => {
                 button.addEventListener("click", e => {
                     e.preventDefault();
-
                     const row = button.closest(".cart-item");
                     const itemId = row.dataset.itemId;
                     const action = button.classList.contains("increment") ? "increment" : "decrement";
@@ -580,64 +577,26 @@
                         }
                     })
                     .then(res => res.json())
-                    .then(data => updateCartUI(row, itemId, data));
-                });
-            });
-
-            // ✅ Remove button (trash icon)
-            document.querySelectorAll(".remove-btn").forEach(button => {
-                button.addEventListener("click", e => {
-                    e.preventDefault();
-                    const row = button.closest(".cart-item");
-                    const itemId = row.dataset.itemId;
-
-                    fetch(`/cart/remove_item/${itemId}/`, {
-                        method: "POST",
-                        headers: {
-                            "X-CSRFToken": getCSRFToken(),
-                            "Content-Type": "application/json"
+                    .then(data => {
+                        if (data.removed) {
+                            row.remove();
+                            document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
+                        } else {
+                            row.querySelector(".quantity").textContent = data.quantity;
+                            row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
+                            const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
+                            if (summaryRow) {
+                                summaryRow.querySelector(".col").textContent =
+                                `${row.querySelector(".text-muted").textContent} (${data.quantity})`;
+                                summaryRow.querySelector(".text-right").textContent = "₹ " + data.item_total.toFixed(2);
+                            }
                         }
-                    })
-                    .then(res => res.json())
-                    .then(data => updateCartUI(row, itemId, data));
+                        document.getElementById("grand-total").textContent = "₹ " + data.grand_total.toFixed(2);
+                    });
                 });
             });
         });
-
-        // ✅ Reusable UI updater
-        function updateCartUI(row, itemId, data) {
-            if (data.removed) {
-                row.remove();
-                document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
-
-                if (!document.querySelector(".cart-item")) {
-                    document.querySelector(".cart").innerHTML = `
-                        <div class="empty-cart-cls text-center">
-                            <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4">
-                            <h3><strong>Your Cart is Empty</strong></h3>
-                            <h4>Add something to make me happy :)</h4>
-                            <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
-                        </div>`;
-                    document.querySelector(".summary")?.remove();
-                }
-            } else {
-                row.querySelector(".quantity").textContent = data.quantity;
-                row.querySelector(".item-total").textContent = "₹ " + data.item_total.toFixed(2);
-
-                const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
-                if (summaryRow) {
-                    summaryRow.querySelector(".col").textContent =
-                    `${row.querySelector(".text-muted").textContent} (${data.quantity})`;
-                    summaryRow.querySelector(".text-right").textContent = "₹ " + data.item_total.toFixed(2);
-                }
-            }
-
-            // ✅ Always update grand total
-            if (document.getElementById("grand-total")) {
-                document.getElementById("grand-total").textContent = "₹ " + data.grand_total.toFixed(2);
-            }
-        }
-
+        
         document.getElementById('address').addEventListener('change', function() {
             if (this.value === 'new') {
                 document.getElementById('new-address').style.display = 'block';
