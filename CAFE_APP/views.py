@@ -494,8 +494,6 @@ def remove_item(request, item_id):
         "removed": True
     })
 
-def cart_item(request):
-    return redirect(cart_item)
 
 
 @login_required
