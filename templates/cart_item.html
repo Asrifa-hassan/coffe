@@ -545,15 +545,15 @@
     </div>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
-        function getCSRFToken(){
+        function getCSRFToken() {
             let cookieValue = null;
             const name = "csrftoken";
-            if(document.cookie && document.cookie !== ""){
+            if (document.cookie && document.cookie !== "") {
                 const cookies = document.cookie.split(";");
-                for(let cookie of cookies){
+                for (let cookie of cookies) {
                     cookie = cookie.trim();
-                    if(cookie.startsWith(name + "=")){
-                        cookieValue = decodeURIComponent(cookie.substring(name.length+1));
+                    if (cookie.startsWith(name + "=")) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                         break;
                     }
                 }
@@ -562,6 +562,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            // Increment & decrement
             document.querySelectorAll(".increment, .decrement").forEach(button => {
                 button.addEventListener("click", e => {
                     e.preventDefault();
@@ -577,42 +578,67 @@
                         }
                     })
                     .then(res => res.json())
-                    .then(data => {
-                        if (data.removed) {
-                            row.remove();
-                            document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
+                    .then(data => updateCartUI(data, row, itemId));
+                });
+            });
 
-                            if (!document.querySelector(".cart-item")) {
-                                document.getElementById("cart").innerHTML = `
-                                    <div class="empty-cart-cls text-center">
-                                        <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4">
-                                        <h3><strong>Your Cart is Empty</strong></h3>
-                                        <h4>Add something to make me happy :)</h4>
-                                        <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
-                                    </div>`;
-                                document.querySelector(".summary")?.remove();
-                            }
-                        } else {
-                            // update quantity text
-                            row.querySelector(".quantity").textContent = data.quantity;
-                            // update item total
-                            row.querySelector(".item-total").textContent = `₹ ${data.item_total.toFixed(2)}`;
+            // Delete button
+            document.querySelectorAll(".remove-btn").forEach(button => {
+                button.addEventListener("click", e => {
+                    e.preventDefault();
+                    const row = button.closest(".cart-item");
+                    const itemId = row.dataset.itemId;
 
-                            // update summary section
-                            const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
-                            if (summaryRow) {
-                                summaryRow.querySelector(".col").textContent =
-                                `${row.querySelector(".text-muted").textContent} (${data.quantity})`;
-                                summaryRow.querySelector(".text-right").textContent = `₹ ${data.item_total.toFixed(2)}`;
-                            }
+                    fetch(`/cart/remove_item/${itemId}/`, {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": getCSRFToken(),
+                            "Content-Type": "application/json"
                         }
-
-                        // ✅ update grand total every time
-                        document.getElementById("grand-total").textContent = `₹ ${data.grand_total.toFixed(2)}`;
-                    });
+                    })
+                    .then(res => res.json())
+                    .then(data => updateCartUI(data, row, itemId));
                 });
             });
         });
+
+        // ✅ Function to update UI
+        function updateCartUI(data, row, itemId) {
+            if (data.removed) {
+                row.remove();
+                document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
+
+                if (!document.querySelector(".cart-item")) {
+                    document.getElementById("cart").innerHTML = `
+                        <div class="empty-cart-cls text-center">
+                            <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4">
+                            <h3><strong>Your Cart is Empty</strong></h3>
+                            <h4>Add something to make me happy :)</h4>
+                            <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
+                        </div>`;
+                    document.querySelector(".summary")?.remove();
+                }
+            } else {
+                // update quantity
+                row.querySelector(".quantity").textContent = data.quantity;
+                // update item total
+                row.querySelector(".item-total").textContent = `₹ ${data.item_total.toFixed(2)}`;
+
+                // update summary row
+                const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
+                if (summaryRow) {
+                    summaryRow.querySelector(".col").textContent =
+                    `${row.querySelector(".text-muted").textContent} (${data.quantity})`;
+                    summaryRow.querySelector(".text-right").textContent = `₹ ${data.item_total.toFixed(2)}`;
+                }
+            }
+
+            // update grand total
+            document.getElementById("grand-total").textContent = `₹ ${data.grand_total.toFixed(2)}`;
+        }
+
+
+
         document.getElementById('address').addEventListener('change', function() {
             if (this.value === 'new') {
                 document.getElementById('new-address').style.display = 'block';
