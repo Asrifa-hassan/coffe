@@ -494,6 +494,9 @@ def remove_item(request, item_id):
         "removed": True
     })
 
+def cart_item(request):
+    return render(request, 'cart_item.html') 
+
 
 @login_required
 def empty_cart(request):
