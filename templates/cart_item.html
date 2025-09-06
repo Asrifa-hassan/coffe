@@ -609,6 +609,7 @@
 
         // ✅ Function to update UI
         function updateCartUI(data, row, itemId) {
+            console.log("Updating UI for item:", itemId, data);
             if (data.removed) {
                 row.remove();
                 document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
