@@ -495,7 +495,7 @@ def remove_item(request, item_id):
     })
 
 def cart_item(request):
-    return render(request, 'cart_item.html') 
+    return redirect(cart_item)
 
 
 @login_required
