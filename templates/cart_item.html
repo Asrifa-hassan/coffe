@@ -557,103 +557,100 @@
     </div>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
-    function getCSRFToken() {
-        let cookieValue = null;
-        const name = "csrftoken";
-        if (document.cookie && document.cookie !== "") {
-            const cookies = document.cookie.split(";");
-            for (let cookie of cookies) {
-                cookie = cookie.trim();
-                if (cookie.startsWith(name + "=")) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        // Increment button
+        document.querySelectorAll(".increment").forEach(button => {
+            button.addEventListener("click", function () {
+                const itemId = this.closest(".quantity-control").dataset.itemId;
 
-    document.addEventListener("DOMContentLoaded", () => {
-        // Increment & decrement
-        document.querySelectorAll(".increment, .decrement").forEach(button => {
-            button.addEventListener("click", e => {
-                e.preventDefault();
-                const row = button.closest(".cart-item");
-                const itemId = row.dataset.itemId;
-                const action = button.classList.contains("increment") ? "increment" : "decrement";
-
-                fetch(`/cart/${action}_quantity/${itemId}/`, {
+                fetch(`/cart/increment_quantity/${itemId}/`, {
                     method: "POST",
                     headers: {
-                        "X-CSRFToken": getCSRFToken(),
-                        "Content-Type": "application/json"
+                        "X-CSRFToken": getCookie("csrftoken"),
                     }
                 })
-                .then(res => res.json())
-                .then(data => updateCartUI(data, row, itemId));
+                .then(response => response.json())
+                .then(data => updateCartUI(itemId, data));
             });
         });
 
-        // Delete button
+        // Decrement button
+        document.querySelectorAll(".decrement").forEach(button => {
+            button.addEventListener("click", function () {
+                const itemId = this.closest(".quantity-control").dataset.itemId;
+
+                fetch(`/cart/decrement_quantity/${itemId}/`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": getCookie("csrftoken"),
+                    }
+                })
+                .then(response => response.json())
+                .then(data => updateCartUI(itemId, data));
+            });
+        });
+
+        // Remove button
         document.querySelectorAll(".remove-btn").forEach(button => {
-            button.addEventListener("click", e => {
-                e.preventDefault();
-                const row = button.closest(".cart-item");
-                const itemId = row.dataset.itemId;
+            button.addEventListener("click", function () {
+                const itemId = this.dataset.itemId;
 
                 fetch(`/cart/remove_item/${itemId}/`, {
                     method: "POST",
                     headers: {
-                        "X-CSRFToken": getCSRFToken(),
-                        "Content-Type": "application/json"
+                        "X-CSRFToken": getCookie("csrftoken"),
                     }
                 })
-                .then(res => res.json())
-                .then(data => updateCartUI(data, row, itemId));
+                .then(response => response.json())
+                .then(data => updateCartUI(itemId, data));
             });
         });
-    });
 
-    // ✅ Update UI after AJAX response
-    function updateCartUI(data, row, itemId) {
-        if (data.removed) {
-            row.remove();
-            document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
-
-            if (!document.querySelector(".cart-item")) {
-                document.getElementById("cart").innerHTML = `
-                    <div class="empty-cart-cls text-center">
-                        <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4">
-                        <h3><strong>Your Cart is Empty</strong></h3>
-                        <h4>Add something to make me happy :)</h4>
-                        <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
-                    </div>`;
-                document.querySelector(".summary")?.remove();
+        // 🔹 Update DOM without reload
+        function updateCartUI(itemId, data) {
+            if (data.removed) {
+                document.querySelector(`.cart-item[data-item-id="${itemId}"]`)?.remove();
+                document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
+            } else {
+                // Update quantity
+                document.querySelector(`.quantity-control[data-item-id="${itemId}"] .quantity`).innerText = data.quantity;
+                // Update item total
+                document.querySelector(`.cart-item[data-item-id="${itemId}"] .item-total`).innerText = `₹ ${data.item_total}`;
+                // Update summary
+                const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
+                if (summaryRow) {
+                    summaryRow.querySelector(".col").innerText = `${summaryRow.querySelector(".col").innerText.split("(")[0].trim()} (${data.quantity})`;
+                    summaryRow.querySelector(".col.text-right").innerText = `₹ ${data.item_total}`;
+                }
             }
-        } else {
-            // update quantity
-            row.querySelector(".quantity").textContent = data.quantity;
-            // update item total
-            row.querySelector(".item-total").textContent = `₹ ${data.item_total.toFixed(2)}`;
 
-            // update summary row
-            const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
-            if (summaryRow) {
-                summaryRow.querySelector(".item-name").textContent =
-                    `${row.querySelector(".text-muted").textContent} (${data.quantity})`;
-                summaryRow.querySelector(".text-right").textContent = `₹ ${data.item_total.toFixed(2)}`;
-            }
+            // Update grand total
+            document.getElementById("grand-total").innerText = `₹ ${data.grand_total}`;
         }
 
-        // update grand total
-        const grand = document.getElementById("grand-total");
-        if (grand) grand.textContent = `₹ ${data.grand_total.toFixed(2)}`;
-    }
+        // CSRF helper
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let cookie of cookies) {
+                    cookie = cookie.trim();
+                    if (cookie.startsWith(name + "=")) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    });
 
     // Address toggle
     document.getElementById('address')?.addEventListener('change', function() {
         document.getElementById('new-address').style.display = (this.value === 'new') ? 'block' : 'none';
     });
-    </script>
+
+</script>
+
 </body>
 {% endblock %}
