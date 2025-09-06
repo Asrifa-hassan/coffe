@@ -578,10 +578,12 @@
                         }
                     })
                     .then(res => res.json())
-                    .then(data => updateCartUI(data, row, itemId));
+                    .then(data => {
+                        console.log("Response:", data);  // 👈 check in browser console
+                        updateCartUI(data, row, itemId);
+                    });
                 });
             });
-
             // Delete button
             document.querySelectorAll(".remove-btn").forEach(button => {
                 button.addEventListener("click", e => {
@@ -597,7 +599,10 @@
                         }
                     })
                     .then(res => res.json())
-                    .then(data => updateCartUI(data, row, itemId));
+                    .then(data => {
+                        console.log("Response:", data); 
+                        updateCartUI(data, row, itemId);
+                    });
                 });
             });
         });
