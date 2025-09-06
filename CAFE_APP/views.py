@@ -447,53 +447,69 @@ from django.shortcuts import get_object_or_404
 from .models import Cart
 
 def increment_quantity(request, item_id):
-    cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
-    cart_item.quantity += 1
-    cart_item.save()
+    if request.method == "POST":
+        cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
+        cart_item.quantity += 1
+        cart_item.save()
 
-    grand_total = sum(i.item_total for i in Cart.objects.filter(user=request.user))
+        cart_items = Cart.objects.filter(user=request.user)
+        grand_total = sum(i.item_total for i in cart_items)
 
-    return JsonResponse({
-        "quantity": cart_item.quantity,
-        "item_total": cart_item.item_total,
-        "grand_total": grand_total,
-        "removed": False
-    })
+        return JsonResponse({
+            "quantity": cart_item.quantity,
+            "item_total": cart_item.item_total,
+            "grand_total": grand_total,
+            "removed": False
+        })
 
 
 def decrement_quantity(request, item_id):
-    cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
-    removed = False
-    if cart_item.quantity > 1:
-        cart_item.quantity -= 1
-        cart_item.save()
-    else:
-        cart_item.delete()
-        removed = True
+    if request.method == "POST":
+        cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
+        removed = False
+        if cart_item.quantity > 1:
+            cart_item.quantity -= 1
+            cart_item.save()
+        else:
+            cart_item.delete()
+            removed = True
 
-    grand_total = sum(i.item_total for i in Cart.objects.filter(user=request.user))
+        cart_items = Cart.objects.filter(user=request.user)
+        grand_total = sum(i.item_total for i in cart_items)
 
-    return JsonResponse({
-        "quantity": cart_item.quantity if not removed else 0,
-        "item_total": cart_item.item_total if not removed else 0,
-        "grand_total": grand_total,
-        "removed": removed
-    })
+        return JsonResponse({
+            "quantity": cart_item.quantity if not removed else 0,
+            "item_total": cart_item.item_total if not removed else 0,
+            "grand_total": grand_total,
+            "removed": removed
+        })
+
+@login_required
+def cart_item(request):
+    notification_count = Notifications.objects.filter(user_id=request.user.id, read=False).count()
+    cart_data = Cart.objects.filter(user_id=request.user.id)
+    address = Address.objects.filter(user_id=request.user)
+    # print(cart_data)
+    coffee_details = Food_items.objects.all()
+
+    # for i in cart_data:
+    #     # print(i)
+    #     for j in coffee_details:
+    #         if j.id == i.item_id_id:
+    #             print(j.item_name)
+    grand_total = 0
+    quantity = 0
+    for i in cart_data:
+        grand_total += i.item_total
+    count = Cart.objects.filter(user_id=request.user.id).count()
+    return render(request,'cart_item.html', locals())
 
 
-def remove_item(request, item_id):
-    cart_item = get_object_or_404(Cart, id=item_id, user=request.user)
-    cart_item.delete()
-
-    grand_total = sum(i.item_total for i in Cart.objects.filter(user=request.user))
-
-    return JsonResponse({
-        "quantity": 0,
-        "item_total": 0,
-        "grand_total": grand_total,
-        "removed": True
-    })
-
+@login_required
+def delete_cart_item(request, id):
+    cart_items = Cart.objects.filter(item_id=id)
+    cart_items.delete()
+    return redirect(cart_item)
 
 
 @login_required
