@@ -147,9 +147,21 @@
   </div>
 </div>
 
+<!-- Hidden JSON data for Chart -->
+<script id="chart-data" type="application/json">
+  {
+    "users": {{ user_count }},
+    "items": {{ food_count }},
+    "notifications": {{ notification_count }},
+    "blogs": {{ blog_count }},
+    "orders": {{ order_count }}
+  }
+</script>
+
 <script>
   const counts = JSON.parse(document.getElementById('chart-data').textContent);
   const ctx = document.getElementById('dashboardChart').getContext('2d');
+  
   new Chart(ctx, {
     type: 'bar',
     data: {
@@ -158,12 +170,12 @@
         label: 'Count',
         data: [counts.users, counts.items, counts.notifications, counts.blogs, counts.orders],
         backgroundColor: ['#4caf50','#2196f3','#ff9800','#9c27b0','#f44336'],
-        borderRadius:8,
-        barPercentage:0.6
+        borderRadius: 8,
+        barPercentage: 0.6
       }]
     },
     options: {
-      responsive:true,
+      responsive: true,
       plugins:{legend:{display:false}},
       scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}
     }
