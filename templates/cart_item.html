@@ -418,6 +418,7 @@
                                 <div class="col"><h4><b>Shopping Cart</b></h4></div>
                             </div>
                         </div>
+
                         <div class="row border-top border-bottom" id="cart">
                             {% for i in cart_data %}
                             <div class="row main align-items-center cart-item" data-item-id="{{ i.id }}">
@@ -435,50 +436,61 @@
                                 </div>
 
                                 <div class="col item-total">₹ {{ i.item_total }}</div>
-                                <button class="remove-btn" data-item-id="{{ i.item_id }}">
+                                <button class="remove-btn" data-item-id="{{ i.id }}">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
                             {% endfor %}
                         </div>
-                        <div class="back-to-shop"><a href="{% url 'coffees' %}">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+
+                        <div class="back-to-shop">
+                            <a href="{% url 'coffees' %}">&leftarrow;</a>
+                            <span class="text-muted">Back to shop</span>
+                        </div>
                     </div>
+
                     <div class="col-md-4 summary">
                         <div><h5><b>Summary</b></h5></div>
                         <hr>
                         {% for i in cart_data %}
                         <div class="row summary-item" data-item-id="{{ i.id }}">
-                            <div class="col" style="padding-left:0;">{{ i.item.item_name }} ({{ i.quantity }})</div>
+                            <div class="col item-name" style="padding-left:0;">{{ i.item.item_name }} ({{ i.quantity }})</div>
                             <div class="col text-right">₹ {{ i.item_total }}</div>
                         </div>
                         {% endfor %}
                         <hr>
                         <div class="row">
-                            <hr>
-                            <div class="text-right"><strong>Grand Total: <span id="grand-total">₹ {{ grand_total }}</span></strong></div>
+                            <div class="text-right">
+                                <strong>Grand Total: <span id="grand-total">₹ {{ grand_total }}</span></strong>
+                            </div>
                         </div>
+
                         <div class="address-section">
-                        <h5 style="font-size:15px;"><b>Delivery Address</b></h5>
-                        {% if address %}
-                        <form action="{% url 'order_items' %}" method="POST">
-                        {% csrf_token %}
-                        <label for="address" >Select Address:</label>
-                        <select id="address" name="address" class="form-control">
-                            {% for i in address %}
-                                <option value="{{ i.id }}">{{ i.city }}, {{ i.Zipcode }}, {{ i.Land_Mark }}</option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit" class="btn btn-round btn-danger" style="height: 37px;width: 35%;">checkout</button>
-                    </form>
-                    {% else %}
-                        <div class="buttons">
-                            <a href="{% url 'add_address'%}" class="btn-danger" style="height: 35px; width: 61%;font-size: 14px;text-align: center;margin-top: 8px;padding-top: 8px;"  type="submit">Add Address</a>
-                        </div>
-                    {% endif %}
-                        <div id="new-address" style="display: none; margin-top: 10px;">
-                            <input type="text" name="city" placeholder="city" class="form-control mb-2">
-                            <input type="text" name="Zipcode" placeholder="Zipcode" class="form-control mb-2">
-                            <input type="text" name="Land_Mark" placeholder="Land_Mark" class="form-control mb-2">
+                            <h5 style="font-size:15px;"><b>Delivery Address</b></h5>
+                            {% if address %}
+                            <form action="{% url 'order_items' %}" method="POST">
+                                {% csrf_token %}
+                                <label for="address">Select Address:</label>
+                                <select id="address" name="address" class="form-control">
+                                    {% for i in address %}
+                                    <option value="{{ i.id }}">{{ i.city }}, {{ i.Zipcode }}, {{ i.Land_Mark }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-round btn-danger" style="height: 37px;width: 35%;">checkout</button>
+                            </form>
+                            {% else %}
+                            <div class="buttons">
+                                <a href="{% url 'add_address'%}" class="btn-danger"
+                                style="height: 35px; width: 61%;font-size: 14px;text-align: center;margin-top: 8px;padding-top: 8px;">
+                                    Add Address
+                                </a>
+                            </div>
+                            {% endif %}
+                            <div id="new-address" style="display: none; margin-top: 10px;">
+                                <input type="text" name="city" placeholder="city" class="form-control mb-2">
+                                <input type="text" name="Zipcode" placeholder="Zipcode" class="form-control mb-2">
+                                <input type="text" name="Land_Mark" placeholder="Land_Mark" class="form-control mb-2">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -487,7 +499,7 @@
                     <div class="col-md-12">
                         <div class="card-body cart">
                             <div class="col-sm-12 empty-cart-cls text-center">
-                                <img src="{% static 'images\11329060.png' %}" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                <img src="{% static 'images/11329060.png' %}" width="130" height="130" class="img-fluid mb-4">
                                 <h3><strong>Your Cart is Empty</strong></h3>
                                 <h4>Add something to make me happy :)</h4>
                                 <div class="read_bt"><a href="{% url 'coffees' %}">Continue shopping</a></div>
@@ -545,113 +557,103 @@
     </div>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
-        function getCSRFToken() {
-            let cookieValue = null;
-            const name = "csrftoken";
-            if (document.cookie && document.cookie !== "") {
-                const cookies = document.cookie.split(";");
-                for (let cookie of cookies) {
-                    cookie = cookie.trim();
-                    if (cookie.startsWith(name + "=")) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
+    function getCSRFToken() {
+        let cookieValue = null;
+        const name = "csrftoken";
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.startsWith(name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // Increment & decrement
+        document.querySelectorAll(".increment, .decrement").forEach(button => {
+            button.addEventListener("click", e => {
+                e.preventDefault();
+                const row = button.closest(".cart-item");
+                const itemId = row.dataset.itemId;
+                const action = button.classList.contains("increment") ? "increment" : "decrement";
+
+                fetch(`/cart/${action}_quantity/${itemId}/`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": getCSRFToken(),
+                        "Content-Type": "application/json"
                     }
-                }
-            }
-            return cookieValue;
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            // Increment & decrement
-            document.querySelectorAll(".increment, .decrement").forEach(button => {
-                button.addEventListener("click", e => {
-                    e.preventDefault();
-                    const row = button.closest(".cart-item");
-                    const itemId = row.dataset.itemId;
-                    const action = button.classList.contains("increment") ? "increment" : "decrement";
-
-                    fetch(`/cart/${action}_quantity/${itemId}/`, {
-                        method: "POST",
-                        headers: {
-                            "X-CSRFToken": getCSRFToken(),
-                            "Content-Type": "application/json"
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log("Response:", data);  // 👈 check in browser console
-                        updateCartUI(data, row, itemId);
-                    });
-                });
-            });
-            // Delete button
-            document.querySelectorAll(".remove-btn").forEach(button => {
-                button.addEventListener("click", e => {
-                    e.preventDefault();
-                    const row = button.closest(".cart-item");
-                    const itemId = row.dataset.itemId;
-
-                    fetch(`/cart/remove_item/${itemId}/`, {
-                        method: "POST",
-                        headers: {
-                            "X-CSRFToken": getCSRFToken(),
-                            "Content-Type": "application/json"
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log("Response:", data); 
-                        updateCartUI(data, row, itemId);
-                    });
-                });
+                })
+                .then(res => res.json())
+                .then(data => updateCartUI(data, row, itemId));
             });
         });
 
-        // ✅ Function to update UI
-        function updateCartUI(data, row, itemId) {
-            console.log("Updating UI for item:", itemId, data);
-            if (data.removed) {
-                row.remove();
-                document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
+        // Delete button
+        document.querySelectorAll(".remove-btn").forEach(button => {
+            button.addEventListener("click", e => {
+                e.preventDefault();
+                const row = button.closest(".cart-item");
+                const itemId = row.dataset.itemId;
 
-                if (!document.querySelector(".cart-item")) {
-                    document.getElementById("cart").innerHTML = `
-                        <div class="empty-cart-cls text-center">
-                            <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4">
-                            <h3><strong>Your Cart is Empty</strong></h3>
-                            <h4>Add something to make me happy :)</h4>
-                            <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
-                        </div>`;
-                    document.querySelector(".summary")?.remove();
-                }
-            } else {
-                // update quantity
-                row.querySelector(".quantity").textContent = data.quantity;
-                // update item total
-                row.querySelector(".item-total").textContent = `₹ ${data.item_total.toFixed(2)}`;
+                fetch(`/cart/remove_item/${itemId}/`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": getCSRFToken(),
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(res => res.json())
+                .then(data => updateCartUI(data, row, itemId));
+            });
+        });
+    });
 
-                // update summary row
-                const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
-                if (summaryRow) {
-                    summaryRow.querySelector(".col").textContent =
+    // ✅ Update UI after AJAX response
+    function updateCartUI(data, row, itemId) {
+        if (data.removed) {
+            row.remove();
+            document.querySelector(`.summary-item[data-item-id="${itemId}"]`)?.remove();
+
+            if (!document.querySelector(".cart-item")) {
+                document.getElementById("cart").innerHTML = `
+                    <div class="empty-cart-cls text-center">
+                        <img src="/static/images/11329060.png" width="130" height="130" class="img-fluid mb-4">
+                        <h3><strong>Your Cart is Empty</strong></h3>
+                        <h4>Add something to make me happy :)</h4>
+                        <div class="read_bt"><a href="/coffees">Continue shopping</a></div>
+                    </div>`;
+                document.querySelector(".summary")?.remove();
+            }
+        } else {
+            // update quantity
+            row.querySelector(".quantity").textContent = data.quantity;
+            // update item total
+            row.querySelector(".item-total").textContent = `₹ ${data.item_total.toFixed(2)}`;
+
+            // update summary row
+            const summaryRow = document.querySelector(`.summary-item[data-item-id="${itemId}"]`);
+            if (summaryRow) {
+                summaryRow.querySelector(".item-name").textContent =
                     `${row.querySelector(".text-muted").textContent} (${data.quantity})`;
-                    summaryRow.querySelector(".text-right").textContent = `₹ ${data.item_total.toFixed(2)}`;
-                }
+                summaryRow.querySelector(".text-right").textContent = `₹ ${data.item_total.toFixed(2)}`;
             }
-
-            // update grand total
-            document.getElementById("grand-total").textContent = `₹ ${data.grand_total.toFixed(2)}`;
         }
 
+        // update grand total
+        const grand = document.getElementById("grand-total");
+        if (grand) grand.textContent = `₹ ${data.grand_total.toFixed(2)}`;
+    }
 
-
-        document.getElementById('address').addEventListener('change', function() {
-            if (this.value === 'new') {
-                document.getElementById('new-address').style.display = 'block';
-            } else {
-                document.getElementById('new-address').style.display = 'none';
-            }
-        });
+    // Address toggle
+    document.getElementById('address')?.addEventListener('change', function() {
+        document.getElementById('new-address').style.display = (this.value === 'new') ? 'block' : 'none';
+    });
     </script>
 </body>
 {% endblock %}
